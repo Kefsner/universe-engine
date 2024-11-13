@@ -1,5 +1,2 @@
-.vs/
-bin/
-bin-int/
-
-*.user
+.vscode/
+build/
