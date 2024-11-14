@@ -4,13 +4,13 @@ int main() {
     Universe::Logger::Init();
 
     UE_CORE_INFO("Creating Universe!");
-    // auto universe = Universe::CreateApplication();
+    auto universe = Universe::CreateApplication();
 
     UE_CORE_INFO("Running Universe!");
-    // universe->Run();
+    universe->Run();
 
     UE_CORE_INFO("Closing Universe!");
-    // delete universe;
+    delete universe;
 
     return 0;
 }
