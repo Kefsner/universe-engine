@@ -1,13 +1,15 @@
 #pragma once
-#include "engine/core/window.hpp"
+#include "engine/window/window.hpp"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Universe {
 
-    class WindowsWindow : public Window {
+    class GLFWWindow : public Window {
         public:
-            WindowsWindow(const WindowProps& props);
-            ~WindowsWindow();
+            GLFWWindow(const WindowProps& props);
+            ~GLFWWindow();
+
             void OnUpdate() override;
 
         private:

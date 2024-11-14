@@ -9,11 +9,20 @@ add_library(Universe STATIC ${UNIVERSE_SRC})
 # Specify include directories
 target_include_directories(Universe PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include  # Include glad's headers
 )
 
+# Include the glad.c file in the Universe library
+target_sources(Universe PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/src/glad.c)
+
 # Link dependencies
+# Link spdlog
 add_subdirectory(vendor/spdlog)
 target_link_libraries(Universe PUBLIC spdlog::spdlog)
 
+# Link GLFW
 add_subdirectory(vendor/glfw)
 target_link_libraries(Universe PUBLIC glfw)
+
+# Link OpenGL
+target_link_libraries(Universe PUBLIC opengl32)

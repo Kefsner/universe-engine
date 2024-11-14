@@ -1,4 +1,4 @@
-#include "engine/core/logger/logger.hpp"
+#include "engine/logger/logger.hpp"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace Universe {
