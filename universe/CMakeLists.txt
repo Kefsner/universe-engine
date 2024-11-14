@@ -14,3 +14,6 @@ target_include_directories(Universe PUBLIC
 # Link dependencies
 add_subdirectory(vendor/spdlog)
 target_link_libraries(Universe PUBLIC spdlog::spdlog)
+
+add_subdirectory(vendor/glfw)
+target_link_libraries(Universe PUBLIC glfw)

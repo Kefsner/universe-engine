@@ -1,4 +1,5 @@
 #pragma once
+#include "engine/core/window.hpp"
 
 namespace Universe {
 
@@ -10,6 +11,7 @@ namespace Universe {
 
 	private:
 		static Application* s_Instance;
+		std::unique_ptr<Window> m_Window;
 		bool m_IsRunning = true;
 	};
 

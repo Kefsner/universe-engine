@@ -1,4 +1,4 @@
-#include "universe.h"
+#include "universe.hpp"
 
 class Sandbox : public Universe::Application
 {

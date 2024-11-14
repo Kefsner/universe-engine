@@ -30,3 +30,7 @@ namespace Universe {
 #define UE_WARN(...)			::Universe::Logger::GetClientLogger()->warn(__VA_ARGS__)
 #define UE_ERROR(...)			::Universe::Logger::GetClientLogger()->error(__VA_ARGS__)
 #define UE_CRITICAL(...)		::Universe::Logger::GetClientLogger()->critical(__VA_ARGS__)
+
+// Assert Macro
+#define UE_ASSERT(x, ...) { if(!(x)) { UE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define UE_CORE_ASSERT(x, ...) { if(!(x)) { UE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
