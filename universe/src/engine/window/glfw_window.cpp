@@ -1,5 +1,6 @@
 #include "engine/window/glfw_window.hpp"
 #include "engine/renderer/opengl/opengl_context.hpp"
+#include "engine/events/application_event.hpp"
 #include "engine/logger/logger.hpp"
 
 namespace Universe {
@@ -20,6 +21,17 @@ namespace Universe {
 
         m_Context = new OpenGLContext(m_Window);
         m_Context->Init();
+
+        
+        glfwSetWindowUserPointer(m_Window, &m_Data);
+
+        glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
+            UE_INFO("Window close event!");
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            WindowCloseEvent event;
+            data.EventCallback(event);
+            UE_INFO("Window close event dispatched!");
+        });
 	}
 
     UEGLFWWindow::~UEGLFWWindow() {
