@@ -3,19 +3,28 @@
 #include "engine/logger/logger.hpp"
 
 namespace Universe {
-
-    enum class EventType {
+    
+    enum class EventType
+    {
         None = 0,
-        WindowClose, WindowResize,
-        KeyPressed, KeyReleased,
-        MouseMoved, MouseScrolled, MouseButtonPressed, MouseButtonReleased
+        // Application events
+        WindowClose,
+        WindowResize,
+        // Keyboard events
+        KeyPressed,
+        KeyReleased,
+        // Mouse events
+        MouseMoved,
+        MouseScrolled,
+        MouseButtonPressed,
+        MouseButtonReleased
     };
 
     class Event
     {
     public:
         virtual ~Event() = default;
-        
+
         bool Handled = false;
         virtual EventType GetEventType() const = 0;
         virtual const char* GetName() const = 0;

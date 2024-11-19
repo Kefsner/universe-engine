@@ -6,13 +6,14 @@
 
 namespace Universe {
 
-    class UEGLFWWindow : public Window {
+    class GLFWWindowWrapper : public Window {
         public:
-            UEGLFWWindow(const WindowProps& props);
-            ~UEGLFWWindow();
+            GLFWWindowWrapper(const WindowProps& props);
+            ~GLFWWindowWrapper();
 
             void OnUpdate() override;
             void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; }
+            void* GetNativeWindow() const override { return m_Window; }
 
         private:
             GLFWwindow* m_Window;

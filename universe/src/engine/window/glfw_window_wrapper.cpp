@@ -1,4 +1,4 @@
-#include "engine/window/glfw_window.hpp"
+#include "engine/window/glfw_window_wrapper.hpp"
 #include "engine/renderer/opengl/opengl_context.hpp"
 #include "engine/events/application_event.hpp"
 #include "engine/events/mouse_event.hpp"
@@ -7,7 +7,7 @@
 
 namespace Universe {
     static bool s_GLFWInitialized;
-    UEGLFWWindow::UEGLFWWindow(const WindowProps& props) {
+    GLFWWindowWrapper::GLFWWindowWrapper(const WindowProps& props) {
         m_Data.Title = props.Title;
         m_Data.Width = props.Width;
         m_Data.Height = props.Height;
@@ -23,7 +23,6 @@ namespace Universe {
 
         m_Context = new OpenGLContext(m_Window);
         m_Context->Init();
-
         
         glfwSetWindowUserPointer(m_Window, &m_Data);
 
@@ -98,17 +97,12 @@ namespace Universe {
         });
     }
 
-    UEGLFWWindow::~UEGLFWWindow() {
+    GLFWWindowWrapper::~GLFWWindowWrapper() {
         glfwDestroyWindow(m_Window);
     }
 
-    void UEGLFWWindow::OnUpdate() {
-        glClear(GL_COLOR_BUFFER_BIT);
+    void GLFWWindowWrapper::OnUpdate() {
         m_Context->SwapBuffers();
         glfwPollEvents();
-    }
-
-    Window* Window::Create(const WindowProps& props) {
-        return new UEGLFWWindow(props);
     }
 }
