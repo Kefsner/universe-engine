@@ -12,11 +12,7 @@ namespace Universe {
             ~UEGLFWWindow();
 
             void OnUpdate() override;
-            void SetEventCallback(const std::function<void(Event&)>& callback) override 
-            {
-                m_Data.EventCallback = callback;
-                UE_CORE_INFO("Event callback set!");
-            }
+            void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; }
 
         private:
             GLFWwindow* m_Window;

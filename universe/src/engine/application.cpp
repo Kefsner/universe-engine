@@ -19,9 +19,9 @@ namespace Universe {
 
 	void Application::OnEvent(Event& e)
 	{
-		UE_INFO("QQIssoRapeize!");
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
+		// EventDispatcher dispatcher(e);
+		// dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
+		UE_CORE_TRACE("{0}", e.ToString());
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
