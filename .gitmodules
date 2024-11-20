@@ -6,4 +6,5 @@
 	url = https://github.com/glfw/glfw.git
 [submodule "universe/vendor/imgui"]
 	path = universe/vendor/imgui
-	url = https://github.com/ocornut/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
