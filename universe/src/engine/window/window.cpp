@@ -7,12 +7,14 @@
 #endif
 
 namespace Universe {
+
     Window* Window::Create(const WindowProps& props) {
         #ifdef UE_PLATFORM_WINDOWS
-            return new GLFWWindowWrapper(props);
+            return new GLFWWindowWrapper(props); // Windows-specific implementation using GLFW
         #else
-            UE_CORE_ASSERT(false, "Unknown platform!");
+            UE_CORE_ASSERT(false, "Unknown platform!"); // Unsupported platform
             return nullptr;
         #endif
     }
+
 }

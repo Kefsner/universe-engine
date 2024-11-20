@@ -16,15 +16,14 @@ namespace Universe {
 
         EventType GetEventType() const override { return EventType::MouseMoved; }
         const char* GetName() const override { return "MouseMoved"; }
-        std::string ToString() const override
-        {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "MouseMovedEvent: " << m_MouseX << ", " << m_MouseY;
             return ss.str();
         }
 
     private:
-        float m_MouseX, m_MouseY;
+        float m_MouseX, m_MouseY; ///< The new mouse coordinates.
     };
 
     class MouseScrolledEvent : public Event
@@ -38,8 +37,7 @@ namespace Universe {
 
         EventType GetEventType() const override { return EventType::MouseScrolled; }
         const char* GetName() const override { return "MouseScrolled"; }
-        std::string ToString() const override
-        {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "MouseScrolledEvent: " << m_XOffset << ", " << m_YOffset;
             return ss.str();
@@ -66,11 +64,10 @@ namespace Universe {
     public:
         MouseButtonPressedEvent(int button)
             : MouseButtonEvent(button) {}
-
+    
         EventType GetEventType() const override { return EventType::MouseButtonPressed; }
         const char* GetName() const override { return "MouseButtonPressed"; }
-        std::string ToString() const override
-        {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "MouseButtonPressedEvent: " << m_Button;
             return ss.str();
@@ -85,11 +82,11 @@ namespace Universe {
 
         EventType GetEventType() const override { return EventType::MouseButtonReleased; }
         const char* GetName() const override { return "MouseButtonReleased"; }
-        std::string ToString() const override
-        {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "MouseButtonReleasedEvent: " << m_Button;
             return ss.str();
         }
     };
+
 }

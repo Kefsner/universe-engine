@@ -25,7 +25,7 @@ namespace Universe {
     public:
         virtual ~Event() = default;
 
-        bool Handled = false;
+        bool Handled = false; ///< Indicates whether the event has been handled.
         virtual EventType GetEventType() const = 0;
         virtual const char* GetName() const = 0;
         virtual std::string ToString() const { return GetName(); }

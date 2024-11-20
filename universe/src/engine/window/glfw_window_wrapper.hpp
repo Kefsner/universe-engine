@@ -6,27 +6,28 @@
 
 namespace Universe {
 
-    class GLFWWindowWrapper : public Window {
-        public:
-            GLFWWindowWrapper(const WindowProps& props);
-            ~GLFWWindowWrapper();
+    class GLFWWindowWrapper : public Window
+    {
+    public:
+        GLFWWindowWrapper(const WindowProps& props);
+        ~GLFWWindowWrapper();
 
-            void OnUpdate() override;
-            void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; }
-            void* GetNativeWindow() const override { return m_Window; }
+        void OnUpdate() override;
+        void SetEventCallback(const std::function<void(Event&)>& callback) override { m_Data.EventCallback = callback; }
+        void* GetNativeWindow() const override { return m_Window; }
 
-        private:
-            GLFWwindow* m_Window;
-            GraphicsContext* m_Context;
+    private:
+        void SetCallbacks(); ///< Sets up the GLFW event callbacks for the window.
 
-            struct WindowData {
-                std::string Title;
-                unsigned int Width;
-                unsigned int Height;
-                
-                std::function<void(Event&)> EventCallback;
-            };
-            WindowData m_Data;
+        GLFWwindow* m_Window; ///< Pointer to the GLFW window.
+        GraphicsContext* m_Context; ///< Pointer to the rendering context.
+
+        struct WindowData {
+            std::string Title; ///< The title of the window.
+            unsigned int Width; ///< The width of the window in pixels.
+            unsigned int Height; ///< The height of the window in pixels.
+            std::function<void(Event&)> EventCallback; ///< The callback function for handling events.
+        };
+        WindowData m_Data; ///< Metadata about the window.
     };
 }
-

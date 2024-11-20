@@ -4,7 +4,8 @@
 
 namespace Universe {
 
-    struct WindowProps {
+    struct WindowProps
+    {
         std::string Title;
         unsigned int Width;
         unsigned int Height;
@@ -16,14 +17,15 @@ namespace Universe {
         ) : Title(title), Width(width), Height(height) {}
     };
 
-    class Window {
-        public:
-            virtual ~Window() = default;
+    class Window
+    {
+    public:
+        virtual ~Window() = default;
 
-            virtual void OnUpdate() = 0;
-            virtual void SetEventCallback(const std::function<void(Event&)>& callback) = 0;
-            virtual void* GetNativeWindow() const = 0;
+        virtual void OnUpdate() = 0;
+        virtual void SetEventCallback(const std::function<void(Event&)>& callback) = 0;
+        virtual void* GetNativeWindow() const = 0;
 
-            static Window* Create(const WindowProps& props = WindowProps());
+        static Window* Create(const WindowProps& props = WindowProps());
     };
 }

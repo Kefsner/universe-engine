@@ -1,15 +1,102 @@
+Here's the updated README with the requested additions, placeholders for further topics, and descriptions for the `Application` class and the `Sandbox`:
+
+---
+
 # Universe Engine
 
 The **Universe Engine** is a custom-built game engine project inspired by the Cherno's Hazel engine, aiming to provide a solid foundation for 3D game development. The current goal is to implement essential features, including delta time/timestep functionality, with plans to expand into a voxel-based world engine in the style of Minecraft. The project is structured to support modular development and testing.
 
+---
+
 ## Project Structure
-- **Universe**: Core engine code and external dependencies.
-  - **src**: Main source files for the engine.
-  - **vendor**: Third-party libraries required by the engine.
-- **Sandbox**: A testing environment for trying out engine features in isolation.
-- **Additional Files**: Includes `.gitignore`, `CMakeLists.txt`, and others for configuration and build setup.
+
+The Universe Engine is designed as a modular system, with the core engine built as a library and linked to a sandbox application for testing and experimentation.
+
+### **Core Structure**
+- **Universe**: The main engine library, which includes the core functionality for game development.
+  - **src**: Contains the core source files for the engine, such as application management, rendering, and event handling.
+  - **vendor**: Third-party libraries used to enhance engine capabilities (e.g., `GLFW`, `GLM`, `spdlog`).
+- **Sandbox**: A testing environment that serves as a minimal game application to demonstrate and validate the engine's functionality.
+
+### **How It Works**
+The `Universe` engine is compiled as a static library (`libUniverse.a` or `Universe.lib`) and linked to the `Sandbox` project. The `Sandbox` application includes a minimal implementation of game functionality, such as testing layers, events, and rendering, using the core engine.
+
+### Example Flow
+1. **Develop Core Engine**: Implement features like event handling, rendering, and layers in the `Universe` project.
+2. **Test in Sandbox**: Create a basic application in `Sandbox` that inherits from the `Application` class and adds layers or custom logic to test new engine features.
+
+---
+
+## Application and Sandbox
+
+### **Application Class**
+The `Application` class is the backbone of the engine. It manages:
+- The **main loop**, which is responsible for:
+  - Updating layers.
+  - Processing events.
+  - Managing rendering.
+- The **window**, where rendering and user interaction occur.
+- The **layer stack**, which allows modular components (like game logic or UI) to interact with the engine.
+
+#### Key Features:
+- Singleton design ensures only one `Application` instance exists.
+- Provides a clean interface for adding layers and propagating events through them.
+- Simplifies game and engine lifecycle management by centralizing core operations.
+
+### **Sandbox**
+The `Sandbox` application inherits from the `Application` class and acts as a testing ground for engine features. It allows developers to:
+- Create and test new layers, events, and rendering techniques without modifying the core engine.
+- Experiment with custom game logic while relying on the engine for foundational features like event handling and rendering.
+
+#### Example:
+A basic `Sandbox` implementation might look like this:
+```cpp
+class Sandbox : public Universe::Application {
+public:
+    Sandbox() {
+        PushLayer(new ExampleLayer());
+    }
+};
+
+Universe::Application* Universe::CreateApplication() {
+    return new Sandbox();
+}
+```
+
+The `Sandbox` provides a minimal implementation of a game that demonstrates how to use the engine.
+
+---
+
+## Core Elements of a Game Engine (Placeholder Section)
+
+In this section, we will describe the roles and goals of each major element in the game engine, including their general purpose and the specific features implemented in the Universe Engine.
+
+### **Application Class**
+The heart of the engine, managing the main loop, layers, and events.
+
+### **Events**
+Handles communication between different parts of the engine and processes user input, window interactions, and custom game events.
+
+### **Layers**
+Allows modular development by organizing game logic, UI, and rendering into distinct, stackable components.
+
+### **Shaders**
+Defines how vertices and fragments are processed in the graphics pipeline, enabling custom rendering techniques.
+
+### **Buffers**
+Stores and manages vertex and index data for rendering.
+
+### **Window Management**
+Handles creating and interacting with the platform-specific window, including input and context management.
+
+### **Rendering Pipeline**
+Implements the steps for transforming game data into visuals displayed on the screen.
+
+### **Delta Time / Timestep**
+A crucial mechanism for ensuring smooth movement and behavior regardless of frame rate.
 
 ## External Libraries
+
 The Universe Engine uses several external libraries to simplify development and enhance performance:
 
 ### [GLFW](https://github.com/glfw/glfw)
@@ -71,3 +158,7 @@ In C++, there are two key parts of a library:
 - **`target_link_libraries()`**: Tells the linker which libraries your program depends on during the linking phase. This is required to ensure that the actual code from libraries (like `spdlog`, `GLFW`, or `GLM`) is included in your final executable.
 
 While **`include_directories()`** ensures the compiler can find headers for the library, **`target_link_libraries()`** ensures the compiled code from the libraries is linked with your program during the linking phase.
+
+
+### **Next Steps**
+We’ll continue expanding this document with detailed descriptions for each engine component as development progresses. For now, the focus is on implementing foundational systems like layers, events, and shaders.

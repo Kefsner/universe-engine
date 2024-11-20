@@ -4,7 +4,6 @@ class ExampleLayer : public Universe::Layer
 {
 public:
     ExampleLayer()
-        : Layer("Example")
     {
     }
 

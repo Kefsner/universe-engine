@@ -8,13 +8,13 @@
 
 namespace Universe {
     
-    OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
-        : m_WindowHandle(windowHandle) {
-            UE_CORE_ASSERT(windowHandle, "Window handle is null!");
+    OpenGLContext::OpenGLContext(GLFWwindow* window)
+        : m_window(window) {
+            UE_CORE_ASSERT(window, "Window is null!");
         }
 
     void OpenGLContext::Init() {
-        glfwMakeContextCurrent(m_WindowHandle);
+        glfwMakeContextCurrent(m_window);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         UE_CORE_ASSERT(status, "Could not initialize Glad!");
 
@@ -22,11 +22,10 @@ namespace Universe {
 		UE_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
 		UE_CORE_INFO("  Renderer: {0}", (const char*)glGetString(GL_RENDERER));
 		UE_CORE_INFO("  Version: {0}", (const char*)glGetString(GL_VERSION));
-
 		UE_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Universe requires at least OpenGL version 4.5!");
     }
 
     void OpenGLContext::SwapBuffers() {
-        glfwSwapBuffers(m_WindowHandle);
+        glfwSwapBuffers(m_window);
     }
 }
