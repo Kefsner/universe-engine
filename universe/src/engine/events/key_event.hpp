@@ -23,7 +23,8 @@ namespace Universe {
         KeyPressedEvent(int keycode, int repeatCount)
             : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
-        EventType GetEventType() const override { return EventType::KeyPressed; }
+        static EventType GetStaticType() { return EventType::KeyPressed; }
+        EventType GetEventType() const override { return GetStaticType(); }
         const char* GetName() const override { return "KeyPressed"; }
         std::string ToString() const override
         {
@@ -42,7 +43,8 @@ namespace Universe {
         KeyReleasedEvent(int keycode)
             : KeyEvent(keycode) {}
 
-        EventType GetEventType() const override { return EventType::KeyReleased; }
+        static EventType GetStaticType() { return EventType::KeyReleased; }
+        EventType GetEventType() const override { return GetStaticType(); }
         const char* GetName() const override { return "KeyReleased"; }
         std::string ToString() const override
         {

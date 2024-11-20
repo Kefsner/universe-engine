@@ -10,6 +10,7 @@ namespace Universe {
     class Application {
     public:
         Application();
+        
         void Run();
 		void OnEvent(Event& e);
 		void PushLayer(Layer* layer);

@@ -18,11 +18,6 @@ namespace Universe {
 		Renderer::Init(); // Do nothing for now
     }
 
-	Application::~Application()
-	{
-		Renderer::Shutdown(); // Do nothing for now
-	}
-
     void Application::Run() {
         while (m_IsRunning) {
             for (Layer* layer : m_LayerStack)
@@ -38,6 +33,11 @@ namespace Universe {
     }
 
     void Application::OnEvent(Event& e) {
+
+        // Dispatch WindowCloseEvent to the OnWindowClose method
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
+        
         // Propagate the event through the LayerStack in reverse order
         // Stops when a layer marks the event as handled
         for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {

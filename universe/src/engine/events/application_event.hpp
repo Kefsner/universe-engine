@@ -10,7 +10,8 @@ namespace Universe {
 	public:
 		WindowCloseEvent() {}
 
-		EventType GetEventType() const override { return EventType::WindowClose; }
+		static EventType GetStaticType() { return EventType::WindowClose; }
+		EventType GetEventType() const override { return GetStaticType(); }
 		const char* GetName() const override { return "WindowClose"; }
 	};
 
@@ -20,7 +21,8 @@ namespace Universe {
 		WindowResizeEvent(int width, int height)
 			: m_Width(width), m_Height(height) {}
 
-		EventType GetEventType() const override { return EventType::WindowResize; }
+		static EventType GetStaticType() { return EventType::WindowResize; }
+		EventType GetEventType() const override { return GetStaticType(); }
 		const char* GetName() const override { return "WindowResize"; }
 		std::string ToString() const override
 		{

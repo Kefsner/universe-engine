@@ -14,7 +14,8 @@ namespace Universe {
         float GetX() const { return m_MouseX; }
         float GetY() const { return m_MouseY; }
 
-        EventType GetEventType() const override { return EventType::MouseMoved; }
+        static EventType GetStaticType() { return EventType::MouseMoved; }
+        EventType GetEventType() const override { return GetStaticType(); }
         const char* GetName() const override { return "MouseMoved"; }
         std::string ToString() const override {
             std::stringstream ss;
@@ -35,7 +36,8 @@ namespace Universe {
         float GetXOffset() const { return m_XOffset; }
         float GetYOffset() const { return m_YOffset; }
 
-        EventType GetEventType() const override { return EventType::MouseScrolled; }
+        static EventType GetStaticType() { return EventType::MouseScrolled; }
+        EventType GetEventType() const override { return GetStaticType(); }
         const char* GetName() const override { return "MouseScrolled"; }
         std::string ToString() const override {
             std::stringstream ss;
@@ -65,7 +67,8 @@ namespace Universe {
         MouseButtonPressedEvent(int button)
             : MouseButtonEvent(button) {}
     
-        EventType GetEventType() const override { return EventType::MouseButtonPressed; }
+        static EventType GetStaticType() { return EventType::MouseButtonPressed; }
+        EventType GetEventType() const override { return GetStaticType(); }
         const char* GetName() const override { return "MouseButtonPressed"; }
         std::string ToString() const override {
             std::stringstream ss;
@@ -80,7 +83,8 @@ namespace Universe {
         MouseButtonReleasedEvent(int button)
             : MouseButtonEvent(button) {}
 
-        EventType GetEventType() const override { return EventType::MouseButtonReleased; }
+        static EventType GetStaticType() { return EventType::MouseButtonReleased; }
+        EventType GetEventType() const override { return GetStaticType(); }
         const char* GetName() const override { return "MouseButtonReleased"; }
         std::string ToString() const override {
             std::stringstream ss;

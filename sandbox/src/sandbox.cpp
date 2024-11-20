@@ -9,7 +9,12 @@ public:
 
     void OnUpdate() override
     {
-        UE_TRACE("ExampleLayer::Update");
+        if (Universe::Input::IsKeyPressed(UE_KEY_TAB))
+            UE_TRACE("Tab key is pressed!");
+
+        Universe::Renderer::BeginScene();
+        Universe::Renderer::Submit();
+        Universe::Renderer::EndScene();
     }
 
     void OnEvent(Universe::Event& event) override
@@ -23,7 +28,6 @@ class Sandbox : public Universe::Application
 public:
     Sandbox()
     {
-        UE_TRACE("Sandbox created!");
         PushLayer(new ExampleLayer());
     }
 };
