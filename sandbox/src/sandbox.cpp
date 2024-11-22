@@ -1,7 +1,5 @@
 #include "universe.hpp"
 
-#include "universe.hpp"
-
 class ExampleLayer : public Universe::Layer
 {
 public:
@@ -13,13 +11,20 @@ public:
             -0.5f, -0.5f, 0.0f, // Bottom left
              0.5f, -0.5f, 0.0f  // Bottom right
         };
-        // Create vertex buffer
         m_VertexBuffer = Universe::VertexBuffer::Create(vertices, sizeof(vertices));
-        // Create vertex array
+        {
+            Universe::BufferLayout layout = {
+                { Universe::ShaderDataType::Float3, "a_Position" },
+                { Universe::ShaderDataType::Float4, "a_Color" }
+            };
+            m_VertexBuffer->SetLayout(layout);
+        }
+        uint32_t indices[] = { 0, 1, 2 };
+        m_IndexBuffer = Universe::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+
         m_VertexArray = Universe::VertexArray::Create();
-        // Bind vertex buffer to vertex array
-        std::shared_ptr<Universe::VertexBuffer> sharedVertexBuffer = std::move(m_VertexBuffer);
-        m_VertexArray->AddVertexBuffer(sharedVertexBuffer);
+        m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
         // Shader source code
         std::string vertexSrc = R"(
@@ -49,7 +54,7 @@ public:
     void OnUpdate() override
     {
         Universe::Renderer::BeginScene();
-        // Universe::Renderer::Submit();
+        Universe::Renderer::Submit(m_Shader, m_VertexArray);
         Universe::Renderer::EndScene();
     }
 
@@ -59,9 +64,11 @@ public:
     }
 
 private:
-    std::unique_ptr<Universe::VertexBuffer> m_VertexBuffer;
-    std::unique_ptr<Universe::VertexArray> m_VertexArray;
-    std::unique_ptr<Universe::Shader> m_Shader;
+    Universe::Ref<Universe::VertexBuffer> m_VertexBuffer;
+    Universe::Ref<Universe::IndexBuffer> m_IndexBuffer;
+    Universe::Ref<Universe::VertexArray> m_VertexArray;
+    Universe::Ref<Universe::Shader> m_Shader;
+
 };
 
 class Sandbox : public Universe::Application

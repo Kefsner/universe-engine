@@ -3,19 +3,15 @@
 
 namespace Universe {
 
-    RendererAPI Renderer::s_API = RendererAPI::OpenGL;
-
     void Renderer::BeginScene()
     {
     }
 
-    void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+    void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray)
     {
         shader->Bind();
         vertexArray->Bind();
-        // Draw call
-        UE_CORE_INFO("Drawing!");
-
+        RendererCommand::DrawIndexed(vertexArray);
     }
 
     void Renderer::EndScene()

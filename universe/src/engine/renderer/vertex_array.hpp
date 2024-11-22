@@ -10,8 +10,12 @@ namespace Universe {
 
         virtual void Bind() const = 0;
 
-        virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0;
+        virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
+        virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 
-        static std::unique_ptr<VertexArray> Create();
+        virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
+        virtual const Ref<IndexBuffer>& GetIndexBuffer() const = 0;
+
+        static Ref<VertexArray> Create();
     };
 }

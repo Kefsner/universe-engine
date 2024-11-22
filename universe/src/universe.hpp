@@ -2,6 +2,7 @@
 
 #include "engine/logger/logger.hpp"
 #include "engine/application.hpp"
+#include "engine/core.hpp"
 
 #include "engine/layers/layer.hpp"
 

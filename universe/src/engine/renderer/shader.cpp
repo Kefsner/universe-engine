@@ -6,14 +6,14 @@
 
 namespace Universe {
 
-    std::unique_ptr<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc) {
+    Ref<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None:
+            case RendererAPI::API::None:
                 UE_CORE_ASSERT(false, "RendererAPI::None is not a valid RendererAPI!");
                 return nullptr;
 
-            case RendererAPI::OpenGL:
-                return std::make_unique<OpenGLShader>(vertexSrc, fragmentSrc);
+            case RendererAPI::API::OpenGL:
+                return std::make_shared<OpenGLShader>(vertexSrc, fragmentSrc);
         }
 
         UE_CORE_ASSERT(false, "Unknown RendererAPI!");

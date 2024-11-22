@@ -1,5 +1,5 @@
 #pragma once
-#include "engine/utils.hpp"
+#include "engine/core.hpp"
 #include "engine/logger/logger.hpp"
 
 namespace Universe {

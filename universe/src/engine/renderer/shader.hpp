@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <cstdint>
+#include "engine/core.hpp"
 
 namespace Universe {
 
@@ -11,7 +12,7 @@ namespace Universe {
         
         virtual void Bind() const = 0;
 
-        static std::unique_ptr<Shader> Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<Shader> Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 	};
 
 }
