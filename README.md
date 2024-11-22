@@ -2,8 +2,6 @@
 
 The **Universe Engine** is a custom-built game engine project inspired by Cherno's Hazel engine. It aims to provide a solid foundation for 3D game development, with a focus on modularity and ease of use. The current goal is to implement essential features, including delta time/timestep functionality, with plans to expand into a voxel-based world engine similar to Minecraft. The project is structured to support modular development and testing.
 
----
-
 ## Project Structure
 
 The Universe Engine is designed as a modular system, with the core engine built as a library and linked to a sandbox application for testing and experimentation.
@@ -18,8 +16,6 @@ The Universe Engine is designed as a modular system, with the core engine built 
 ### **How It Works**
 
 The `universe` engine is compiled as a static library and linked to the `sandbox` project. The `sandbox` application includes a minimal implementation of game functionality, such as testing layers, events, and rendering, using the core engine.
-
----
 
 ## Application and Sandbox
 
@@ -66,8 +62,6 @@ Universe::Application* Universe::CreateApplication() {
 
 The `sandbox` provides a minimal implementation of a game that demonstrates how to use the engine.
 
----
-
 ## Core Elements of the Engine
 
 This section describes the roles and goals of each major element in the game engine, including their general purpose and the specific features implemented in the Universe Engine.
@@ -99,8 +93,6 @@ Implements the steps for transforming game data into visuals displayed on the sc
 ### **Delta Time / Timestep**
 
 A crucial mechanism for ensuring smooth movement and behavior regardless of frame rate.
-
----
 
 ## External Libraries
 
@@ -136,32 +128,22 @@ The Universe Engine uses several external libraries to simplify development and 
 
 **Reason**: ImGui provides tools for building a real-time debugging and interface layer within the engine, allowing for live parameter adjustments and debugging views. The `docking` branch adds advanced features for multi-window docking, enhancing flexibility during development.
 
----
-
 ## Development Branches
 
 - **main**: Stable release branch.
 - **develop**: Active development branch where new features are tested.
 
----
-
 ## Build and Configuration
 
 To build the engine, ensure you have CMake and a compatible C++ compiler installed. Build instructions and configurations are provided in the project files.
-
----
 
 ## Next Steps
 
 We’ll continue expanding this document with detailed descriptions for each engine component as development progresses. For now, the focus is on implementing foundational systems like layers, events, and shaders.
 
----
-
 ## Contribution
 
 Contributions are welcome! Feel free to open issues or submit pull requests to help improve the Universe Engine.
-
----
 
 ## License
 

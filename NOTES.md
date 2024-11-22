@@ -1,14 +1,6 @@
-
----
-
-## **Created NOTES.md**
-
-```markdown
 # Notes and Tutorials
 
 This document contains detailed notes on how various aspects of the Universe Engine work, as well as tutorials and explanations of core concepts.
-
----
 
 ## Build Process and Linking in C++
 
@@ -26,8 +18,6 @@ When developing in C++, the build process is typically divided into several phas
 
 4. **Assembly**: After linking, the final machine code is produced and can be executed directly on the machine.
 
----
-
 ## Header Files vs. Library Files
 
 In C++, there are two key parts of a library:
@@ -40,8 +30,6 @@ In C++, there are two key parts of a library:
 
   - **Shared Libraries** (`.so`, `.dll`): Contain the compiled code but are not included in the executable. Instead, they are loaded at runtime.
 
----
-
 ## `include_directories()` vs. `target_link_libraries()` in CMake
 
 - **`include_directories()`**: Tells the compiler where to find the header files of the libraries you're using. This ensures that functions, classes, and other elements declared in the headers are available during the compilation process.
@@ -49,8 +37,6 @@ In C++, there are two key parts of a library:
 - **`target_link_libraries()`**: Tells the linker which libraries your program depends on during the linking phase. This is required to ensure that the actual code from libraries (like `spdlog`, `GLFW`, or `GLM`) is included in your final executable.
 
 While **`include_directories()`** ensures the compiler can find headers for the library, **`target_link_libraries()`** ensures the compiled code from the libraries is linked with your program during the linking phase.
-
----
 
 ## Tutorials and Further Reading
 
@@ -64,8 +50,6 @@ While **`include_directories()`** ensures the compiler can find headers for the 
 
 - **Working with Shaders**: A guide to writing and integrating shaders within the engine.
 
----
-
 ## Contributing to the Engine
 
 We welcome contributions! Here are some ways you can help:
@@ -75,8 +59,6 @@ We welcome contributions! Here are some ways you can help:
 - **Adding Features**: Feel free to fork the repository, add new features, and submit a pull request.
 
 - **Improving Documentation**: Help us expand and refine the documentation and tutorials.
-
----
 
 ## Contact and Support
 
