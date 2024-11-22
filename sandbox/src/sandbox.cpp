@@ -14,8 +14,7 @@ public:
         m_VertexBuffer = Universe::VertexBuffer::Create(vertices, sizeof(vertices));
         {
             Universe::BufferLayout layout = {
-                { Universe::ShaderDataType::Float3, "a_Position" },
-                { Universe::ShaderDataType::Float4, "a_Color" }
+                { Universe::ShaderDataType::Float3, "a_Position" }
             };
             m_VertexBuffer->SetLayout(layout);
         }
