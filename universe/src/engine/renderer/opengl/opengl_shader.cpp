@@ -11,7 +11,7 @@ namespace Universe {
         glCompileShader(vertexShader);
 
         GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-        source = fragmentSrc.c_str(); // Reset the source to the fragment shader source
+        source = fragmentSrc.c_str();
         glShaderSource(fragmentShader, 1, &source, 0);
         glCompileShader(fragmentShader);
 

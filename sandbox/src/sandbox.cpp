@@ -5,22 +5,63 @@ class ExampleLayer : public Universe::Layer
 public:
     ExampleLayer()
     {
-        // Vertex data for a triangle
+        // Vertex data for a cube
         float vertices[] = {
-             0.0f,  0.5f, 0.0f, // Top
-            -0.5f, -0.5f, 0.0f, // Bottom left
-             0.5f, -0.5f, 0.0f  // Bottom right
+            // Position         // Color (R, G, B)
+            // Front face
+            -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, // Bottom-left (red)
+             0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f, // Bottom-right (green)
+             0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, // Top-right (blue)
+            -0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f, // Top-left (yellow)
+
+            // Back face
+            -0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f, // Bottom-left (magenta)
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, // Bottom-right (cyan)
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f, // Top-right (white)
+            -0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 0.0f  // Top-left (black)
         };
+
+        // Index data for a cube (12 triangles, 2 per face)
+        uint32_t indices[] = {
+            // Front face
+            0, 1, 2,
+            2, 3, 0,
+
+            // Back face
+            4, 5, 6,
+            6, 7, 4,
+
+            // Left face
+            4, 0, 3,
+            3, 7, 4,
+
+            // Right face
+            1, 5, 6,
+            6, 2, 1,
+
+            // Top face
+            3, 2, 6,
+            6, 7, 3,
+
+            // Bottom face
+            4, 5, 1,
+            1, 0, 4
+        };
+
+        // Create vertex buffer
         m_VertexBuffer = Universe::VertexBuffer::Create(vertices, sizeof(vertices));
         {
             Universe::BufferLayout layout = {
-                { Universe::ShaderDataType::Float3, "a_Position" }
+                { Universe::ShaderDataType::Float3, "a_Position" },
+                { Universe::ShaderDataType::Float3, "a_Color" }
             };
             m_VertexBuffer->SetLayout(layout);
         }
-        uint32_t indices[] = { 0, 1, 2 };
+
+        // Create index buffer
         m_IndexBuffer = Universe::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
+        // Create vertex array
         m_VertexArray = Universe::VertexArray::Create();
         m_VertexArray->AddVertexBuffer(m_VertexBuffer);
         m_VertexArray->SetIndexBuffer(m_IndexBuffer);
@@ -29,24 +70,29 @@ public:
         std::string vertexSrc = R"(
             #version 330 core
             layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec3 a_Color;
+
+            out vec3 v_Color;
 
             void main()
             {
+                v_Color = a_Color;
                 gl_Position = vec4(a_Position, 1.0);
             }
         )";
 
         std::string fragmentSrc = R"(
             #version 330 core
+            in vec3 v_Color;
             out vec4 FragColor;
 
             void main()
             {
-                FragColor = vec4(1.0, 0.5, 0.2, 1.0); // Orange color
+                FragColor = vec4(v_Color, 1.0);
             }
         )";
 
-        // Shader
+        // Create shader
         m_Shader = Universe::Shader::Create(vertexSrc, fragmentSrc);
     }
 
@@ -67,7 +113,6 @@ private:
     Universe::Ref<Universe::IndexBuffer> m_IndexBuffer;
     Universe::Ref<Universe::VertexArray> m_VertexArray;
     Universe::Ref<Universe::Shader> m_Shader;
-
 };
 
 class Sandbox : public Universe::Application
