@@ -6,6 +6,9 @@
 #include "engine/layers/layer.hpp"
 
 #include "engine/renderer/renderer.hpp"
+#include "engine/renderer/shader.hpp"
+#include "engine/renderer/buffer.hpp"
+#include "engine/renderer/vertex_array.hpp"
 
 #include "engine/input/input.hpp"
 #include "engine/input/key_codes.hpp"
