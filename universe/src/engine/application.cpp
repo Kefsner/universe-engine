@@ -1,11 +1,11 @@
 #include "engine/core.hpp"
 #include "engine/application.hpp"
+#include "engine/timestep.hpp"
 #include "engine/logger/logger.hpp"
 #include "engine/renderer/renderer.hpp"
 
 namespace Universe {
 
-    // Initialize the singleton instance pointer
     Application* Application::s_Instance = nullptr;
 
     Application::Application()
@@ -18,9 +18,13 @@ namespace Universe {
     }
 
     void Application::Run() {
+        float time = m_Window->GetTime();
+        Timestep timestep = time - m_LastFrameTime;
+        float m_LastFrameTime = time;
+
         while (m_IsRunning) {
             for (Layer* layer : m_LayerStack)
-                layer->OnUpdate();
+                layer->OnUpdate(timestep);
             m_Window->OnUpdate();
         }
     }

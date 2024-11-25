@@ -1,5 +1,5 @@
 #pragma once
-
+#include "engine/timestep.hpp"
 #include "engine/events/event.hpp"
 
 namespace Universe {
@@ -11,7 +11,7 @@ namespace Universe {
         virtual ~Layer() = default;
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
         virtual void OnEvent(Event& event) {}
     };
 }

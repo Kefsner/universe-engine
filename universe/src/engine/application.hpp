@@ -22,6 +22,7 @@ namespace Universe {
         bool m_IsRunning = true; ///< Flag indicating whether the application is running.
         LayerStack m_LayerStack; ///< The stack of layers managed by the application.
         static Application* s_Instance; ///< The singleton instance of the application.
+        float m_LastFrameTime = 0.0f;
 
         bool OnWindowClose(WindowCloseEvent& e);
     };

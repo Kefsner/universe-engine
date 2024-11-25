@@ -99,17 +99,23 @@ public:
 
     }
 
-    void OnUpdate() override
-    {
-        if (Universe::Input::IsKeyPressed(UE_KEY_A))
-            m_CameraPosition.x -= m_CameraMoveSpeed;
-        else if (Universe::Input::IsKeyPressed(UE_KEY_D))
-            m_CameraPosition.x += m_CameraMoveSpeed;
-        if (Universe::Input::IsKeyPressed(UE_KEY_W))
-            m_CameraPosition.y += m_CameraMoveSpeed;
-        else if (Universe::Input::IsKeyPressed(UE_KEY_S))
-            m_CameraPosition.y -= m_CameraMoveSpeed;
+    void OnUpdate(Universe::Timestep ts) override {
+        if (Universe::Input::IsKeyPressed(UE_KEY_A) && Universe::Input::IsKeyPressed(UE_KEY_D)) {}
+        else if (Universe::Input::IsKeyPressed(UE_KEY_A)) {
+            m_CameraPosition.x -= m_CameraMoveSpeed * ts;
+        }
+        else if (Universe::Input::IsKeyPressed(UE_KEY_D)) {
+            m_CameraPosition.x += m_CameraMoveSpeed * ts;
+        }
 
+        if (Universe::Input::IsKeyPressed(UE_KEY_W) && Universe::Input::IsKeyPressed(UE_KEY_S)) {}
+        else if (Universe::Input::IsKeyPressed(UE_KEY_W)) {
+            m_CameraPosition.y += m_CameraMoveSpeed * ts;
+        }
+        else if (Universe::Input::IsKeyPressed(UE_KEY_S)) {
+            m_CameraPosition.y -= m_CameraMoveSpeed * ts;
+        }
+        
         m_Camera.SetPosition(m_CameraPosition);
 
         Universe::Renderer::BeginScene(m_Camera);

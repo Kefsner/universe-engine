@@ -7,5 +7,6 @@ namespace Universe {
     {
     public:
         virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+        virtual void Clear() override;
     };
 }

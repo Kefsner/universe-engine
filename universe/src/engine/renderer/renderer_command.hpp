@@ -12,6 +12,11 @@ namespace Universe {
             s_API->DrawIndexed(vertexArray);
         }
 
+        static void Clear()
+        {
+            s_API->Clear();
+        }
+
     private:
         static Ref<RendererAPI> s_API;
     };

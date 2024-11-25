@@ -5,6 +5,7 @@
 #include "engine/core.hpp"
 
 #include "engine/layers/layer.hpp"
+#include "engine/timestep.hpp"
 
 #include "engine/renderer/renderer.hpp"
 #include "engine/renderer/shader.hpp"

@@ -14,6 +14,7 @@ namespace Universe {
         m_Data.Title = props.Title;
         m_Data.Width = props.Width;
         m_Data.Height = props.Height;
+        m_Data.VSync = props.VSync;
 
         if (!s_GLFWInitialized) {
             int success = glfwInit();
@@ -26,7 +27,7 @@ namespace Universe {
 
         m_Context = new OpenGLContext(m_Window);
         m_Context->Init();
-        
+        SetVSync(m_Data.VSync);
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetCallbacks();
     }
