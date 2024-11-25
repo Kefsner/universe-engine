@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <cstdint>
 #include "engine/core.hpp"
 
 namespace Universe {

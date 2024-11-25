@@ -1,3 +1,4 @@
+#include "engine/core.hpp"
 #include "engine/window/glfw_window_wrapper.hpp"
 #include "engine/renderer/opengl/opengl_context.hpp"
 #include "engine/events/application_event.hpp"

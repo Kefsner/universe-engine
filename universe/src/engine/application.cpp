@@ -1,3 +1,4 @@
+#include "engine/core.hpp"
 #include "engine/application.hpp"
 #include "engine/logger/logger.hpp"
 #include "engine/renderer/renderer.hpp"
@@ -13,7 +14,7 @@ namespace Universe {
         s_Instance = this;
 
         m_Window = std::unique_ptr<Window>(Window::Create());
-        m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+        m_Window->SetEventCallback(UE_BIND_EVENT_FN(Application::OnEvent));
     }
 
     void Application::Run() {
@@ -32,7 +33,7 @@ namespace Universe {
     void Application::OnEvent(Event& e) {
 
         EventDispatcher dispatcher(e);
-        dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
+        dispatcher.Dispatch<WindowCloseEvent>(UE_BIND_EVENT_FN(Application::OnWindowClose));
         
         // Propagate the event through the LayerStack in reverse order
         // Stops when a layer marks the event as handled

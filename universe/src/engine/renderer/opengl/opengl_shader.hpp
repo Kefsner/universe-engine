@@ -1,5 +1,6 @@
 #pragma once
 #include "engine/renderer/shader.hpp"
+#include <glm/glm.hpp>
 
 namespace Universe {
 
@@ -10,6 +11,8 @@ namespace Universe {
         ~OpenGLShader();
 
         void Bind() const override;
+
+        void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) const;
 
     private:
         uint32_t m_RendererID;

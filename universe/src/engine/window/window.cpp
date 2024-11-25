@@ -1,4 +1,5 @@
 #include "pch.hpp"
+#include "engine/core.hpp"
 #include "engine/window/window.hpp"
 
 // Include specific implementations

@@ -16,7 +16,8 @@ endif()
 # Specify include directories
 target_include_directories(Universe PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include  # Include glad's headers
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glm
 )
 
 # Include the glad.c file in the Universe library

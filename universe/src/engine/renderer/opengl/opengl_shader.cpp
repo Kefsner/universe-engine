@@ -1,5 +1,6 @@
 #include "pch.hpp"
 #include "engine/renderer/opengl/opengl_shader.hpp"
+#include "engine/logger/logger.hpp"
 #include <glad/glad.h>
 
 namespace Universe {
@@ -33,4 +34,11 @@ namespace Universe {
     void OpenGLShader::Bind() const {
         glUseProgram(m_RendererID);
     }
+
+    void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix) const {
+        GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+        glUniformMatrix4fv(location, 1, GL_FALSE, &matrix[0][0]);
+    }
+
+
 }

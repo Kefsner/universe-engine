@@ -1,4 +1,5 @@
 #include "pch.hpp"
+#include "engine/core.hpp"
 #include "engine/renderer/opengl/opengl_vertex_array.hpp"
 #include <glad/glad.h>
 

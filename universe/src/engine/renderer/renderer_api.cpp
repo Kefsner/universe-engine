@@ -1,4 +1,5 @@
 #include "pch.hpp"
+#include "engine/core.hpp"
 #include "engine/renderer/renderer_api.hpp"
 #include "engine/renderer/opengl/opengl_renderer_api.hpp"
 
