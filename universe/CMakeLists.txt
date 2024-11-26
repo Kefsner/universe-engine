@@ -8,45 +8,40 @@ add_library(Universe STATIC ${UNIVERSE_SRC})
 
 # Platform-specific settings
 if(WIN32)
-    target_compile_definitions(Universe PUBLIC UE_PLATFORM_WINDOWS)
+    add_compile_definitions(UE_PLATFORM_WINDOWS)
 elseif(UNIX)
-    target_compile_definitions(Universe PUBLIC UE_PLATFORM_LINUX)
+    add_compile_definitions(UE_PLATFORM_LINUX)
 endif()
 
-# Specify include directories
+# Include directories
 target_include_directories(Universe PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glm
 )
 
-# Include the glad.c file in the Universe library
-target_sources(Universe PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/src/glad.c)
+# Add Glad (OpenGL loader) sources
+target_sources(Universe PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/src/glad.c
+)
 
 # Link dependencies
-# Link spdlog
+# Add spdlog for logging
 add_subdirectory(vendor/spdlog)
 target_link_libraries(Universe PUBLIC spdlog::spdlog)
 
-# Link GLFW
+# Add GLFW for windowing
+# Set GLFW to build with X11 support and disable Wayland
+set(GLFW_BUILD_X11 ON CACHE BOOL "Build GLFW with X11 support")
+set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "Disable Wayland support for GLFW")
+
 add_subdirectory(vendor/glfw)
 target_link_libraries(Universe PUBLIC glfw)
 
 # Link OpenGL
-target_link_libraries(Universe PUBLIC opengl32)
-
-# Link ImGui
-target_sources(Universe PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_glfw.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_opengl3.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
-)
-
-target_include_directories(Universe PUBLIC 
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends
-)
+if(WIN32)
+    target_link_libraries(Universe PUBLIC opengl32)
+elseif(UNIX)
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(Universe PUBLIC OpenGL::GL)
+endif()

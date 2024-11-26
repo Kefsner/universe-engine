@@ -3,17 +3,17 @@
 #include "engine/window/window.hpp"
 
 // Include specific implementations
-#ifdef UE_PLATFORM_WINDOWS
+#if defined(UE_PLATFORM_WINDOWS) || defined(UE_PLATFORM_LINUX)
     #include "engine/window/glfw_window_wrapper.hpp"
 #endif
 
 namespace Universe {
 
     Window* Window::Create(const WindowProps& props) {
-        #ifdef UE_PLATFORM_WINDOWS
-            return new GLFWWindowWrapper(props); // Windows-specific implementation using GLFW
+        #if defined(UE_PLATFORM_WINDOWS) || defined(UE_PLATFORM_LINUX)
+            return new GLFWWindowWrapper(props);
         #else
-            UE_CORE_ASSERT(false, "Unknown platform!"); // Unsupported platform
+            UE_CORE_ASSERT(false, "Unknown platform!");
             return nullptr;
         #endif
     }

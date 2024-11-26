@@ -63,3 +63,99 @@ We welcome contributions! Here are some ways you can help:
 ## Contact and Support
 
 For questions or support, please contact the project maintainer at [your-email@example.com](mailto:your-email@example.com).
+
+## **Setting Up Dependencies**
+
+To build and run the engine on **Ubuntu Noble 24.04 LTS**, you need to install several dependencies. Below is the complete list of required packages with a brief description of each.
+
+---
+
+### **Installing Dependencies**
+
+1. **Update the Package Manager**  
+   Ensure your system's package list is up to date:
+   ```bash
+   sudo apt update
+   ```
+
+2. **Essential OpenGL and Mesa Libraries**  
+   These libraries are required for rendering and OpenGL functionality:
+   ```bash
+   sudo apt install -y mesa-common-dev libglu1-mesa-dev
+   ```
+   - **`mesa-common-dev`**: Development files for Mesa, an open-source implementation of OpenGL.
+   - **`libglu1-mesa-dev`**: Development files for the GLU (OpenGL Utility Library).
+
+3. **X11 and Input Libraries**  
+   These libraries provide support for windowing and input handling:
+   ```bash
+   sudo apt install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+   ```
+   - **`libx11-dev`**: Development files for X11, the core protocol for Linux graphical interfaces.
+   - **`libxrandr-dev`**: Adds support for screen resizing and rotation.
+   - **`libxinerama-dev`**: Provides multi-monitor support.
+   - **`libxcursor-dev`**: Cursor management and theme support.
+   - **`libxi-dev`**: Input handling, such as mouse and keyboard support.
+
+4. **Wayland Libraries**  
+   Necessary for Wayland support and modern display servers:
+   ```bash
+   sudo apt install -y libwayland-dev wayland-protocols
+   ```
+   - **`libwayland-dev`**: Development files for Wayland, a modern replacement for X11.
+   - **`wayland-protocols`**: Definitions of standard Wayland protocols.
+
+5. **Keyboard Input Handling Libraries**  
+   Required for keyboard functionality in GLFW:
+   ```bash
+   sudo apt install -y libxkbcommon-dev
+   ```
+   - **`libxkbcommon-dev`**: Keyboard handling library for X11 and Wayland.
+
+6. **`libdecor` for Window Decorations**  
+   These packages enable window decorations for Wayland environments:
+   ```bash
+   sudo apt install -y libdecor-0-0 libdecor-0-dev libdecor-0-plugin-1-gtk
+   ```
+   - **`libdecor-0-0`**: The main library for Wayland client-side decorations.
+   - **`libdecor-0-dev`**: Development files for building applications using `libdecor`.
+   - **`libdecor-0-plugin-1-gtk`**: A GTK plugin for `libdecor` to match the GTK theme.
+
+---
+
+### **Complete Installation Command**
+To install all dependencies in one go:
+```bash
+sudo apt update && sudo apt install -y \
+    mesa-common-dev libglu1-mesa-dev \
+    libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev \
+    libxkbcommon-dev libwayland-dev wayland-protocols \
+    libdecor-0-0 libdecor-0-dev libdecor-0-plugin-1-gtk
+```
+
+---
+
+### **Building the Project**
+Once the dependencies are installed, follow these steps to build and run the project:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-repository/universe-engine.git
+   cd universe-engine
+   ```
+
+2. **Run the Build Script**:
+   ```bash
+   ./build.sh
+   ```
+
+3. **Run the Sandbox Application**:
+   ```bash
+   ./run.sh
+   ```
+
+---
+
+### **Notes**
+- If you encounter missing package errors, ensure you're using **Ubuntu Noble 24.04 LTS** or a compatible version. For older versions, some packages (like `libdecor`) might not be available and may require manual installation or upgrading your OS.
+- Ensure that your system has the latest graphics drivers installed for optimal performance.
