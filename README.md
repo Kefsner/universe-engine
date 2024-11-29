@@ -137,6 +137,70 @@ The Universe Engine uses several external libraries to simplify development and 
 
 To build the engine, ensure you have CMake and a compatible C++ compiler installed. Build instructions and configurations are provided in the project files.
 
+## Build and Run Scripts
+
+To simplify the process of building, rebuilding, and running the Universe Engine, we’ve included platform-specific scripts for Windows and Unix-based systems. These scripts provide a unified interface for common development tasks.
+
+### **Windows Script: `win.bat`**
+
+The `win.bat` script is designed to automate building, rebuilding, and running the Universe Engine on Windows. It supports both long-form and short-form commands for flexibility.
+
+#### Usage:
+
+```cmd
+win.bat [--build|-b|--rebuild|-r|--run|-R]
+```
+
+#### Commands:
+
+- `--build` (`-b`): Builds the project. Creates the `build` directory if it doesn’t exist and configures the project using CMake.
+- `--rebuild` (`-r`): Performs a full rebuild by deleting the `build` directory and starting fresh.
+- `--run` (`-R`): Runs the `Sandbox.exe` application. If the project isn’t built, it automatically triggers the build process.
+
+#### Example:
+
+```cmd
+win.bat --build  # Build the project
+win.bat --rebuild  # Rebuild the project
+win.bat --run  # Run the Sandbox application
+```
+
+---
+
+### **Unix Script: `unix.sh`**
+
+The `unix.sh` script provides similar functionality for Unix-based systems, such as Linux or macOS. It supports the same commands as the Windows script.
+
+#### Usage:
+
+```bash
+./unix.sh [--build|-b|--rebuild|-r|--run|-R]
+```
+
+#### Commands:
+
+- `--build` (`-b`): Builds the project. Configures and compiles the engine if necessary.
+- `--rebuild` (`-r`): Deletes the `build` directory and performs a fresh build.
+- `--run` (`-R`): Runs the `Sandbox` application. Automatically builds the project if required.
+
+#### Example:
+
+```bash
+./unix.sh --build  # Build the project
+./unix.sh --rebuild  # Rebuild the project
+./unix.sh --run  # Run the Sandbox application
+```
+
+---
+
+### **General Notes**
+
+- **Default Action:** If no parameter is provided, the scripts default to `--run` (`-R`), assuming the project is already built.
+- **Cross-Platform Development:** Use the appropriate script for your operating system to streamline your workflow.
+- **Dependencies:** Ensure all required dependencies (like CMake, a compatible C++ compiler, and necessary libraries) are properly installed before running the scripts.
+
+---
+
 ## Next Steps
 
 We’ll continue expanding this document with detailed descriptions for each engine component as development progresses. For now, the focus is on implementing foundational systems like layers, events, and shaders.
