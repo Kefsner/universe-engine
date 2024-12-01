@@ -15,6 +15,8 @@ namespace Universe {
 
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallback(UE_BIND_EVENT_FN(Application::OnEvent));
+
+        Renderer::Init();
     }
 
     void Application::Run() {

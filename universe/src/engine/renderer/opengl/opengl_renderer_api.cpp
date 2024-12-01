@@ -2,6 +2,12 @@
 #include <glad/glad.h>
 
 namespace Universe {
+
+        void OpenGLRendererAPI::Init()
+        {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        }
     
         void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
         {

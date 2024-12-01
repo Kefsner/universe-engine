@@ -13,16 +13,23 @@ elseif(UNIX)
     add_compile_definitions(UE_PLATFORM_LINUX)
 endif()
 
+target_precompile_headers(Universe PRIVATE
+    $<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/pch.hpp>
+)
+
 # Include directories
 target_include_directories(Universe PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb
+    ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES} # Include C++ standard library
 )
 
 # Add Glad (OpenGL loader) sources
 target_sources(Universe PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/src/glad.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb/stb_image.cpp
 )
 
 # Link dependencies

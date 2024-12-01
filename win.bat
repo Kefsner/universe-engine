@@ -1,5 +1,7 @@
 @echo off
 
+set "ACTION=--run"
+
 if not "%1"=="" (
     if "%1"=="-b" (
         set "ACTION=--build"

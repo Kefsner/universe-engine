@@ -9,6 +9,11 @@ namespace Universe {
 
     Scope<Renderer::SceneData> Renderer::s_SceneData = std::make_unique<Renderer::SceneData>();
 
+    void Renderer::Init()
+    {
+        RendererCommand::Init();
+    }
+
     void Renderer::BeginScene(OrthographicCamera& camera)
     {
         s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();

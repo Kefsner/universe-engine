@@ -7,6 +7,11 @@ namespace Universe {
     class RendererCommand
     {
     public:
+        static void Init()
+        {
+            s_API->Init();
+        }
+        
         static void DrawIndexed(const Ref<VertexArray>& vertexArray)
         {
             s_API->DrawIndexed(vertexArray);

@@ -7,10 +7,10 @@ public:
     {
         // Square vertices
         float vertices[] = {
-            0.5f, -0.5f,
-            0.5f, 0.5f,
-            -0.5f, 0.5f,
-            -0.5f, -0.5f
+            0.5f, -0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, 1.0f, 1.0f,
+            -0.5f, 0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f , 0.0f, 0.0f
             };
 
         // Triangle indices
@@ -23,7 +23,8 @@ public:
         m_VertexBuffer = Universe::VertexBuffer::Create(vertices, sizeof(vertices));
         {
             Universe::BufferLayout layout = {
-                { Universe::ShaderDataType::Float2, "a_Position" }
+                { Universe::ShaderDataType::Float2, "a_Position" },
+                { Universe::ShaderDataType::Float2, "a_TexCoord" }
             };
             m_VertexBuffer->SetLayout(layout);
         }
@@ -36,31 +37,12 @@ public:
         m_VertexArray->AddVertexBuffer(m_VertexBuffer);
         m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
-        // Shader source code
-        std::string vertexSrc = R"(
-            #version 330 core
-            layout(location = 0) in vec2 a_Position;
-
-            uniform mat4 u_ViewProjection;
-
-            void main()
-            {
-                gl_Position = u_ViewProjection * vec4(a_Position, 0.0, 1.0);
-            }
-        )";
-
-        std::string fragmentSrc = R"(
-            #version 330 core
-            out vec4 FragColor;
-
-            void main()
-            {
-                FragColor = vec4(1.0, 1.0, 0.3, 0.3);
-            }
-        )";
-
         // Create shader
-        m_Shader = Universe::Shader::Create(vertexSrc, fragmentSrc);
+        m_Shader = Universe::Shader::Create("../../sandbox/assets/shaders/texture.glsl");
+
+        // Create texture
+        m_Texture = Universe::Texture2D::Create("../../sandbox/assets/textures/checkerboard_texture_rgb.png");
+        m_LogoTexture = Universe::Texture2D::Create("../../sandbox/assets/textures/logo.png");
 
     }
 
@@ -84,6 +66,9 @@ public:
         m_Camera.SetPosition(m_CameraPosition);
 
         Universe::Renderer::BeginScene(m_Camera);
+        m_Texture->Bind();
+        Universe::Renderer::Submit(m_Shader, m_VertexArray);
+        m_LogoTexture->Bind();
         Universe::Renderer::Submit(m_Shader, m_VertexArray);
         Universe::Renderer::EndScene();
     }
@@ -96,6 +81,8 @@ private:
     Universe::Ref<Universe::VertexBuffer> m_VertexBuffer;
     Universe::Ref<Universe::IndexBuffer> m_IndexBuffer;
     Universe::Ref<Universe::VertexArray> m_VertexArray;
+    Universe::Ref<Universe::Texture2D> m_Texture;
+    Universe::Ref<Universe::Texture2D> m_LogoTexture;
     Universe::Ref<Universe::Shader> m_Shader;
     Universe::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
