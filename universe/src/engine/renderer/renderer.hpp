@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "engine/renderer/shader.hpp"
 #include "engine/renderer/vertex_array.hpp"
 #include "engine/renderer/renderer_command.hpp"
@@ -15,7 +14,7 @@ namespace Universe {
         static void Init();
         
         static void BeginScene(OrthographicCamera& camera);
-        static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray);
+        static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
         static void EndScene();
 
         static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }

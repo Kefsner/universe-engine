@@ -1,5 +1,5 @@
 #include "universe.hpp"
-
+#include <glm/gtc/matrix_transform.hpp>
 class ExampleLayer : public Universe::Layer
 {
 public:
@@ -67,7 +67,7 @@ public:
 
         Universe::Renderer::BeginScene(m_Camera);
         m_Texture->Bind();
-        Universe::Renderer::Submit(m_Shader, m_VertexArray);
+        Universe::Renderer::Submit(m_Shader, m_VertexArray, glm::translate(glm::mat4(1.0f), glm::vec3(-0.5f, 0.0f, 0.0f)));
         m_LogoTexture->Bind();
         Universe::Renderer::Submit(m_Shader, m_VertexArray);
         Universe::Renderer::EndScene();
