@@ -23,13 +23,22 @@ target_include_directories(Universe PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/include
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui
     ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES} # Include C++ standard library
 )
 
-# Add Glad (OpenGL loader) sources
+# Add sources for vendor libraries
 target_sources(Universe PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad/src/glad.c
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb/stb_image.cpp
+    # Add ImGui sources
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_glfw.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_opengl3.cpp
 )
 
 # Link dependencies

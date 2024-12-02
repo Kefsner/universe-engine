@@ -1,3 +1,4 @@
+#include "pch.hpp"
 #include "engine/core.hpp"
 #include "engine/application.hpp"
 #include "engine/timestep.hpp"
@@ -15,8 +16,11 @@ namespace Universe {
 
         m_Window = std::unique_ptr<Window>(Window::Create());
         m_Window->SetEventCallback(UE_BIND_EVENT_FN(Application::OnEvent));
-
+        
         Renderer::Init();
+
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
     }
 
     void Application::Run() {
@@ -27,6 +31,12 @@ namespace Universe {
         while (m_IsRunning) {
             for (Layer* layer : m_LayerStack)
                 layer->OnUpdate(timestep);
+            
+            m_ImGuiLayer->Begin();
+            for (Layer* layer : m_LayerStack)
+                layer->OnImGuiRender();
+            m_ImGuiLayer->End();
+
             m_Window->OnUpdate();
         }
     }
@@ -34,6 +44,11 @@ namespace Universe {
     void Application::PushLayer(Layer* layer) {
         m_LayerStack.PushLayer(layer);
         layer->OnAttach();
+    }
+
+    void Application::PushOverlay(Layer* overlay) {
+        m_LayerStack.PushOverlay(overlay);
+        overlay->OnAttach();
     }
 
     void Application::OnEvent(Event& e) {

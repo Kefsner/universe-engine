@@ -75,6 +75,7 @@ public:
 
     void OnEvent(Universe::Event& event) override
     {
+        UE_INFO("ExampleLayer::OnEvent: {0}", event.ToString());
     }
 
 private:
