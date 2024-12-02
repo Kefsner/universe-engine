@@ -84,6 +84,7 @@ private:
     Universe::Ref<Universe::Texture2D> m_Texture;
     Universe::Ref<Universe::Texture2D> m_LogoTexture;
     Universe::Ref<Universe::Shader> m_Shader;
+    Universe::ShaderLibrary m_ShaderLibrary;
     Universe::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
     float m_CameraMoveSpeed = 0.1f;

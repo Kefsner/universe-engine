@@ -1,8 +1,7 @@
 #include "pch.hpp"
-
 #include "engine/application.hpp"
 #include "engine/input/glfw_input.hpp"
-#include "engine/window/glfw_window_wrapper.hpp"
+#include "engine/window/glfw_window.hpp"
 
 namespace Universe {
 

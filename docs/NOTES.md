@@ -159,3 +159,11 @@ Once the dependencies are installed, follow these steps to build and run the pro
 ### **Notes**
 - If you encounter missing package errors, ensure you're using **Ubuntu Noble 24.04 LTS** or a compatible version. For older versions, some packages (like `libdecor`) might not be available and may require manual installation or upgrading your OS.
 - Ensure that your system has the latest graphics drivers installed for optimal performance.
+
+# Gameplay Mechanics
+Combat system with swords based on the Prince of Persia old game principles. When attacking, the enemy have option to dodge or blocking.
+
+If the actor block an incoming attack, it has a small window to counter attack. If the actor dodge, it has a small window to attack.
+
+The counter attack work like an attack and the combat will be mainly attacking and counter attacking vice versa.
+This is the very basic first setup of the combat system. Later we implement different stuff based on the used weapon.

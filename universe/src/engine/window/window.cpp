@@ -4,7 +4,7 @@
 
 // Include specific implementations
 #if defined(UE_PLATFORM_WINDOWS) || defined(UE_PLATFORM_LINUX)
-    #include "engine/window/glfw_window_wrapper.hpp"
+    #include "engine/window/glfw_window.hpp"
 #endif
 
 namespace Universe {

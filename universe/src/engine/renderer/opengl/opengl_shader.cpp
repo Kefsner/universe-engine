@@ -1,7 +1,6 @@
 #include "pch.hpp"
 #include "engine/renderer/opengl/opengl_shader.hpp"
 #include "engine/logger/logger.hpp"
-#include <fstream>
 
 namespace Universe {
 
@@ -17,13 +16,17 @@ namespace Universe {
         std::string source = ReadFile(filepath);
         auto shaderSources = PreProcess(source);
         Compile(shaderSources);
+
+        std::filesystem::path path(filepath);
+        m_Name = path.stem().string();
     }
 
-    OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc) {
-        std::unordered_map<GLenum, std::string> sources;
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+        : m_Name(name) {
+        std::unordered_map<GLenum, std::string> sources; 
         sources[GL_VERTEX_SHADER] = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
-        Compile(sources);       
+        Compile(sources);
     }
 
     OpenGLShader::~OpenGLShader() {
@@ -34,10 +37,10 @@ namespace Universe {
         std::string result;
         std::ifstream in(filepath, std::ios::in | std::ios::binary);
         if (in) {
-            in.seekg(0, std::ios::end);
-            result.resize(in.tellg());
-            in.seekg(0, std::ios::beg);
-            in.read(&result[0], result.size());
+            in.seekg(0, std::ios::end); // Set the position of the next character to the end of the file
+            result.resize(in.tellg()); // Resize the string to the size of the file
+            in.seekg(0, std::ios::beg); // Set the position of the next character to the beginning of the file
+            in.read(&result[0], result.size()); // Read the file into the string
             in.close();
         } else {
             UE_CORE_ERROR("Could not open file '{0}'", filepath);
@@ -47,7 +50,6 @@ namespace Universe {
 
     std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source) {
         std::unordered_map<GLenum, std::string> shaderSources;
-
         const char* typeToken = "#type";
         size_t typeTokenLength = strlen(typeToken);
         size_t pos = source.find(typeToken, 0);
@@ -60,15 +62,19 @@ namespace Universe {
 
             size_t nextLinePos = source.find_first_not_of("\r\n", eol);
             pos = source.find(typeToken, nextLinePos);
-            shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+            shaderSources[ShaderTypeFromString(type)] = source.substr(
+                nextLinePos, 
+                pos - (nextLinePos == std::string::npos ? source.size() - nextLinePos : nextLinePos)
+            );
         }
-
         return shaderSources;
     }
 
     void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources) {
         GLuint program = glCreateProgram();
-        std::vector<GLenum> glShaderIDs(shaderSources.size());
+        UE_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
+        std::array<GLuint, 2> glShaderIDs;
+        int glShaderIDIndex = 0;
         for (auto&& kv : shaderSources) {
             GLenum type = kv.first;
             const std::string& source = kv.second;
@@ -95,7 +101,7 @@ namespace Universe {
             }
 
             glAttachShader(program, shader);
-            glShaderIDs.push_back(shader);
+            glShaderIDs[glShaderIDIndex++] = shader;
         }
 
         glLinkProgram(program);
