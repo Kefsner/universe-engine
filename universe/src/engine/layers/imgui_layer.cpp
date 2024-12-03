@@ -33,9 +33,6 @@ namespace Universe {
     }
 
     void ImGuiLayer::OnEvent(Event& event) {
-        if (m_BlockEvents) {
-            UE_INFO("{0}", event.ToString());
-        }
     }
 
     void ImGuiLayer::Begin() {
@@ -49,6 +46,8 @@ namespace Universe {
         if (ImGui::Button("Click me!"))
             UE_CORE_INFO("Button clicked.");
         ImGui::End();
+
+        ImGuiLayer::ShowPerformanceOverlay();
     }
 
     void ImGuiLayer::End() {
@@ -64,4 +63,56 @@ namespace Universe {
             glfwMakeContextCurrent(backup_current_context);
         }
     }
+
+    void ImGuiLayer::ShowPerformanceOverlay() {
+        // Track min/max FPS and FPS history
+        static float fpsHistory[100] = { 0.0f };
+        static int historyIndex = 0;
+        static float minFPS = FLT_MAX;
+        static float maxFPS = 0.0f;
+
+        float currentFPS = ImGui::GetIO().Framerate;
+        fpsHistory[historyIndex] = currentFPS;
+        historyIndex = (historyIndex + 1) % IM_ARRAYSIZE(fpsHistory);
+
+        // Update min/max FPS
+        if (currentFPS < minFPS) minFPS = currentFPS;
+        if (currentFPS > maxFPS) maxFPS = currentFPS;
+
+        // Calculate 1% FPS (average of the lowest 1% of recorded FPS values)
+        float onePercentFPS = 0.0f;
+        int onePercentCount = static_cast<int>(IM_ARRAYSIZE(fpsHistory) * 0.01f);
+        onePercentCount = (onePercentCount > 0) ? onePercentCount : 1; // Ensure at least one frame is included
+
+        // Copy and sort the FPS history
+        float sortedFPS[IM_ARRAYSIZE(fpsHistory)];
+        memcpy(sortedFPS, fpsHistory, sizeof(fpsHistory));
+        std::sort(sortedFPS, sortedFPS + IM_ARRAYSIZE(sortedFPS)); // Sort ascending
+
+        // Calculate the average of the lowest 1%
+        for (int i = 0; i < onePercentCount; ++i) {
+            onePercentFPS += sortedFPS[i];
+        }
+        onePercentFPS /= onePercentCount;
+
+        // Begin the overlay window
+        ImGui::Begin("Performance Overlay");
+        // Display current FPS and frame time
+        ImGui::Text("FPS: %.1f", currentFPS);
+        ImGui::Text("Frame Time: %.3f ms", 1000.0f / currentFPS);
+
+        // Display min/max FPS
+        ImGui::Text("Min FPS: %.1f", minFPS);
+        ImGui::Text("Max FPS: %.1f", maxFPS);
+
+        // Display 1% FPS
+        ImGui::Text("1%% FPS: %.1f", onePercentFPS); // Double '%' for formatting in ImGui
+
+        // Plot FPS history
+        ImGui::PlotLines("FPS History", fpsHistory, IM_ARRAYSIZE(fpsHistory), 0, nullptr, 0.0f, maxFPS, ImVec2(0, 80));
+
+        // End the overlay window
+        ImGui::End();
+    }
+
 }

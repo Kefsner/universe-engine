@@ -11,6 +11,8 @@ namespace Universe {
         void Begin();
         void End();
 
+        void ShowPerformanceOverlay();
+        
     private:
         bool m_BlockEvents = true;
     };

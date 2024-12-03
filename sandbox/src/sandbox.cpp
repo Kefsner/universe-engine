@@ -3,9 +3,9 @@
 class ExampleLayer : public Universe::Layer
 {
 public:
-    ExampleLayer() : m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f, 0.0f, 0.0f)
+    ExampleLayer() : m_CameraController(1280.0f / 720.0f)
     {
-        // Square vertices
+        // // Square vertices
         float vertices[] = {
             0.5f, -0.5f, 1.0f, 0.0f,
             0.5f, 0.5f, 1.0f, 1.0f,
@@ -47,25 +47,9 @@ public:
     }
 
     void OnUpdate(Universe::Timestep ts) override {
-        if (Universe::Input::IsKeyPressed(UE_KEY_A) && Universe::Input::IsKeyPressed(UE_KEY_D)) {}
-        else if (Universe::Input::IsKeyPressed(UE_KEY_A)) {
-            m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-        }
-        else if (Universe::Input::IsKeyPressed(UE_KEY_D)) {
-            m_CameraPosition.x += m_CameraMoveSpeed * ts;
-        }
-
-        if (Universe::Input::IsKeyPressed(UE_KEY_W) && Universe::Input::IsKeyPressed(UE_KEY_S)) {}
-        else if (Universe::Input::IsKeyPressed(UE_KEY_W)) {
-            m_CameraPosition.y += m_CameraMoveSpeed * ts;
-        }
-        else if (Universe::Input::IsKeyPressed(UE_KEY_S)) {
-            m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-        }
-        
-        m_Camera.SetPosition(m_CameraPosition);
-
-        Universe::Renderer::BeginScene(m_Camera);
+        m_CameraController.OnUpdate(ts);
+    
+        Universe::Renderer::BeginScene(m_CameraController.getCamera());
         m_Texture->Bind();
         Universe::Renderer::Submit(m_Shader, m_VertexArray, glm::translate(glm::mat4(1.0f), glm::vec3(-0.5f, 0.0f, 0.0f)));
         m_LogoTexture->Bind();
@@ -75,10 +59,11 @@ public:
 
     void OnEvent(Universe::Event& event) override
     {
-        UE_INFO("ExampleLayer::OnEvent: {0}", event.ToString());
+        m_CameraController.OnEvent(event);
     }
 
 private:
+    Universe::OrthographicCameraController m_CameraController;
     Universe::Ref<Universe::VertexBuffer> m_VertexBuffer;
     Universe::Ref<Universe::IndexBuffer> m_IndexBuffer;
     Universe::Ref<Universe::VertexArray> m_VertexArray;
@@ -86,10 +71,6 @@ private:
     Universe::Ref<Universe::Texture2D> m_LogoTexture;
     Universe::Ref<Universe::Shader> m_Shader;
     Universe::ShaderLibrary m_ShaderLibrary;
-    Universe::OrthographicCamera m_Camera;
-    glm::vec3 m_CameraPosition;
-    float m_CameraMoveSpeed = 0.1f;
-
 };
 
 class Sandbox : public Universe::Application

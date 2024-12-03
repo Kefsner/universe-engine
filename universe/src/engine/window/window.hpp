@@ -16,7 +16,7 @@ namespace Universe {
             unsigned int width = 1280,
             unsigned int height = 720,
             bool vsync = true
-        ) : Title(title), Width(width), Height(height) {}
+        ) : Title(title), Width(width), Height(height), VSync(vsync) {}
     };
 
     class Window

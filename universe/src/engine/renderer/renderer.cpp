@@ -32,4 +32,9 @@ namespace Universe {
     void Renderer::EndScene()
     {
     }
+
+    void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+    {
+        RendererCommand::SetViewport(0, 0, width, height);
+    }
 }

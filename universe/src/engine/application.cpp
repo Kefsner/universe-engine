@@ -23,14 +23,17 @@ namespace Universe {
         PushOverlay(m_ImGuiLayer);
     }
 
-    void Application::Run() {
-        float time = m_Window->GetTime();
-        Timestep timestep = time - m_LastFrameTime;
-        float m_LastFrameTime = time;
 
+    void Application::Run() {
         while (m_IsRunning) {
-            for (Layer* layer : m_LayerStack)
-                layer->OnUpdate(timestep);
+            float time = m_Window->GetTime();
+            Timestep timestep = time - m_LastFrameTime;
+            m_LastFrameTime = time;
+
+            if (!m_Minimized) {
+                for (Layer* layer : m_LayerStack)
+                    layer->OnUpdate(timestep);
+            }
             
             m_ImGuiLayer->Begin();
             for (Layer* layer : m_LayerStack)
@@ -55,6 +58,7 @@ namespace Universe {
 
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(UE_BIND_EVENT_FN(Application::OnWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(UE_BIND_EVENT_FN(Application::OnWindowResize));
         
         // Propagate the event through the LayerStack in reverse order
         // Stops when a layer marks the event as handled
@@ -70,6 +74,18 @@ namespace Universe {
     bool Application::OnWindowClose(WindowCloseEvent& e) {
         m_IsRunning = false;
         return true;
+    }
+
+    bool Application::OnWindowResize(WindowResizeEvent& e) {
+        if (e.GetWidth() == 0 || e.GetHeight() == 0) {
+            m_Minimized = true;
+            return false;
+        }
+        m_Minimized = false;
+
+        Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+        
+        return false;
     }
 
 }

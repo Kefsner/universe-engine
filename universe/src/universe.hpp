@@ -12,6 +12,7 @@
 #include "engine/renderer/buffer.hpp"
 #include "engine/renderer/vertex_array.hpp"
 #include "engine/renderer/camera.hpp"
+#include "engine/renderer/camera_controller.hpp"
 #include "engine/renderer/texture.hpp"
 
 #include "engine/events/event.hpp"

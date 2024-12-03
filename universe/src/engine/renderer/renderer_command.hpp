@@ -22,6 +22,11 @@ namespace Universe {
             s_API->Clear();
         }
 
+        static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+        {
+            s_API->SetViewport(x, y, width, height);
+        }
+
     private:
         static Ref<RendererAPI> s_API;
     };

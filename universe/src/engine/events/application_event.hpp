@@ -31,6 +31,9 @@ namespace Universe {
 			return ss.str();
 		}
 
+		int GetWidth() const { return m_Width; }
+		int GetHeight() const { return m_Height; }
+
 	private:
 		int m_Width;
 		int m_Height;
