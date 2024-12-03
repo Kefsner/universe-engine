@@ -13,6 +13,16 @@ elseif(UNIX)
     add_compile_definitions(UE_PLATFORM_LINUX)
 endif()
 
+# Include debug/release specific definitions and compiler options
+target_compile_definitions(Universe PRIVATE
+    $<$<CONFIG:Debug>:UE_DEBUG>
+    $<$<CONFIG:Release>:UE_RELEASE>
+)
+target_compile_options(Universe PRIVATE 
+    $<$<CONFIG:Debug>:-g -O0>        # Enable debugging info for Debug builds
+    $<$<CONFIG:Release>:-O3 -DNDEBUG> # Optimize for Release builds
+)
+
 target_precompile_headers(Universe PRIVATE
     $<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/src/pch.hpp>
 )
