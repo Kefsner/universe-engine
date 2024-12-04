@@ -7,11 +7,11 @@ namespace Universe {
     public:
         void OnAttach() override;
         void OnDetach() override;
-        void OnEvent(Event& event) override;
+        void OnImGuiRender() override;
         void Begin();
         void End();
 
-        void ShowPerformanceOverlay();
+        void ShowPerformanceMetrics(bool* p_open);
         
     private:
         bool m_BlockEvents = true;

@@ -6,6 +6,11 @@ add_executable(Sandbox src/sandbox.cpp)
 # Link Sandbox against the Universe library
 target_link_libraries(Sandbox PRIVATE Universe)
 
+# Add include directories for Sandbox
+target_include_directories(Sandbox PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
 # Include debug/release-specific definitions and compiler options
 target_compile_definitions(Sandbox PRIVATE 
     $<$<CONFIG:Debug>:DEBUG_BUILD>

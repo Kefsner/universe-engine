@@ -28,26 +28,13 @@ namespace Universe {
     void ImGuiLayer::OnDetach() {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
-
         ImGui::DestroyContext();
-    }
-
-    void ImGuiLayer::OnEvent(Event& event) {
     }
 
     void ImGuiLayer::Begin() {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        // My custom ImGui content
-        ImGui::Begin("Hello, world!");
-        ImGui::Text("This is some useful text.");
-        if (ImGui::Button("Click me!"))
-            UE_CORE_INFO("Button clicked.");
-        ImGui::End();
-
-        ImGuiLayer::ShowPerformanceOverlay();
     }
 
     void ImGuiLayer::End() {
@@ -64,7 +51,13 @@ namespace Universe {
         }
     }
 
-    void ImGuiLayer::ShowPerformanceOverlay() {
+    void ImGuiLayer::OnImGuiRender() {
+        static bool show = true;
+        ImGuiLayer::ShowPerformanceMetrics(&show);
+    }
+
+    void ImGuiLayer::ShowPerformanceMetrics(bool* p_open) {
+        if (!p_open) return;
         // Track min/max FPS and FPS history
         static float fpsHistory[100] = { 0.0f };
         static int historyIndex = 0;
