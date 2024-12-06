@@ -1,213 +1,72 @@
 # Universe Engine
 
-The **Universe Engine** is a custom-built game engine project inspired by Cherno's Hazel engine. It aims to provide a solid foundation for 3D game development, with a focus on modularity and ease of use. The current goal is to implement essential features, including delta time/timestep functionality, with plans to expand into a voxel-based world engine similar to Minecraft. The project is structured to support modular development and testing.
+## Introduction
 
-## Project Structure
+The Universe Engine is a custom-built, cross-platform game engine. This project is primarily inspired by [Cherno's Hazel engine](https://github.com/TheCherno/Hazel), whose development process is documented in [Cherno's Game Engine Series](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT) in an outstandingly educational manner (at least for me).
 
-The Universe Engine is designed as a modular system, with the core engine built as a library and linked to a sandbox application for testing and experimentation.
+## Project Goals
 
-### **Core Structure**
+This engine is a practice project that merges my interests in game design and software development, serving as my entry point in both c++ and graphics programming. Therefore, its early stages will inevitably closely resemble Hazel's structure and functionalities. As I evolve into these concepts, I intend to add unique features and personal touches to differentiate it from its inspiration. The ultimate aim is to use this engine to develop a series of games based on ideas I am excited to bring to life.
 
-- **universe**: The main engine library, which includes core functionality for game development.
-  - **src**: Contains the core source files for the engine, such as application management, rendering, and event handling.
-  - **vendor**: Third-party libraries used to enhance engine capabilities (e.g., `GLFW`, `GLM`, `spdlog`).
-- **sandbox**: A testing environment that serves as a minimal game application to demonstrate and validate the engine's functionality.
+## Documentation
 
-### **How It Works**
+I am documenting the development process extensively to create a comprehensive journal that might help others learning similar skills. These notes can be found under [JOURNAL.md](./docs/JOURNAL.md). This journal includes descriptions of each class and functionality, explaining their necessity and operation. Additional notes on general graphics programming concepts will also be included, complete with references (or at least that's the plan).
 
-The `universe` engine is compiled as a static library and linked to the `sandbox` project. The `sandbox` application includes a minimal implementation of game functionality, such as testing layers, events, and rendering, using the core engine.
+In future phases of the project, I plan to compile this documentation into a formal guide that could assist others in using this engine for their own game development projects.
 
-## Application and Sandbox
+## Development
 
-### **Application Class**
+Active development occurs in the `develop` branch, with the `main` branch hosting the most stable version of the engine. Feature-specific branches may also be created off `develop` as needed for testing new functionalities or fixes.
 
-The `Application` class is the backbone of the engine. It manages:
+## Current Features
 
-- The **main loop**, which is responsible for:
-  - Updating layers.
-  - Processing events.
-  - Managing rendering.
-- The **window**, where rendering and user interaction occur.
-- The **layer stack**, which allows modular components (like game logic or UI) to interact with the engine.
+- Windows and Unix build scripts
+- Basic systems for layers, events, rendering, shaders, cameras, input, and ImGui integration
+- Basic 2D rendering capabilities
 
-#### Key Features:
+## Planned Features
 
-- **Singleton Design**: Ensures only one `Application` instance exists.
-- **Layer Management**: Provides a clean interface for adding layers and propagating events through them.
-- **Lifecycle Management**: Simplifies game and engine lifecycle management by centralizing core operations.
+- 2D physics system
+- Animated 2D rendering capabilities
 
-### **Sandbox**
+## Installation Guide
 
-The `sandbox` application inherits from the `Application` class and acts as a testing ground for engine features. It allows developers to:
+This guide provides instructions on how to build and run the project using the provided `win.bat` for Windows and `unix.sh` for Unix/Linux systems.
 
-- Create and test new layers, events, and rendering techniques without modifying the core engine.
-- Experiment with custom game logic while relying on the engine for foundational features like event handling and rendering.
-
-#### Example:
-
-A basic `sandbox` implementation might look like this:
-
-```cpp
-class Sandbox : public Universe::Application {
-public:
-    Sandbox() {
-        PushLayer(new ExampleLayer());
-    }
-};
-
-Universe::Application* Universe::CreateApplication() {
-    return new Sandbox();
-}
-```
-
-The `sandbox` provides a minimal implementation of a game that demonstrates how to use the engine.
-
-## Core Elements of the Engine
-
-This section describes the roles and goals of each major element in the game engine, including their general purpose and the specific features implemented in the Universe Engine.
-
-### **Events**
-
-Handles communication between different parts of the engine and processes user input, window interactions, and custom game events.
-
-### **Layers**
-
-Allows modular development by organizing game logic, UI, and rendering into distinct, stackable components.
-
-### **Shaders**
-
-Defines how vertices and fragments are processed in the graphics pipeline, enabling custom rendering techniques.
-
-### **Buffers**
-
-Stores and manages vertex and index data for rendering.
-
-### **Window Management**
-
-Handles creating and interacting with the platform-specific window, including input and context management.
-
-### **Rendering Pipeline**
-
-Implements the steps for transforming game data into visuals displayed on the screen.
-
-### **Delta Time / Timestep**
-
-A crucial mechanism for ensuring smooth movement and behavior regardless of frame rate.
-
-## External Libraries
-
-The Universe Engine uses several external libraries to simplify development and enhance performance:
-
-### [GLFW](https://github.com/glfw/glfw)
-
-**Description**: A multi-platform library for creating windows, handling input, and managing OpenGL contexts.
-
-**Reason**: GLFW abstracts window creation and input handling, making it easier to develop cross-platform applications. It’s essential for managing the OpenGL context needed for rendering in the engine.
-
-### [GLAD](https://github.com/Dav1dde/glad)
-
-**Description**: GLAD is an OpenGL function loader that handles loading OpenGL functions based on the system’s supported version.
-
-**Reason**: GLAD ensures compatibility with different versions of OpenGL, allowing the engine to use the latest features available on the user’s hardware. It was manually downloaded and included directly in the project.
-
-### [GLM](https://github.com/g-truc/glm)
-
-**Description**: OpenGL Mathematics (GLM) is a mathematics library tailored for graphics applications, providing vector and matrix math functions.
-
-**Reason**: GLM simplifies complex mathematical operations needed for graphics programming, such as transformations and camera management. It is optimized for OpenGL and is crucial for handling 3D mathematics in the engine.
-
-### [spdlog](https://github.com/gabime/spdlog)
-
-**Description**: A fast logging library for C++ applications.
-
-**Reason**: spdlog offers efficient, thread-safe logging. It’s essential for debugging and monitoring, especially in larger projects where tracking execution flow and catching errors early is crucial.
-
-### [ImGui](https://github.com/ocornut/imgui) (Branch: docking)
-
-**Description**: Immediate Mode GUI library for creating real-time, in-app interfaces.
-
-**Reason**: ImGui provides tools for building a real-time debugging and interface layer within the engine, allowing for live parameter adjustments and debugging views. The `docking` branch adds advanced features for multi-window docking, enhancing flexibility during development.
-
-## Development Branches
-
-- **main**: Stable release branch.
-- **develop**: Active development branch where new features are tested.
-
-## Build and Configuration
-
-To build the engine, ensure you have CMake and a compatible C++ compiler installed. Build instructions and configurations are provided in the project files.
-
-## Build and Run Scripts
-
-To simplify the process of building, rebuilding, and running the Universe Engine, we’ve included platform-specific scripts for Windows and Unix-based systems. These scripts provide a unified interface for common development tasks.
-
-### **Windows Script: `win.bat`**
-
-The `win.bat` script is designed to automate building, rebuilding, and running the Universe Engine on Windows. It supports both long-form and short-form commands for flexibility.
-
-#### Usage:
-
-```cmd
-win.bat [--build|-b|--rebuild|-r|--run|-R]
-```
-
-#### Commands:
-
-- `--build` (`-b`): Builds the project. Creates the `build` directory if it doesn’t exist and configures the project using CMake.
-- `--rebuild` (`-r`): Performs a full rebuild by deleting the `build` directory and starting fresh.
-- `--run` (`-R`): Runs the `Sandbox.exe` application. If the project isn’t built, it automatically triggers the build process.
-
-#### Example:
-
-```cmd
-win.bat --build  # Build the project
-win.bat --rebuild  # Rebuild the project
-win.bat --run  # Run the Sandbox application
-```
-
----
-
-### **Unix Script: `unix.sh`**
-
-The `unix.sh` script provides similar functionality for Unix-based systems, such as Linux or macOS. It supports the same commands as the Windows script.
-
-#### Usage:
+Ensure that you have `cmake` installed on your system and that all necessary submodules are initialized. Use the following command to initialize submodules, after cloning the repository:
 
 ```bash
-./unix.sh [--build|-b|--rebuild|-r|--run|-R]
+git submodule update --init --recursive
 ```
 
-#### Commands:
+Depending on you operating system, you can use either the `win.bat` script for Windows or the `unix.sh` script for Unix/Linux systems to manage the build process. Both scripts have the same options, whose usage is outlined below.
 
-- `--build` (`-b`): Builds the project. Configures and compiles the engine if necessary.
-- `--rebuild` (`-r`): Deletes the `build` directory and performs a fresh build.
-- `--run` (`-R`): Runs the `Sandbox` application. Automatically builds the project if required.
+- **-b, --build**: Compile the latest changes.
+- **-br, --build-run**: Compile the latest changes and then run the executable.
+- **-r, --rebuild**: Remove all previous build files and recompile the project from scratch.
+- **-rr, --rebuild-run**: Rebuild the entire project from scratch and run the executable.
+- **-R, --run**: Run the executable without compiling. Ensure the build is up-to-date.
+- **-h, --help**: Display help information outlining these options.
 
-#### Example:
+### Windows
+
+To build the project on Windows, open a command prompt in the project's root directory and run the following command:
 
 ```bash
-./unix.sh --build  # Build the project
-./unix.sh --rebuild  # Rebuild the project
-./unix.sh --run  # Run the Sandbox application
+win.bat -br
 ```
 
----
+### Unix/Linux
 
-### **General Notes**
+To build the project on Unix/Linux systems, open a terminal in the project's root directory and run the following command:
 
-- **Default Action:** If no parameter is provided, the scripts default to `--run` (`-R`), assuming the project is already built.
-- **Cross-Platform Development:** Use the appropriate script for your operating system to streamline your workflow.
-- **Dependencies:** Ensure all required dependencies (like CMake, a compatible C++ compiler, and necessary libraries) are properly installed before running the scripts.
+```bash
+./unix.sh -br
+```
 
----
+## Contributors
 
-## Next Steps
-
-We’ll continue expanding this document with detailed descriptions for each engine component as development progresses. For now, the focus is on implementing foundational systems like layers, events, and shaders.
-
-## Contribution
-
-Contributions are welcome! Feel free to open issues or submit pull requests to help improve the Universe Engine.
+- **Kesley Raimundo** - *Initial Development* - [Kefsner](https://github.com/Kefsner)
 
 ## License
 
