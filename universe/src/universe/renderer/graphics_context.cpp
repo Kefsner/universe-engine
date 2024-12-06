@@ -17,7 +17,7 @@ namespace Universe {
         // Also, this needs to be aware that the nativeWindow could be other than GLFWwindow TODO
         // Inside OpenGLContext there are GLFW specific calls
         #if defined(UE_API_OPENGL)
-            return std::make_shared<OpenGLContext>(static_cast<GLFWwindow*>(nativeWindow));
+            return CreateRef<OpenGLContext>(static_cast<GLFWwindow*>(nativeWindow));
         #else
             UE_CORE_ASSERT(false, "Unknown API!");
             return nullptr;

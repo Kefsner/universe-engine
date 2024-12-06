@@ -12,7 +12,7 @@ namespace Universe {
     Scope<Window> Window::Create(const WindowProps& props)
     {
         #if defined(UE_PLATFORM_WINDOWS) || defined(UE_PLATFORM_LINUX)
-            return std::make_unique<GLFWWindowWrapper>(props);
+            return CreateScope<GLFWWindowWrapper>(props);
         #else
             UE_CORE_ASSERT(false, "Unknown platform!");
             return nullptr;

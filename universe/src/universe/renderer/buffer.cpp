@@ -15,7 +15,7 @@ namespace Universe {
                 UE_CORE_ASSERT(false, "RendererAPI::None is not a valid RendererAPI!");
                 return nullptr;
             case RendererAPI::API::OpenGL:
-                return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+                return CreateRef<OpenGLVertexBuffer>(vertices, size);
         }
 
         UE_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -29,7 +29,7 @@ namespace Universe {
                 UE_CORE_ASSERT(false, "RendererAPI::None is not a valid RendererAPI!");
                 return nullptr;
             case RendererAPI::API::OpenGL:
-                return std::make_shared<OpenGLIndexBuffer>(indices, count);
+                return CreateRef<OpenGLIndexBuffer>(indices, count);
         }
 
         UE_CORE_ASSERT(false, "Unknown RendererAPI!");

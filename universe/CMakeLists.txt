@@ -46,7 +46,7 @@ target_sources(Universe PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
+    # ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_glfw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_opengl3.cpp
 )

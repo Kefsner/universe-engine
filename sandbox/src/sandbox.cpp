@@ -7,7 +7,10 @@ class ExampleLayer2D : public Universe::Layer
 public:
     ExampleLayer2D() : m_CameraController(1280.0f / 720.0f) {}
 
-    void OnAttach() override {}
+    void OnAttach() override
+    {
+        m_CheckerboardTexture = Universe::Texture2D::Create("../../sandbox/assets/textures/checkerboard_texture_rgb.png");
+    }
 
     void OnDetach() override {}
 
@@ -20,6 +23,7 @@ public:
         Universe::Renderer2D::BeginScene(m_CameraController.getCamera());
         Universe::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_ImGuiColor);
         Universe::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.2f, 0.8f, 0.3f, 1.0f });
+        Universe::Renderer2D::DrawQuad({ 0.0f, 1.0f }, { 1.0f, 1.0f }, m_CheckerboardTexture);
         Universe::Renderer2D::EndScene();
     }
 
@@ -37,8 +41,7 @@ public:
 
 private:
     Universe::OrthographicCameraController m_CameraController;
-    Universe::Ref<Universe::VertexArray> m_VertexArray;
-    Universe::Ref<Universe::Shader> m_Shader;
+    Universe::Ref<Universe::Texture2D> m_CheckerboardTexture;
     glm::vec4 m_ImGuiColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };
 
