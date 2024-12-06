@@ -10,7 +10,7 @@ namespace Universe {
     struct renderer2DData
     {
         Ref<VertexArray> QuadVA;
-        Ref<Shader> Shader;
+        Ref<Shader> QuadShader;
         Ref<Texture2D> WhiteTexture;
     };
 
@@ -52,9 +52,9 @@ namespace Universe {
         s_Data->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
         // Shader
-        s_Data->Shader = Shader::Create("../../sandbox/assets/shaders/texture.glsl");
-        s_Data->Shader->Bind();
-        s_Data->Shader->SetInt("u_Texture", 0);
+        s_Data->QuadShader = Shader::Create("../../sandbox/assets/shaders/texture.glsl");
+        s_Data->QuadShader->Bind();
+        s_Data->QuadShader->SetInt("u_Texture", 0);
     }
 
     void Renderer2D::Shutdown()
@@ -64,8 +64,8 @@ namespace Universe {
 
     void Renderer2D::BeginScene(OrthographicCamera& camera)
     {
-        s_Data->Shader->Bind();
-        s_Data->Shader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+        s_Data->QuadShader->Bind();
+        s_Data->QuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
         RenderCommand::Clear();
     }
 
@@ -80,10 +80,10 @@ namespace Universe {
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
     {
-        s_Data->Shader->SetFloat4("u_Color", color);
+        s_Data->QuadShader->SetFloat4("u_Color", color);
         s_Data->WhiteTexture->Bind();
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-        s_Data->Shader->SetMat4("u_Transform", transform);
+        s_Data->QuadShader->SetMat4("u_Transform", transform);
         s_Data->QuadVA->Bind();
         RenderCommand::DrawIndexed(s_Data->QuadVA);
     }
@@ -95,10 +95,10 @@ namespace Universe {
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
     {
-        s_Data->Shader->SetFloat4("u_Color", glm::vec4(1.0f));
+        s_Data->QuadShader->SetFloat4("u_Color", glm::vec4(1.0f));
         texture->Bind();
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-        s_Data->Shader->SetMat4("u_Transform", transform);
+        s_Data->QuadShader->SetMat4("u_Transform", transform);
         s_Data->QuadVA->Bind();
         RenderCommand::DrawIndexed(s_Data->QuadVA);
     }

@@ -1,123 +1,105 @@
 #!/bin/bash
 
-ACTION=""
+ACTION="--run"
 
-# Parse command-line argument
-if [ -n "$1" ]; then
+if [ "$1" != "" ]; then
     case "$1" in
-        -b|--build)
+        "-b" | "--build")
             ACTION="--build"
             ;;
-        -br|--build-run)
+        "-br" | "--build-run")
             ACTION="--build-run"
             ;;
-        -r|--rebuild)
+        "-r" | "--rebuild")
             ACTION="--rebuild"
             ;;
-        -rr|--rebuild-run)
+        "-rr" | "--rebuild-run")
             ACTION="--rebuild-run"
             ;;
-        -R|--run)
+        "-R" | "--run")
             ACTION="--run"
             ;;
-        -h|--help)
+        "-h" | "--help")
             ACTION="--help"
             ;;
         *)
-            echo "Unknown option: $1"
-            show_help
+            echo "Invalid option: $1"
             exit 1
             ;;
     esac
-else
-    ACTION="--help"
 fi
 
-# Handle actions
-case "$ACTION" in
-    --rebuild)
-        echo "Performing full rebuild..."
-        rm -rf build
-        mkdir build
-        build_project || exit $?
-        ;;
-    --rebuild-run)
-        echo "Performing full rebuild..."
-        rm -rf build
-        mkdir build
-        build_project || exit $?
-        run_project || exit $?
-        ;;
-    --build)
-        [ ! -d build ] && mkdir build
-        build_project || exit $?
-        ;;
-    --build-run)
-        [ ! -d build ] && mkdir build
-        build_project || exit $?
-        run_project || exit $?
-        ;;
-    --run)
-        if [ ! -f build/sandbox/Sandbox ]; then
-            echo "Sandbox executable not found. Build the project first."
-            exit 1
-        fi
-        run_project || exit $?
-        ;;
-    --help)
-        show_help
-        ;;
-esac
+if [ "$ACTION" == "--help" ]; then
+    echo "Usage: $0 [OPTION]"
+    echo "Options:"
+    echo "  -b, --build         Build the project"
+    echo "  -br, --build-run    Build the project and run it"
+    echo "  -r, --rebuild       Rebuild the project"
+    echo "  -rr, --rebuild-run  Rebuild the project and run it"
+    echo "  -R, --run           Run the project"
+    echo "  -h, --help          Display this help message"
+    exit 0
+fi
 
-exit 0
-
-# Subroutines
-
-build_project() {
+function build() {
+    echo "Building the project..."
     VENDOR_DIR="universe/vendor"
-
     if [ ! -f "$VENDOR_DIR/spdlog/CMakeLists.txt" ]; then
         echo "Missing spdlog submodule. Please run: git submodule update --init --recursive"
-        return 1
+        exit 1
     fi
     if [ ! -f "$VENDOR_DIR/glfw/CMakeLists.txt" ]; then
         echo "Missing glfw submodule. Please run: git submodule update --init --recursive"
-        return 1
+        exit 1
     fi
 
-    cd build || return 1
+    cd build
     cmake .. -G "Unix Makefiles"
     if [ $? -ne 0 ]; then
         echo "CMake configuration failed. Ensure all dependencies are properly initialized."
-        cd ..
-        return 1
+        exit 1
     fi
 
     cmake --build .
     if [ $? -ne 0 ]; then
-        echo "Build failed. Check the errors above."
-        cd ..
-        return 1
+        echo "Build failed."
+        exit 1
     fi
 
     cd ..
-    return 0
 }
 
-run_project() {
-    cd build/sandbox || return 1
+function rebuild() {
+    echo "Rebuilding the project..."
+    rm -rf build
+    mkdir build
+    build
+}
+
+function run() {
+    echo "Running the project..."
+    cd build/sandbox
     ./Sandbox
     cd ../..
-    return 0
 }
 
-show_help() {
-    echo "Usage: $(basename "$0") [option]"
-    echo "Options:"
-    echo "  -b or --build       Build the project"
-    echo "  -br or --build-run  Build the project and run"
-    echo "  -r or --rebuild     Rebuild the project"
-    echo "  -rr or --rebuild-run Rebuild the project and run"
-    echo "  -R or --run         Run the project"
-    echo "  -h or --help        Display this help message"
-}
+
+case "$ACTION" in
+    "--build")
+        build
+        ;;
+    "--build-run")
+        build
+        run
+        ;;
+    "--rebuild")
+        rebuild
+        ;;
+    "--rebuild-run")
+        rebuild
+        run
+        ;;
+    "--run")
+        run
+        ;;
+esac
