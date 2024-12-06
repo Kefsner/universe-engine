@@ -52,8 +52,8 @@ Depending on you operating system, you can use either the `win.bat` script for W
 
 To build the project on Windows, open a command prompt in the project's root directory and run the following command:
 
-```bash
-win.bat -br
+```cmd
+.\win.bat -br
 ```
 
 ### Unix/Linux
