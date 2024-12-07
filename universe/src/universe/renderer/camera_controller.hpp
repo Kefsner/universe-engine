@@ -26,6 +26,7 @@ namespace Universe {
         OrthographicCamera m_Camera;                        // Orthographic camera
         glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };  // Camera position
         float m_CameraTranslationSpeed = 1.0f;              // Camera translation speed
+        std::pair<float, float> m_LastMousePosition;        // Last mouse position
 
         bool OnMouseScrolled(MouseScrolledEvent& e);
         bool OnWindowResized(WindowResizeEvent& e);

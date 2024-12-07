@@ -295,3 +295,38 @@ The Universe Engine uses several external libraries to simplify development and 
 **Description**: Immediate Mode GUI library for creating real-time, in-app interfaces.
 
 **Reason**: ImGui provides tools for building a real-time debugging and interface layer within the engine, allowing for live parameter adjustments and debugging views. The `docking` branch adds advanced features for multi-window docking, enhancing flexibility during development.
+
+# Commit prefix guide
+
+- **`feat:`** - Adds a new feature to your project. Use this when you introduce new functionality to your application.
+  - Example: `feat: add user authentication system`
+
+- **`fix:`** - Fixes a bug in your application. Use this when making changes that correct issues.
+  - Example: `fix: correct email validation logic`
+
+- **`docs:`** - Changes to documentation only. Use this for updates or corrections to the README, wiki, or other documentation files.
+  - Example: `docs: update README with new configuration options`
+
+- **`style:`** - Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc). This is purely cosmetic.
+  - Example: `style: format src files for indentation consistency`
+
+- **`refactor:`** - Code changes that neither fixes a bug nor adds a feature. Typically these are changes to structure code in a more readable or logical manner.
+  - Example: `refactor: reorganize file structure for better modularity`
+
+- **`test:`** - Adding missing tests or correcting existing tests. This is often used when increasing coverage or ensuring that new features are well-tested.
+  - Example: `test: add tests for new user authentication feature`
+
+- **`chore:`** - Routine tasks or updates to the build process, package manager configs, etc, without any production code change.
+  - Example: `chore: update dependencies to latest versions`
+
+- **`perf:`** - Performance improvements. Use this when changes are made to optimize the application.
+  - Example: `perf: optimize database query for speed enhancements`
+
+- **`ci:`** - Changes to your CI configuration files and scripts. These are changes to tools like GitHub Actions, GitLab CI pipelines.
+  - Example: `ci: add lint stage to pipeline`
+
+- **`build:`** - Changes that affect the build system or external dependencies (e.g., scopes like gulp, broccoli, npm).
+  - Example: `build: switch to webpack for bundling`
+
+- **`revert:`** - Reverts a previous commit. This is used when a prior change is being completely undone.
+  - Example: `revert: revert commit abc123`

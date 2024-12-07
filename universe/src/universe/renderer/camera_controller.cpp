@@ -1,8 +1,10 @@
 #include "pch.hpp"
 
 #include "universe/core/core.hpp"
+#include "universe/core/logger.hpp"
 #include "universe/renderer/camera_controller.hpp"
 #include "universe/input/key_codes.hpp"
+#include "universe/input/mouse_button_codes.hpp"
 #include "universe/input/input.hpp"
 
 namespace Universe {
@@ -27,6 +29,23 @@ namespace Universe {
         }
         else if (Input::IsKeyPressed(UE_KEY_S)) {
                     m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+        }
+
+        // Middle mouse button panning
+        if (Input::IsMouseButtonPressed(UE_MOUSE_BUTTON_MIDDLE))
+        {
+            std::pair<float, float> currentMousePosition = Input::GetMousePosition();
+            std::pair<float, float> delta = { currentMousePosition.first - m_LastMousePosition.first, m_LastMousePosition.second - currentMousePosition.second };
+
+            delta.first *= m_ZoomLevel * 0.003f;
+            delta.second *= m_ZoomLevel * 0.003f;
+
+            m_CameraPosition.x -= delta.first;
+            m_CameraPosition.y -= delta.second;
+
+            m_LastMousePosition = currentMousePosition;
+        } else {
+            m_LastMousePosition = Input::GetMousePosition();
         }
 
         m_Camera.SetPosition(m_CameraPosition);

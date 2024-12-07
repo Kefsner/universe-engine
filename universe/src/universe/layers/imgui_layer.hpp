@@ -14,7 +14,6 @@ namespace Universe {
         // Virtual functions
         void OnAttach() override;
         void OnDetach() override;
-        void OnImGuiRender() override;
 
         // ImGui functions
         void Begin();

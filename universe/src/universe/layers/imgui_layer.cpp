@@ -34,6 +34,9 @@ namespace Universe {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        // Show performance metrics
+        ShowPerformanceMetrics();
     }
 
     void ImGuiLayer::End() {
@@ -48,10 +51,6 @@ namespace Universe {
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
-    }
-
-    void ImGuiLayer::OnImGuiRender() {
-        ImGuiLayer::ShowPerformanceMetrics();
     }
 
     void ImGuiLayer::ShowPerformanceMetrics() {

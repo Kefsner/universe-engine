@@ -9,7 +9,8 @@ public:
 
     void OnAttach() override
     {
-        m_CheckerboardTexture = Universe::Texture2D::Create("../../sandbox/assets/textures/checkerboard_texture_rgb.png");
+        m_GrassTile = Universe::Texture2D::Create("../../sandbox/assets/textures/grass.png");
+        m_Player = Universe::Texture2D::Create("../../sandbox/assets/textures/player.png");
     }
 
     void OnDetach() override {}
@@ -21,9 +22,14 @@ public:
 
         // Render
         Universe::Renderer2D::BeginScene(m_CameraController.getCamera());
-        Universe::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_ImGuiColor);
-        Universe::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.2f, 0.8f, 0.3f, 1.0f });
-        Universe::Renderer2D::DrawQuad({ 0.0f, 1.0f }, { 1.0f, 1.0f }, m_CheckerboardTexture);
+        Universe::Renderer2D::DrawQuad({  0.0f,  0.1f }, { 2.0f, 2.0f }, m_Player);
+        Universe::Renderer2D::DrawQuad({ -3.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
+        Universe::Renderer2D::DrawQuad({ -2.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
+        Universe::Renderer2D::DrawQuad({ -1.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
+        Universe::Renderer2D::DrawQuad({  0.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
+        Universe::Renderer2D::DrawQuad({  1.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
+        Universe::Renderer2D::DrawQuad({  2.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
+        Universe::Renderer2D::DrawQuad({  3.0f, -0.5f }, { 1.0f, 1.0f }, m_GrassTile);
         Universe::Renderer2D::EndScene();
     }
 
@@ -34,15 +40,12 @@ public:
 
     void OnImGuiRender() override
     {
-        ImGui::Begin("Settings");
-        ImGui::ColorEdit4("Square Color", glm::value_ptr(m_ImGuiColor));
-        ImGui::End();
     }
 
 private:
     Universe::OrthographicCameraController m_CameraController;
-    Universe::Ref<Universe::Texture2D> m_CheckerboardTexture;
-    glm::vec4 m_ImGuiColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+    Universe::Ref<Universe::Texture2D> m_GrassTile;
+    Universe::Ref<Universe::Texture2D> m_Player;
 };
 
 class Sandbox : public Universe::Application
