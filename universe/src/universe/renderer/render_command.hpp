@@ -14,9 +14,9 @@ namespace Universe {
             s_API->Init();
         }
         
-        static void DrawIndexed(const Ref<VertexArray>& vertexArray)
+        static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0)
         {
-            s_API->DrawIndexed(vertexArray);
+            s_API->DrawIndexed(vertexArray, indexCount);
         }
 
         static void Clear()

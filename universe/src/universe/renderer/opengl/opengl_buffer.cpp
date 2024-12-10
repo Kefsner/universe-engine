@@ -7,6 +7,12 @@
 namespace Universe {
 
     // Vertex Buffer
+    OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+    {
+        glCreateBuffers(1, &m_VertexBufferID);
+        glNamedBufferData(m_VertexBufferID, size, nullptr, GL_DYNAMIC_DRAW);
+    }
+
     OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
     {
         glCreateBuffers(1, &m_VertexBufferID);
@@ -21,6 +27,11 @@ namespace Universe {
     void OpenGLVertexBuffer::Bind() const
     {
         glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
+    }
+
+    void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+    {
+        glNamedBufferSubData(m_VertexBufferID, 0, size, data);
     }
 
     // Index Buffer

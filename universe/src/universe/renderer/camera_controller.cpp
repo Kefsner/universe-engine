@@ -15,40 +15,21 @@ namespace Universe {
 
     void OrthographicCameraController::OnUpdate(Timestep ts)
     {
-        if (Input::IsKeyPressed(UE_KEY_A) && Input::IsKeyPressed(UE_KEY_D)) {}
-        else if (Input::IsKeyPressed(UE_KEY_A)) {
-            m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-        }
-        else if (Input::IsKeyPressed(UE_KEY_D)) {
-            m_CameraPosition.x += m_CameraTranslationSpeed * ts;
-        }
+        // if (Input::IsKeyPressed(UE_KEY_A) && Input::IsKeyPressed(UE_KEY_D)) {}
+        // else if (Input::IsKeyPressed(UE_KEY_A)) {
+        //     m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
+        // }
+        // else if (Input::IsKeyPressed(UE_KEY_D)) {
+        //     m_CameraPosition.x += m_CameraTranslationSpeed * ts;
+        // }
 
-        if (Input::IsKeyPressed(UE_KEY_W) && Input::IsKeyPressed(UE_KEY_S)) {}
-        else if (Input::IsKeyPressed(UE_KEY_W)) {
-            m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-        }
-        else if (Input::IsKeyPressed(UE_KEY_S)) {
-                    m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
-        }
-
-        // Middle mouse button panning
-        if (Input::IsMouseButtonPressed(UE_MOUSE_BUTTON_MIDDLE))
-        {
-            std::pair<float, float> currentMousePosition = Input::GetMousePosition();
-            std::pair<float, float> delta = { currentMousePosition.first - m_LastMousePosition.first, m_LastMousePosition.second - currentMousePosition.second };
-
-            delta.first *= m_ZoomLevel * 0.003f;
-            delta.second *= m_ZoomLevel * 0.003f;
-
-            m_CameraPosition.x -= delta.first;
-            m_CameraPosition.y -= delta.second;
-
-            m_LastMousePosition = currentMousePosition;
-        } else {
-            m_LastMousePosition = Input::GetMousePosition();
-        }
-
-        m_Camera.SetPosition(m_CameraPosition);
+        // if (Input::IsKeyPressed(UE_KEY_W) && Input::IsKeyPressed(UE_KEY_S)) {}
+        // else if (Input::IsKeyPressed(UE_KEY_W)) {
+        //     m_CameraPosition.y += m_CameraTranslationSpeed * ts;
+        // }
+        // else if (Input::IsKeyPressed(UE_KEY_S)) {
+        //             m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+        // }
 
         m_CameraTranslationSpeed = m_ZoomLevel;
     }

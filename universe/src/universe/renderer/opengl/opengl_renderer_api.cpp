@@ -13,9 +13,10 @@ namespace Universe {
             glClearColor(0.2f, 0.2f, 0.2f, 1);
         }
     
-        void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
+        void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
         {
-            glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
+            glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
         }
 
         void OpenGLRendererAPI::Clear()

@@ -7,7 +7,7 @@ namespace Universe {
     class OpenGLVertexBuffer : public VertexBuffer
     {
     public:
-        // Constructor and Destructor
+        OpenGLVertexBuffer(uint32_t size);
         OpenGLVertexBuffer(float* vertices, uint32_t size);
         ~OpenGLVertexBuffer();
 
@@ -15,6 +15,7 @@ namespace Universe {
         void Bind() const override;
         void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
         const BufferLayout& GetLayout() const override { return m_Layout; }
+        void SetData(const void* data, uint32_t size) override;
 
     private:
         uint32_t m_VertexBufferID;  // The ID of the vertex buffer
@@ -36,4 +37,5 @@ namespace Universe {
         uint32_t m_IndexBufferID;  // The ID of the index buffer
         uint32_t m_Count;         // The number of indices in the index buffer
     };
+
 }
