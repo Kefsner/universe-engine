@@ -1,7 +1,10 @@
 project(Sandbox)
 
 # Add Sandbox as an executable
-add_executable(Sandbox src/sandbox.cpp)
+add_executable(Sandbox
+    src/sandbox.cpp
+    src/sandbox2D.cpp
+)
 
 # Link Sandbox against the Universe library
 target_link_libraries(Sandbox PRIVATE Universe)

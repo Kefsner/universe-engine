@@ -75,17 +75,14 @@ namespace Universe {
     class BufferLayout
     {
     public:
-        // Constructor and Destructor
         BufferLayout() {} // TODO: Understand why this is needed
         BufferLayout(const std::initializer_list<BufferElement>& elements)
             : m_Elements(elements) { CalculateOffsetsAndStride(); }
         ~BufferLayout() = default;
 
-        // Getters
         const std::vector<BufferElement>& GetElements() const { return m_Elements; }
         uint32_t GetStride() const { return m_Stride; }
 
-        // Iterators
         std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
         std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
         std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
@@ -112,13 +109,16 @@ namespace Universe {
     {
     public:
         virtual ~VertexBuffer() = default;
+        
         virtual void Bind() const = 0;
+        
         virtual void SetLayout(const BufferLayout& layout) = 0;
         virtual const BufferLayout& GetLayout() const = 0;
+
         virtual void SetData(const void* data, uint32_t size) = 0;
 
-        static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
         static Ref<VertexBuffer> Create(uint32_t size);
+        static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
     };
 
     class IndexBuffer

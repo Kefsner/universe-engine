@@ -15,23 +15,25 @@ namespace Universe {
 
     void OrthographicCameraController::OnUpdate(Timestep ts)
     {
-        // if (Input::IsKeyPressed(UE_KEY_A) && Input::IsKeyPressed(UE_KEY_D)) {}
-        // else if (Input::IsKeyPressed(UE_KEY_A)) {
-        //     m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-        // }
-        // else if (Input::IsKeyPressed(UE_KEY_D)) {
-        //     m_CameraPosition.x += m_CameraTranslationSpeed * ts;
-        // }
+        if (Input::IsKeyPressed(UE_KEY_A) && Input::IsKeyPressed(UE_KEY_D)) {}
+        else if (Input::IsKeyPressed(UE_KEY_A)) {
+            m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
+        }
+        else if (Input::IsKeyPressed(UE_KEY_D)) {
+            m_CameraPosition.x += m_CameraTranslationSpeed * ts;
+        }
 
-        // if (Input::IsKeyPressed(UE_KEY_W) && Input::IsKeyPressed(UE_KEY_S)) {}
-        // else if (Input::IsKeyPressed(UE_KEY_W)) {
-        //     m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-        // }
-        // else if (Input::IsKeyPressed(UE_KEY_S)) {
-        //             m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
-        // }
+        if (Input::IsKeyPressed(UE_KEY_W) && Input::IsKeyPressed(UE_KEY_S)) {}
+        else if (Input::IsKeyPressed(UE_KEY_W)) {
+            m_CameraPosition.y += m_CameraTranslationSpeed * ts;
+        }
+        else if (Input::IsKeyPressed(UE_KEY_S)) {
+                    m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+        }
 
         m_CameraTranslationSpeed = m_ZoomLevel;
+        
+        m_Camera.SetPosition(m_CameraPosition);
     }
 
     void OrthographicCameraController::OnEvent(Event& e)

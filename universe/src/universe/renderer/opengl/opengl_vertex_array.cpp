@@ -45,7 +45,6 @@ namespace Universe {
     void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     {
         UE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
-
         glBindVertexArray(m_RendererID);
         vertexBuffer->Bind();
 

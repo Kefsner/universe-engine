@@ -16,9 +16,8 @@ namespace Universe {
         void OnUpdate(Timestep ts);
         void OnEvent(Event& e);
 
-        // Getters
-        OrthographicCamera& getCamera() { return m_Camera; }
-        const OrthographicCamera& getCamera() const { return m_Camera; }
+        OrthographicCamera& GetCamera() { return m_Camera; }
+        const OrthographicCamera& GetCamera() const { return m_Camera; }
 
     private:
         float m_AspectRatio;                                // Aspect ratio of the camera

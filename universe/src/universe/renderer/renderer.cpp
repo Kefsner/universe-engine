@@ -6,7 +6,6 @@
 #include "universe/renderer/renderer2D.hpp"
 #include "universe/renderer/render_command.hpp"
 
-
 namespace Universe {
 
     Scope<Renderer::SceneData> Renderer::s_SceneData = CreateScope<Renderer::SceneData>();

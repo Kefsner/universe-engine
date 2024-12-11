@@ -19,6 +19,11 @@ namespace Universe {
             s_API->DrawIndexed(vertexArray, indexCount);
         }
 
+        static void SetClearColor(const glm::vec4& color)
+        {
+            s_API->SetClearColor(color);
+        }
+
         static void Clear()
         {
             s_API->Clear();
