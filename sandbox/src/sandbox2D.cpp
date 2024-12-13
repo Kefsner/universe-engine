@@ -11,7 +11,7 @@ void Sandbox2D::OnAttach()
 {
     Universe::RenderCommand::SetClearColor({0.8f, 0.2f, 0.3f, 1.0f}); // Set the clear color to pink
 
-    m_GrassTexture = Universe::Texture2D::Create("../../sandbox/assets/textures/grass.png");
+    m_GrassTexture = Universe::Texture2D::Create("sandbox/assets/textures/grass.png");
 }
 
 void Sandbox2D::OnDetach() {}

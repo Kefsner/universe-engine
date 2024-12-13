@@ -30,3 +30,5 @@
 #include "universe/renderer/texture.hpp"
 
 #include "universe/renderer/camera.hpp"
+
+#include "universe/renderer/framebuffer.hpp"

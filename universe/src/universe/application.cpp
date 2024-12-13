@@ -11,6 +11,7 @@ namespace Universe {
 
     Application::Application()
 	{
+        UE_CORE_INFO("Working directory: {0}", std::filesystem::current_path().string());
         UE_CORE_ASSERT(!s_Instance, "Application already exists!");
         s_Instance = this;
 

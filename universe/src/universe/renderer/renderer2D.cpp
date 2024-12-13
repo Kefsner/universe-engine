@@ -83,7 +83,7 @@ namespace Universe {
             samplers[i] = i;
         }
 
-        s_Data.QuadShader = Shader::Create("../../sandbox/assets/shaders/quad.glsl");
+        s_Data.QuadShader = Shader::Create("sandbox/assets/shaders/quad.glsl");
         s_Data.QuadShader->Bind();
         s_Data.QuadShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 

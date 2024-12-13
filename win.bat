@@ -2,6 +2,8 @@
 
 set "ACTION=--run"
 
+echo %1
+
 if not "%1"=="" (
     if "%1"=="-b" (
         set "ACTION=--build"
@@ -11,7 +13,7 @@ if not "%1"=="" (
         set "ACTION=--build-run"
     ) else if "%1"=="--build-run" (
         set "ACTION=--build-run"
-    ) else if "%1"=="-r" (
+    ) else if "%1"=="-R" (
         set "ACTION=--rebuild"
     ) else if "%1"=="--rebuild" (
         set "ACTION=--rebuild"
@@ -19,7 +21,7 @@ if not "%1"=="" (
         set "ACTION=--rebuild-run"
     ) else if "%1"=="--rebuild-run" (
         set "ACTION=--rebuild-run"
-    ) else if "%1"=="-R" (
+    ) else if "%1"=="-r" (
         set "ACTION=--run"
     ) else if "%1"=="--run" (
         set "ACTION=--run"
@@ -108,9 +110,7 @@ cd ..
 exit /b 0
 
 :run
-cd build\sandbox
-Sandbox.exe
-cd ..\..
+.\build\editor\Editor.exe
 exit /b 0
 
 :help

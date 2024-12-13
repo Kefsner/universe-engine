@@ -14,3 +14,4 @@ endif()
 # Add subdirectories for Universe and Sandbox
 add_subdirectory(universe)
 add_subdirectory(sandbox)
+add_subdirectory(editor)
