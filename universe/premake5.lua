@@ -18,10 +18,10 @@ project "Universe"
    }
 
    filter "configurations:Debug"
-   defines { "UE_DEBUG" }
-   symbols "On"
+      defines { "UE_DEBUG" }
+      symbols "On"
 
    filter "configurations:Release"
-   defines { "UE_RELEASE" }
-   optimize "On"
+      defines { "UE_RELEASE" }
+      optimize "On"
 

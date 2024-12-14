@@ -14,11 +14,12 @@ project "Sandbox"
    }
 
    includedirs {
-      "src",
+      "%{wks.location}/universe/src"
    }
 
    links {
-      "Universe"
+      "Universe",
+      "Forge"
    }
 
    filter "configurations:Debug"

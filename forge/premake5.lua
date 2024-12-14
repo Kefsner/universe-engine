@@ -14,7 +14,7 @@ project "Forge"
    }
 
    includedirs {
-      "src",
+      "%{wks.location}/universe/src"
    }
 
    links {
