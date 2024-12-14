@@ -8,18 +8,27 @@ project "Universe"
    targetdir ("%{wks.location}/build/bin/%{cfg.buildcfg}/%{prj.name}")
    objdir ("%{wks.location}/build/obj/%{cfg.buildcfg}/%{prj.name}")
 
-   files {
-      "src/**.cpp",
-      "src/**.hpp"
-   }
-
    includedirs {
       "src",
-      "vendor/spdlog/include"
+      "vendor/spdlog/include",
+      "vendor/glad/include"
+   }
+
+   files {
+      "src/**.cpp",
+      "src/**.hpp",
+      "vendor/glad/src/glad.c"
+   }
+
+   links {
+      "OpenGL32"
    }
 
    pchheader "src/pch.hpp"
    pchsource "src/pch.cpp"
+
+   filter { "files:vendor/glad/src/glad.c" }
+      flags { "NoPCH" }
 
    filter "configurations:Debug"
       defines { "UE_DEBUG" }
