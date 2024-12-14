@@ -8,14 +8,7 @@ def build():
     subprocess.run(("mingw32-make", "config=debug"))
 
 def run():
-    try:
-        subprocess.run(("./build/bin/Debug/Forge/Forge.exe", "gmake2"))
-    except FileNotFoundError:
-        print("Build the project first")
-        b = input("Do you want to build the project now? (y/n): ")
-        if b == "y":
-            build()
-            run()
+    subprocess.run(("./build/bin/Debug/Forge/Forge.exe", "gmake2"))
 
 def clean():
     if os.path.exists("build"):

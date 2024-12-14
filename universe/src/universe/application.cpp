@@ -1,5 +1,7 @@
+#include "pch.hpp"
+
 #include "universe/application.hpp"
-#include <iostream>
+#include "universe/base/logger.hpp"
 
 namespace Universe
 {
@@ -18,12 +20,12 @@ namespace Universe
         while (m_IsRunning)
         {
             // Run the application
-            std::cout << "Running the application" << std::endl;
+            UE_CORE_TRACE("Running the application");
 
             // Exit the application
             if (!m_IsRunning)
             {
-                std::cout << "Exiting the application" << std::endl;
+                UE_CORE_TRACE("Exiting the application");
             }
         }
         

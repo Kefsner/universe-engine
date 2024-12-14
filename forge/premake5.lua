@@ -14,7 +14,8 @@ project "Forge"
    }
 
    includedirs {
-      "%{wks.location}/universe/src"
+      "%{wks.location}/universe/src",
+      "%{wks.location}/universe/vendor/spdlog/include"
    }
 
    links {

@@ -15,7 +15,11 @@ project "Universe"
 
    includedirs {
       "src",
+      "vendor/spdlog/include"
    }
+
+   pchheader "src/pch.hpp"
+   pchsource "src/pch.cpp"
 
    filter "configurations:Debug"
       defines { "UE_DEBUG" }
