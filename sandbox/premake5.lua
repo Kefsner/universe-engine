@@ -9,8 +9,8 @@ project "Sandbox"
    objdir ("%{wks.location}/build/obj/%{cfg.buildcfg}/%{prj.name}")
 
    files {
-      "src/**.cpp",
-      "src/**.hpp"
+      "%{prj.location}/src/**.cpp",
+      "%{prj.location}/src/**.hpp"
    }
 
    includedirs {

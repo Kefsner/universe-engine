@@ -7,7 +7,7 @@ namespace Universe
 {
     Application::Application()
     {
-        // Initialize the application
+        
     }
 
     Application::~Application()

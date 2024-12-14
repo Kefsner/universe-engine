@@ -14,5 +14,6 @@ workspace "UniverseEngine"
 
 -- Sub-projects
 include "universe"
+include "universe/vendor/glfw"
 include "forge"
 include "sandbox"

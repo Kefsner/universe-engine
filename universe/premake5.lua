@@ -8,24 +8,26 @@ project "Universe"
    targetdir ("%{wks.location}/build/bin/%{cfg.buildcfg}/%{prj.name}")
    objdir ("%{wks.location}/build/obj/%{cfg.buildcfg}/%{prj.name}")
 
-   includedirs {
-      "src",
-      "vendor/spdlog/include",
-      "vendor/glad/include"
+   files {
+      "%{prj.location}/src/**.cpp",
+      "%{prj.location}/src/**.hpp",
+      "%{prj.location}/vendor/glad/src/glad.c"
    }
 
-   files {
-      "src/**.cpp",
-      "src/**.hpp",
-      "vendor/glad/src/glad.c"
+   includedirs {
+      "%{prj.location}/src",
+      "%{prj.location}/vendor/spdlog/include",
+      "%{prj.location}/vendor/glfw/include",
+      "%{prj.location}/vendor/glad/include"
    }
 
    links {
-      "OpenGL32"
+      "OpenGL32",
+      "glfw"
    }
 
-   pchheader "src/pch.hpp"
-   pchsource "src/pch.cpp"
+   pchheader "%{prj.location}/src/pch.hpp"
+   pchsource "%{prj.location}/src/pch.cpp"
 
    filter { "files:vendor/glad/src/glad.c" }
       flags { "NoPCH" }
