@@ -3,7 +3,7 @@
 // ==================== INCLUDES ====================
 #include "universe/application.hpp"
 #include "universe/base/logger.hpp"
-
+#include "universe/base/assert.hpp"
 
 // ==================== ENTRY POINT ====================
 int main()

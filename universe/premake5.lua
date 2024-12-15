@@ -1,33 +1,45 @@
 project "Universe"
-   location "%{wks.location}/universe"
    kind "StaticLib"
    language "C++"
    cppdialect "C++23"
    staticruntime "off"
+   location "%{wks.location}/universe"
+
+   pchheader "%{prj.location}/src/pch.hpp"
+   pchsource "%{prj.location}/src/pch.cpp"
 
    targetdir ("%{wks.location}/build/bin/%{cfg.buildcfg}/%{prj.name}")
    objdir ("%{wks.location}/build/obj/%{cfg.buildcfg}/%{prj.name}")
 
-   files {
-      "%{prj.location}/src/**.cpp",
-      "%{prj.location}/src/**.hpp",
-      "%{prj.location}/vendor/glad/src/glad.c"
-   }
-
    includedirs {
       "%{prj.location}/src",
       "%{prj.location}/vendor/spdlog/include",
+      "%{prj.location}/vendor/glad/include",
       "%{prj.location}/vendor/glfw/include",
-      "%{prj.location}/vendor/glad/include"
+      "%{prj.location}/vendor/imgui",
+   }
+
+   files {
+      "%{prj.location}/src/**.cpp",
+      "%{prj.location}/src/**.hpp",
+      "%{prj.location}/vendor/glad/src/glad.c",
+      "%{prj.location}/vendor/imgui/imgui.cpp",
+      "%{prj.location}/vendor/imgui/imgui_draw.cpp",
+      "%{prj.location}/vendor/imgui/imgui_widgets.cpp",
+      "%{prj.location}/vendor/imgui/imgui_tables.cpp",
+      "%{prj.location}/vendor/imgui/backends/imgui_impl_glfw.cpp",
+      "%{prj.location}/vendor/imgui/backends/imgui_impl_opengl3.cpp",
+      "%{prj.location}/vendor/imgui/imgui_demo.cpp",
+   }
+
+   defines {
+      "GLFW_INCLUDE_NONE"
    }
 
    links {
-      "OpenGL32",
-      "glfw"
+      "GLFW",
+      "OpenGL32"
    }
-
-   pchheader "%{prj.location}/src/pch.hpp"
-   pchsource "%{prj.location}/src/pch.cpp"
 
    filter { "files:vendor/glad/src/glad.c" }
       flags { "NoPCH" }

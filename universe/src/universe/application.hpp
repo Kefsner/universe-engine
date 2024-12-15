@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GLFW/glfw3.h>
+
 namespace Universe
 {
     class Application
@@ -12,6 +14,7 @@ namespace Universe
 
     private:
         bool m_IsRunning = true;
+        GLFWwindow* m_Window;
     };
 
     Application* Create();

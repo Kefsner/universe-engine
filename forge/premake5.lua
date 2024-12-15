@@ -14,12 +14,21 @@ project "Forge"
    }
 
    includedirs {
+      "%{prj.location}/src",
       "%{wks.location}/universe/src",
-      "%{wks.location}/universe/vendor/spdlog/include"
+      "%{wks.location}/universe/vendor/spdlog/include",
+      -- Glfw?
+      "%{wks.location}/universe/vendor/glfw/include"
    }
 
    links {
-      "Universe"
+      "Universe",
+      "GLFW",
+      "gdi32",
+      "user32",
+      "shell32",
+      "kernel32",
+      "opengl32"
    }
 
    filter "configurations:Debug"

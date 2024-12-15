@@ -2,18 +2,18 @@ workspace "UniverseEngine"
     configurations { "Debug", "Release" }
     architecture "x64"
     location "./"
-    startproject "UniverseEngine"
+    startproject "Forge"
 
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
+        defines { "RELEASE" }
         optimize "On"
 
 -- Sub-projects
-include "universe"
 include "universe/vendor/glfw"
+include "universe"
 include "forge"
 include "sandbox"

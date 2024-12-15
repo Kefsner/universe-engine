@@ -14,13 +14,21 @@ project "Sandbox"
    }
 
    includedirs {
+      "%{prj.location}/src",
       "%{wks.location}/universe/src",
       "%{wks.location}/universe/vendor/spdlog/include",
+      -- Glfw?
+      "%{wks.location}/universe/vendor/glfw/include"
    }
 
    links {
       "Universe",
-      "Forge"
+      "GLFW",
+      "gdi32",
+      "user32",
+      "shell32",
+      "kernel32",
+      "opengl32"
    }
 
    filter "configurations:Debug"

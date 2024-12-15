@@ -8,7 +8,10 @@ class BuildManager:
         subprocess.run(("mingw32-make", "config=debug"))
 
     def run(self):
-        subprocess.run(("./build/bin/Debug/Forge/Forge.exe", "gmake2"))
+        exe_path = os.path.join(".", "build", "bin", "Debug", "Sandbox", "Sandbox.exe")
+        if not os.path.exists(exe_path):
+            raise FileNotFoundError(f"Executable not found at {exe_path}. Did you build the project?")
+        subprocess.run(exe_path, shell=True)
 
     def clean(self):
         if os.path.exists("build"):
