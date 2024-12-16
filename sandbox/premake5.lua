@@ -17,7 +17,6 @@ project "Sandbox"
       "%{prj.location}/src",
       "%{wks.location}/universe/src",
       "%{wks.location}/universe/vendor/spdlog/include",
-      -- Glfw?
       "%{wks.location}/universe/vendor/glfw/include"
    }
 
