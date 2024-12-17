@@ -9,3 +9,6 @@
 	path = universe/vendor/glfw
 	url = https://github.com/glfw/glfw.git
 	ignore = dirty
+[submodule "universe/vendor/glm"]
+	path = universe/vendor/glm
+	url = git@github.com:g-truc/glm.git
