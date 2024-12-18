@@ -1,8 +1,10 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 #include "universe/base/base.hpp"
+#include "universe/events/events.hpp"
 
 namespace Universe
 {
@@ -33,6 +35,7 @@ namespace Universe
         virtual float GetHeight() const = 0;
         virtual void SetVSync(bool enabled) = 0;
         virtual bool IsVSync() const = 0;
+        virtual void SetEventCallback(const std::function<void(Event&)>& callback) = 0;
 
         static Scope<Window> Create(const WindowProps& props = WindowProps());
     };
