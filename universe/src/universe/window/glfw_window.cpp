@@ -29,8 +29,7 @@ namespace Universe
 
         m_Context = GraphicsContext::Create(m_Window);
 
-        glfwSetWindowUserPointer(m_Window, &m_Data);
-        SetCallbacks(m_Window);
+        SetCallbacks();
     }
 
     GLFWWindowWrapper::~GLFWWindowWrapper()
@@ -48,8 +47,10 @@ namespace Universe
         m_Context->SwapBuffers();
     }
 
-    void GLFWWindowWrapper::SetCallbacks(GLFWwindow* m_Window)
-    {                
+    void GLFWWindowWrapper::SetCallbacks()
+    {            
+        glfwSetWindowUserPointer(m_Window, &m_Data);
+
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
         {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -123,5 +124,15 @@ namespace Universe
             MouseMovedEvent event(xpos, ypos);
             data.EventCallback(event);
         });
+    }
+
+    void GLFWWindowWrapper::SetVSync(bool enabled)
+    {
+        if (enabled)
+            glfwSwapInterval(1);
+        else
+            glfwSwapInterval(0);
+
+        m_Data.VSync = enabled;
     }
 }
