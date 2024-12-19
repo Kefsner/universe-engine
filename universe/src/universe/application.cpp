@@ -3,21 +3,25 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "universe/base/base.hpp"
 #include "universe/application.hpp"
 #include "universe/base/logger.hpp"
 #include "universe/base/assert.hpp"
-#include "universe/events/application_events.hpp"
-#include "universe/window/window.hpp"
+#include "universe/layers/imgui_layer.hpp"
 
 
 namespace Universe
 {
+    Application* Application::s_Instance = nullptr;
+
     Application::Application()
     {
-        m_Window = Window::Create();
+        UE_CORE_ASSERT(!s_Instance, "Application already exists!");
+        s_Instance = this;
 
+        m_Window = Window::Create();
         m_Window->SetEventCallback(UE_BIND_EVENT_FN(Application::OnEvent));
+
+        m_LayerStack.PushOverlay(new ImGuiLayer());
     }
 
     Application::~Application()
@@ -52,16 +56,21 @@ namespace Universe
 
     void Application::Run()
     {
+        float ts = 0.0f;
+
         while (m_IsRunning)
         {
+            float time = (float)glfwGetTime();
+            ts = time - m_LastFrameTime;
+            m_LastFrameTime = time;
+
             if (!m_Minimized)
             {
-                // for (Layer* layer : m_LayerStack)
-                //     layer->OnUpdate();
+                for (Layer* layer : m_LayerStack)
+                    layer->OnUpdate(ts);
 
                 m_Window->OnUpdate();
             }
         }
-        
     }
 }

@@ -8,6 +8,8 @@
 
 namespace Universe
 {
+	using EventCallbackFn = std::function<void(Event&)>;
+
     class GLFWWindowWrapper : public Window
     {
     public:
@@ -20,6 +22,7 @@ namespace Universe
         virtual bool IsVSync() const override { return m_Data.VSync; }
         virtual void SetVSync(bool enabled) override;
         virtual void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+        virtual void* GetNativeWindow() const override { return m_Window; }
 
         void SetWidth(float width) { m_Data.Width = width; }
         void SetHeight(float height) { m_Data.Height = height; }

@@ -16,6 +16,7 @@ project "Universe"
       "%{prj.location}/vendor/spdlog/include",
       "%{prj.location}/vendor/glad/include",
       "%{prj.location}/vendor/glfw/include",
+      "%{prj.location}/vendor/glm",
       "%{prj.location}/vendor/imgui",
    }
 
