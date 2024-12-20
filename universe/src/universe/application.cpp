@@ -6,7 +6,6 @@
 #include "universe/application.hpp"
 #include "universe/base/logger.hpp"
 #include "universe/base/assert.hpp"
-#include "universe/layers/imgui_layer.hpp"
 
 
 namespace Universe
@@ -15,13 +14,12 @@ namespace Universe
 
     Application::Application()
     {
+        UE_CORE_INFO("Creating Application");
         UE_CORE_ASSERT(!s_Instance, "Application already exists!");
         s_Instance = this;
 
         m_Window = Window::Create();
         m_Window->SetEventCallback(UE_BIND_EVENT_FN(Application::OnEvent));
-
-        m_LayerStack.PushOverlay(new ImGuiLayer());
     }
 
     Application::~Application()
@@ -33,6 +31,13 @@ namespace Universe
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(UE_BIND_EVENT_FN(Application::OnWindowClose));
         dispatcher.Dispatch<WindowResizeEvent>(UE_BIND_EVENT_FN(Application::OnWindowResize));
+
+        for (Layer* layer : m_LayerStack | std::views::reverse)
+        {
+            layer->OnEvent(e);
+            if (e.m_Handled)
+                break;
+        }
     }
 
     bool Application::OnWindowClose(WindowCloseEvent& e)

@@ -1,20 +1,21 @@
 #include "universe.hpp"
+#include "universe/base/entrypoint.hpp"
 
-class Forge : public Universe::Application
+#include "editor_layer.hpp"
+
+namespace Universe
 {
-public:
-    Forge()
+    class Forge : public Application
     {
-        // Initialize the application
-    }
+    public:
+        Forge()
+        {
+            PushLayer(new EditorLayer());
+        }
+    };
 
-    ~Forge()
+    Application* Create()
     {
-        // Shutdown the application
+        return new Forge();
     }
-};
-
-Universe::Application* Universe::Create()
-{
-    return new Forge();
 }

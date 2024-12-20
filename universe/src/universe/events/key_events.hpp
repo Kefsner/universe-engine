@@ -25,6 +25,12 @@ namespace Universe
 
         static EventType GetStaticType() { return EventType::KeyPressed; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "KeyPressedEvent: " << m_KeyCode << " (" << (int)m_RepeatCount << " repeats)";
+            return ss.str();
+        }
 
         uint8_t GetRepeatCount() const { return m_RepeatCount; }
 
@@ -40,5 +46,11 @@ namespace Universe
 
         static EventType GetStaticType() { return EventType::KeyReleased; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "KeyReleasedEvent: " << m_KeyCode;
+            return ss.str();
+        }
     };
 }

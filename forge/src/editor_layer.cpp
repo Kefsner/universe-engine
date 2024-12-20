@@ -6,11 +6,11 @@
 #include <GLFW/glfw3.h>
 
 #include "universe/application.hpp"
-#include "universe/layers/imgui_layer.hpp"
+#include "editor_layer.hpp"
 
 namespace Universe
 {
-    void ImGuiLayer::OnAttach()
+    void EditorLayer::OnAttach()
     {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -41,30 +41,37 @@ namespace Universe
         ImGui_ImplOpenGL3_Init("#version 410");
     }
 
-    void ImGuiLayer::OnDetach()
+    void EditorLayer::OnDetach()
     {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
     }
 
-    void ImGuiLayer::OnUpdate(Timestep ts)
+    void EditorLayer::OnEvent(Event& event)
     {
-        // TODO: Imgui kinda crashes when we add dockspace and resize the window
+        UE_CORE_TRACE("{0}", event.ToString());
+    }
+
+    void EditorLayer::OnUpdate(Timestep ts)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+		Application& app = Application::Get();
+		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+        
+        // Start ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImGuiIO& io = ImGui::GetIO();
+        // Render ImGui
+        ImGui::Begin("Editor");
+        ImGui::Text("Hello World");
+        ImGui::End();
 
-        // Show the ImGui demo window
-        if (m_ShowDemoWindow)
-        {
-            ImGui::ShowDemoWindow(&m_ShowDemoWindow);
-        }
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		// Rendering
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {

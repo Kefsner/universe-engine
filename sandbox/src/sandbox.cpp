@@ -1,4 +1,5 @@
 #include "universe.hpp"
+#include "universe/base/entrypoint.hpp"
 
 class Sandbox : public Universe::Application
 {
@@ -16,5 +17,6 @@ public:
 
 Universe::Application* Universe::Create()
 {
+    UE_CORE_INFO("Creating Sandbox");
     return new Sandbox();
 }

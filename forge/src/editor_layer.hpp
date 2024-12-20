@@ -1,19 +1,18 @@
 #pragma once
 
-#include "universe/layers/layer.hpp"
+#include "universe.hpp"
 
 namespace Universe
 {
-    class ImGuiLayer : public Layer
+    class EditorLayer : public Layer
     {
     public:
-        ~ImGuiLayer() = default;
+        EditorLayer() = default;
+        ~EditorLayer() = default;
 
         virtual void OnAttach() override;
         virtual void OnDetach() override;
         virtual void OnUpdate(Timestep ts) override;
-
-    private:
-        bool m_ShowDemoWindow = true;
+        virtual void OnEvent(Event& event) override;
     };
 }

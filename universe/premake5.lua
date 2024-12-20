@@ -30,7 +30,7 @@ project "Universe"
       "%{prj.location}/vendor/imgui/imgui_tables.cpp",
       "%{prj.location}/vendor/imgui/backends/imgui_impl_glfw.cpp",
       "%{prj.location}/vendor/imgui/backends/imgui_impl_opengl3.cpp",
-      "%{prj.location}/vendor/imgui/imgui_demo.cpp",
+      -- "%{prj.location}/vendor/imgui/imgui_demo.cpp",
    }
 
    defines {

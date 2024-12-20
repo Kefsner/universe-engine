@@ -23,6 +23,9 @@ namespace Universe
         static Application& Get() { return *s_Instance; }
         Window& GetWindow() { return *m_Window; }
 
+        void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
+        void PushOverlay(Layer* overlay) { m_LayerStack.PushOverlay(overlay); }
+
     private:
         static Application* s_Instance;
         bool m_IsRunning = true;

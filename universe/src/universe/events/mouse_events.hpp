@@ -17,6 +17,12 @@ namespace Universe
 
         float GetMousePosX() const { return m_MousePosX; }
         float GetMousePosY() const { return m_MousePosY; }
+        virtual std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "MouseMovedEvent: " << m_MousePosX << ", " << m_MousePosY;
+            return ss.str();
+        }
 
     private:
         float m_MousePosX, m_MousePosY;
@@ -30,6 +36,12 @@ namespace Universe
 
         static EventType GetStaticType() { return EventType::MouseScrolled; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "MouseScrolledEvent: " << m_MouseXOffset << ", " << m_MouseYOffset;
+            return ss.str();
+        }
 
         float GetMouseXOffset() const { return m_MouseXOffset; }
         float GetMouseYOffset() const { return m_MouseYOffset; }
@@ -57,6 +69,12 @@ namespace Universe
 
         static EventType GetStaticType() { return EventType::MouseButtonPressed; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "MouseButtonPressedEvent: " << m_Button;
+            return ss.str();
+        }
     };
 
     class MouseButtonReleasedEvent : public MouseButtonEvent
@@ -67,5 +85,11 @@ namespace Universe
         
         static EventType GetStaticType() { return EventType::MouseButtonReleased; }
         virtual EventType GetEventType() const override { return GetStaticType(); }
+        virtual std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "MouseButtonReleasedEvent: " << m_Button;
+            return ss.str();
+        }
     };
 }

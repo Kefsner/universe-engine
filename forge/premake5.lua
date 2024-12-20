@@ -17,8 +17,8 @@ project "Forge"
       "%{prj.location}/src",
       "%{wks.location}/universe/src",
       "%{wks.location}/universe/vendor/spdlog/include",
-      -- Glfw?
-      "%{wks.location}/universe/vendor/glfw/include"
+      "%{wks.location}/universe/vendor/glfw/include",
+      "%{wks.location}/universe/vendor/imgui",
    }
 
    links {

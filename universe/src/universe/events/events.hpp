@@ -24,6 +24,8 @@ namespace Universe
     public:
         virtual ~Event() = default;
         virtual EventType GetEventType() const = 0;
+        virtual std::string ToString() const = 0;
+
         bool m_Handled = false;
     };
 
