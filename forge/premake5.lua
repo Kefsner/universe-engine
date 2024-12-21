@@ -19,6 +19,7 @@ project "Forge"
       "%{wks.location}/universe/vendor/spdlog/include",
       "%{wks.location}/universe/vendor/glfw/include",
       "%{wks.location}/universe/vendor/imgui",
+      "%{wks.location}/universe/vendor/glm"
    }
 
    links {

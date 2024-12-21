@@ -64,9 +64,34 @@ namespace Universe
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        // Render ImGui
-        ImGui::Begin("Editor");
-        ImGui::Text("Hello World");
+        // Create Dockspace
+        ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+
+        // Scene Hierarchy (Left)
+        ImGui::Begin("Scene Hierarchy");
+        // Add hierarchy content here (e.g., tree nodes for objects)
+        ImGui::Text("GameObject1");
+        ImGui::Text("GameObject2");
+        ImGui::End();
+
+        // Scene Viewer (Center)
+        ImGui::Begin("Scene Viewer");
+        // Render your framebuffer as a texture
+        // uint32_t framebufferTexture = GetFramebufferTexture(); // Replace with your framebuffer texture ID
+        //ImGui::Image((void*)(intptr_t)framebufferTexture, ImVec2(800, 600)); // Example dimensions
+        ImGui::End();
+
+        // Console (Bottom)
+        ImGui::Begin("Console");
+        ImGui::Text("Logs will appear here");
+        ImGui::End();
+
+        // Inspector/Properties (Right)
+        ImGui::Begin("Inspector");
+        ImGui::Text("Object Properties:");
+        // ImGui::InputFloat3("Position", position); // Example property
+        // ImGui::InputFloat3("Rotation", rotation);
+        // ImGui::InputFloat3("Scale", scale);
         ImGui::End();
 
 		// Rendering
