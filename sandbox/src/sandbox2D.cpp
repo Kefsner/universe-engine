@@ -19,5 +19,4 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
 
 void Sandbox2D::OnEvent(Universe::Event& event)
 {
-    UE_TRACE("{0}", event.ToString());
 }

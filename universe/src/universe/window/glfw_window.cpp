@@ -40,9 +40,6 @@ namespace Universe
 
     void GLFWWindowWrapper::OnUpdate()
     {
-        // The commented below code is a renderer code
-        // glClearColor(0.1f, 0.1f, 0.1f, 1);
-        // glClear(GL_COLOR_BUFFER_BIT);
         glfwPollEvents();
         m_Context->SwapBuffers();
     }

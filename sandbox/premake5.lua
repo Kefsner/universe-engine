@@ -18,7 +18,9 @@ project "Sandbox"
       "%{wks.location}/universe/src",
       "%{wks.location}/universe/vendor/spdlog/include",
       "%{wks.location}/universe/vendor/glfw/include",
-      "%{wks.location}/universe/vendor/glm"
+      "%{wks.location}/universe/vendor/glm",
+      "%{wks.location}/universe/vendor/glad/include" -- Remove later
+      -- Sandbox will not be aware of the glad library
    }
 
    links {
