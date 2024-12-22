@@ -9,4 +9,9 @@ namespace Universe
     {
         return CreateRef<OpenGLVertexBuffer>(vertices, size);
     }
+
+    Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
+    {
+        return CreateRef<OpenGLIndexBuffer>(indices, count);
+    }
 }

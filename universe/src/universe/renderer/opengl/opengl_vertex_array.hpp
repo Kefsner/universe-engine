@@ -14,7 +14,8 @@ namespace Universe
         virtual void Unbind() const override;
 
         virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
-
+        virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
+        
     private:
         uint32_t m_VertexArrayID;
     };

@@ -13,5 +13,6 @@ namespace Universe
         virtual void SetClearColor(const glm::vec4& color) override;
 
         virtual void DrawArrays(uint32_t mode, uint32_t first, uint32_t count) override;
+        virtual void DrawIndexed(uint32_t mode, uint32_t count) override;
     };
 }

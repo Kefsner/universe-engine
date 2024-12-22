@@ -40,4 +40,9 @@ namespace Universe
         glVertexArrayAttribBinding(m_VertexArrayID, 0, 0);
         glEnableVertexArrayAttrib(m_VertexArrayID, 0);
     }
+
+    void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
+    {
+        glVertexArrayElementBuffer(m_VertexArrayID, indexBuffer->GetIndexBufferID());
+    }
 }

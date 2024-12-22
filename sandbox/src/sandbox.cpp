@@ -4,6 +4,7 @@
 #include "raw_triangle.hpp"
 #include "raw_quad.hpp"
 #include "triangle.hpp"
+#include "quad.hpp"
 
 class Sandbox : public Universe::Application
 {
@@ -13,7 +14,8 @@ public:
         // PushLayer(new Sandbox2D());
         // PushLayer(new RawTriangle());
         // PushLayer(new RawQuad());
-        PushLayer(new Triangle());
+        // PushLayer(new Triangle());
+        PushLayer(new Quad());
     }
 };
 
