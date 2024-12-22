@@ -12,5 +12,8 @@
 #include "universe/events/application_events.hpp"
 
 // #include "universe/renderer/renderer2D.hpp"
-// #include "universe/renderer/buffer.hpp"
-// #include "universe/renderer/opengl/opengl_buffer.hpp"
+#include "universe/renderer/render_command.hpp"
+#include "universe/renderer/buffer.hpp"
+#include "universe/renderer/vertex_array.hpp"
+#include "universe/renderer/opengl/opengl_buffer.hpp"
+#include "universe/renderer/opengl/opengl_vertex_array.hpp"

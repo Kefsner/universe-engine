@@ -23,7 +23,7 @@ void RawTriangle::OnAttach()
     glCreateVertexArrays(numberOfVertexArrays, &vertexArray);
 
     // Bind the vertex array
-    glBindVertexArray(vertexArray);
+    glBindVertexArray(vertexArray); // Check if this is necessary at this point
 
     // Bind the buffer to the vertex array
     GLuint positionBindingIndex = 0;
