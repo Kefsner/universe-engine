@@ -1,8 +1,5 @@
 #include "pch.hpp"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "universe/application.hpp"
 #include "universe/base/logger.hpp"
 #include "universe/base/assert.hpp"
@@ -51,7 +48,7 @@ namespace Universe
         if (e.GetWidth() == 0 || e.GetHeight() == 0)
         {
             m_Minimized = true;
-            return false; // Don't consume the event and allow propagation to other layers
+            return false;
         }
 
         m_Minimized = false;
@@ -66,7 +63,7 @@ namespace Universe
 
         while (m_IsRunning)
         {
-            float time = (float)glfwGetTime();
+            float time = m_Window->GetTime();
             ts = time - m_LastFrameTime;
             m_LastFrameTime = time;
 

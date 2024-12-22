@@ -26,7 +26,6 @@ namespace Universe
         Application& app = Application::Get();
         float width = app.GetWindow().GetWidth();
         float height = app.GetWindow().GetHeight();
-        UE_CORE_TRACE("Updating Viewport to {0}, {1}", width, height);
         glViewport(0, 0, width, height);
     }
 }

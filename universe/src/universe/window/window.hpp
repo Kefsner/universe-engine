@@ -44,6 +44,8 @@ namespace Universe
 
         virtual void UpdateViewport(int width, int height) = 0;
 
+        virtual float GetTime() = 0;
+
         static Scope<Window> Create(const WindowProps& props = WindowProps());
     };
 }

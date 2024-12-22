@@ -31,6 +31,8 @@ namespace Universe
 
         virtual void UpdateViewport(int width, int height);
 
+        virtual float GetTime() override { return (float)glfwGetTime(); }
+
         void SetCallbacks();
 
     private:
