@@ -63,4 +63,3 @@ void RawTriangle::OnEvent(Universe::Event& event)
 {
     UE_CORE_TRACE("{0}", event.ToString());
 }
-
