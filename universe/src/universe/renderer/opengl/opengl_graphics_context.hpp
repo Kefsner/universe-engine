@@ -13,6 +13,7 @@ namespace Universe
         OpenGLGraphicsContext(GLFWwindow* window);
 
         virtual void SwapBuffers() override;
+        virtual void UpdateViewport() override;
 
     private:
         GLFWwindow* m_Window;

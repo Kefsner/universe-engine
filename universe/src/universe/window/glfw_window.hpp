@@ -17,15 +17,20 @@ namespace Universe
         ~GLFWWindowWrapper();
 
         virtual void OnUpdate() override;
+
         virtual float GetWidth() const override { return m_Data.Width; }
         virtual float GetHeight() const override { return m_Data.Height; }
+        virtual void SetWidth(float width) { m_Data.Width = width; }
+        virtual void SetHeight(float height) { m_Data.Height = height; }
+
         virtual bool IsVSync() const override { return m_Data.VSync; }
         virtual void SetVSync(bool enabled) override;
+
         virtual void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
         virtual void* GetNativeWindow() const override { return m_Window; }
 
-        void SetWidth(float width) { m_Data.Width = width; }
-        void SetHeight(float height) { m_Data.Height = height; }
+        virtual void UpdateViewport(int width, int height);
+
         void SetCallbacks();
 
     private:

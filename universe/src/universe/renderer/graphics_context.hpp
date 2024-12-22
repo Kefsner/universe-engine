@@ -10,6 +10,7 @@ namespace Universe
     {
     public:
         virtual void SwapBuffers() = 0;
+        virtual void UpdateViewport() = 0;
 
         static Scope<GraphicsContext> Create(void* nativeWindow);
     };

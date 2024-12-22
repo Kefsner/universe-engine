@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "universe/base/assert.hpp"
+#include "universe/application.hpp"
 #include "universe/renderer/opengl/opengl_graphics_context.hpp"
 
 namespace Universe
@@ -18,5 +19,14 @@ namespace Universe
     void OpenGLGraphicsContext::SwapBuffers()
     {
         glfwSwapBuffers(m_Window);
+    }
+
+    void OpenGLGraphicsContext::UpdateViewport()
+    {
+        Application& app = Application::Get();
+        float width = app.GetWindow().GetWidth();
+        float height = app.GetWindow().GetHeight();
+        UE_CORE_TRACE("Updating Viewport to {0}, {1}", width, height);
+        glViewport(0, 0, width, height);
     }
 }

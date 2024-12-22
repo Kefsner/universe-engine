@@ -132,4 +132,11 @@ namespace Universe
 
         m_Data.VSync = enabled;
     }
+
+    void GLFWWindowWrapper::UpdateViewport(int width, int height)
+    {
+        m_Data.Width = width;
+        m_Data.Height = height;
+        m_Context->UpdateViewport();
+    }
 }

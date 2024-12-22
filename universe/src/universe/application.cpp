@@ -51,12 +51,13 @@ namespace Universe
         if (e.GetWidth() == 0 || e.GetHeight() == 0)
         {
             m_Minimized = true;
-            return false;
+            return false; // Don't consume the event and allow propagation to other layers
         }
 
         m_Minimized = false;
-        // Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-        return false;
+        m_Window->UpdateViewport(e.GetWidth(), e.GetHeight());
+
+        return false; // Don't consume the event and allow propagation to other layers
     }
 
     void Application::Run()
