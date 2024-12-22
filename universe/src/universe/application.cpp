@@ -71,9 +71,9 @@ namespace Universe
             {
                 for (Layer* layer : m_LayerStack)
                     layer->OnUpdate(ts);
-
-                m_Window->OnUpdate();
             }
+
+            m_Window->OnUpdate();
         }
     }
 }
