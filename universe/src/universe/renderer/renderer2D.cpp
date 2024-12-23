@@ -1,7 +1,5 @@
 #include "pch.hpp"
 
-#include <glad/glad.h>
-
 #include "universe/renderer/renderer2D.hpp"
 #include "universe/renderer/render_command.hpp"
 #include "universe/renderer/vertex_array.hpp"
@@ -61,7 +59,7 @@ namespace Universe
 
     void Renderer2D::DrawQuad()
     {
-        RenderCommand::DrawIndexed(GL_TRIANGLES, s_Data.indexBufferCount);
+        RenderCommand::DrawIndexed(s_Data.indexBufferCount);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)

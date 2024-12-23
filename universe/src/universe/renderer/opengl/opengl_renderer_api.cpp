@@ -21,8 +21,8 @@ namespace Universe
         glDrawArrays(mode, first, count);
     }
 
-    void OpenGLRendererAPI::DrawIndexed(uint32_t mode, uint32_t count)
+    void OpenGLRendererAPI::DrawIndexed(uint32_t count)
     {
-        glDrawElements(mode, count, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
     }
 }

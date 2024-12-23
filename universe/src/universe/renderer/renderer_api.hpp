@@ -13,7 +13,7 @@ namespace Universe
         virtual void SetClearColor(const glm::vec4& color) = 0;
 
         virtual void DrawArrays(uint32_t mode, uint32_t first, uint32_t count) = 0;
-        virtual void DrawIndexed(uint32_t mode, uint32_t count) = 0;
+        virtual void DrawIndexed(uint32_t count) = 0;
 
         static Scope<RendererAPI> Create();
     };

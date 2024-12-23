@@ -22,8 +22,8 @@ namespace Universe
         s_RendererAPI->DrawArrays(mode, first, count);
     }
 
-    void RenderCommand::DrawIndexed(uint32_t mode, uint32_t count)
+    void RenderCommand::DrawIndexed(uint32_t count)
     {
-        s_RendererAPI->DrawIndexed(mode, count);
+        s_RendererAPI->DrawIndexed(count);
     }
 }
