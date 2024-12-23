@@ -40,7 +40,7 @@ void Quad::OnUpdate(Universe::Timestep ts)
     Universe::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
     Universe::RenderCommand::Clear();
     m_VertexArray->Bind();
-    Universe::RenderCommand::DrawIndexed(GL_TRIANGLES, m_IndexBufferCount);
+    Universe::RenderCommand::DrawIndexed(m_IndexBufferCount);
 }
 
 void Quad::OnEvent(Universe::Event& event)
