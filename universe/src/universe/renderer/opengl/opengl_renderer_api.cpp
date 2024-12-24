@@ -22,9 +22,9 @@ namespace Universe
         glClearColor(color.r, color.g, color.b, color.a);
     }
 
-    void OpenGLRendererAPI::DrawArrays(uint32_t mode, uint32_t first, uint32_t count)
+    void OpenGLRendererAPI::DrawArrays(uint32_t first, uint32_t count)
     {
-        glDrawArrays(mode, first, count);
+        glDrawArrays(GL_TRIANGLES, first, count);
     }
 
     void OpenGLRendererAPI::DrawIndexed(uint32_t count)

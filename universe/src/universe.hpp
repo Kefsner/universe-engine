@@ -17,3 +17,5 @@
 #include "universe/renderer/vertex_array.hpp"
 #include "universe/renderer/opengl/opengl_buffer.hpp"
 #include "universe/renderer/opengl/opengl_vertex_array.hpp"
+#include "universe/renderer/shader.hpp"
+#include "universe/renderer/opengl/opengl_shader.hpp"

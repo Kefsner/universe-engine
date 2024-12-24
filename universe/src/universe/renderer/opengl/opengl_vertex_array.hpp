@@ -15,6 +15,8 @@ namespace Universe
 
         virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
         virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
+
+        uint32_t ShaderDataTypeToOpenGLBaseType(ShaderDataType type) const;
         
     private:
         uint32_t m_VertexArrayID;

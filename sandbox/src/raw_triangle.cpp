@@ -25,7 +25,7 @@ void RawTriangle::OnAttach()
 
     // Bind the buffer to the vertex array
     GLuint positionBindingIndex = 0;
-    glVertexArrayVertexBuffer(vertexArray, positionBindingIndex, vertexBuffer, 0, sizeof(float) * 5);
+    glVertexArrayVertexBuffer(vertexArray, positionBindingIndex, vertexBuffer, 0, sizeof(float) * 5); // 5 floats per vertex
 
     // Enable the vertex attribute
     // Position
