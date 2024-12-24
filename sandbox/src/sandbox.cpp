@@ -15,8 +15,8 @@ public:
         // PushLayer(new Sandbox2D());
         // PushLayer(new RawTriangle());
         // PushLayer(new RawQuad());
-        PushLayer(new Triangle());
-        // PushLayer(new Quad());
+        // PushLayer(new Triangle());
+        PushLayer(new Quad());
         // PushLayer(new Renderer2DQuad());
     }
 };

@@ -28,8 +28,6 @@ namespace Universe
 
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
-
-        glUseProgram(m_ShaderID);
     }
 
     OpenGLShader::~OpenGLShader()

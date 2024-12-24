@@ -6,7 +6,7 @@ void Triangle::OnAttach()
         // Positions    // Colors
         -0.5f, -0.5f,   1.0f, 0.0f, 0.0f, // Bottom-left
          0.5f, -0.5f,   0.0f, 1.0f, 0.0f, // Bottom-right
-         0.5f,  0.5f,   0.0f, 0.0f, 1.0f  // Top
+         0.0f,  0.5f,   0.0f, 0.0f, 1.0f  // Top
     };
 
     // Create a buffer
@@ -53,6 +53,7 @@ void Triangle::OnAttach()
 
     Universe::Ref<Universe::Shader> shader;
     shader = Universe::Shader::Create("Triangle", vertexShaderSource, fragmentShaderSource);
+    shader->Bind();
 }
 
 void Triangle::OnDetach()
