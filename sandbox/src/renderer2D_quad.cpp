@@ -4,7 +4,6 @@
 
 void Renderer2DQuad::OnAttach()
 {
-    Universe::Renderer2D::Init();
     Universe::Renderer2D::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 }
 

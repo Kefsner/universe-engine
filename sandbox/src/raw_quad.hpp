@@ -9,6 +9,6 @@ public:
     virtual void OnEvent(Universe::Event& event) override;
 
 private:
-    unsigned int m_VertexArray;
-    unsigned int m_IndexCount;
+    uint32_t m_VertexArray;
+    uint32_t m_IndexCount;
 };

@@ -11,6 +11,10 @@ void Quad::OnAttach()
          0.5f,  0.5f,   0.0f, 0.0f, 1.0f, 1.0f, // Top-right
         -0.5f,  0.5f,   1.0f, 1.0f, 1.0f, 0.3f  // Top-left
     };
+    uint32_t indices[] = { 0, 1, 2, 2, 3, 0 };
+
+    // Create a vertex array
+    m_VertexArray = Universe::VertexArray::Create();
 
     // Create a buffer
     Universe::Ref<Universe::VertexBuffer> vertexBuffer;
@@ -20,14 +24,10 @@ void Quad::OnAttach()
         { Universe::ShaderDataType::Float4, "a_Color" }
     });
 
-    // Create a vertex array
-    m_VertexArray = Universe::VertexArray::Create();
-
     // Add the buffer to the vertex array
     m_VertexArray->AddVertexBuffer(vertexBuffer);
 
     // Create an index buffer
-    uint32_t indices[] = { 0, 1, 2, 2, 3, 0 };
     m_IndexBufferCount = sizeof(indices) / sizeof(uint32_t);
     Universe::Ref<Universe::IndexBuffer> indexBuffer;
     indexBuffer = Universe::IndexBuffer::Create(indices, m_IndexBufferCount);
@@ -67,6 +67,8 @@ void Quad::OnAttach()
     Universe::Ref<Universe::Shader> shader;
     shader = Universe::Shader::Create("Quad", vertexSrc, fragmentSrc);
     shader->Bind();
+
+    Universe::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 }
 
 void Quad::OnDetach()
@@ -75,7 +77,6 @@ void Quad::OnDetach()
 
 void Quad::OnUpdate(Universe::Timestep ts)
 {
-    Universe::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
     Universe::RenderCommand::Clear();
     m_VertexArray->Bind();
     Universe::RenderCommand::DrawIndexed(m_IndexBufferCount);

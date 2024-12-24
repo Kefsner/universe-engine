@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glad/glad.h>
+
 #include "universe/renderer/vertex_array.hpp"
 
 namespace Universe
@@ -16,7 +18,7 @@ namespace Universe
         virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
         virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-        uint32_t ShaderDataTypeToOpenGLBaseType(ShaderDataType type) const;
+        GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) const;
         
     private:
         uint32_t m_VertexArrayID;

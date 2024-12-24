@@ -12,5 +12,5 @@ public:
     virtual void OnEvent(Universe::Event& event) override;
 
 private:
-    unsigned int m_VertexArray;
+    uint32_t m_VertexArray;
 };

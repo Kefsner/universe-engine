@@ -73,6 +73,7 @@ namespace Universe
             : m_Elements(elements), m_Stride(CalculateElementOffsetAndLayoutStride()) {}
 
         uint32_t GetStride() const { return m_Stride; }
+        uint32_t GetElementCount() const { return m_Elements.size(); }
 
         std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
         std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glad/glad.h>
+
 #include "universe/renderer/shader.hpp"
 
 namespace Universe
@@ -12,6 +14,9 @@ namespace Universe
 
         virtual void Bind() const override;
         virtual void Unbind() const override;
+
+        static void CheckShaderCompilation(GLuint shader, const std::string& type);
+        static void CheckProgramLinking(GLuint program);
 
     private:
         uint32_t m_ShaderID;

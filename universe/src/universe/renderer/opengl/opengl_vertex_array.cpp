@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 
+#include "universe/base/assert.hpp"
 #include "universe/renderer/opengl/opengl_vertex_array.hpp"
 
 namespace Universe
@@ -30,6 +31,7 @@ namespace Universe
     {
         uint32_t vertexBufferID = vertexBuffer->GetVertexBufferID();
         const BufferLayout& layout = vertexBuffer->GetLayout();
+        UE_CORE_ASSERT(layout.GetElementCount() > 0, "Vertex Buffer has no layout!");
         glVertexArrayVertexBuffer(m_VertexArrayID, 0, vertexBufferID, 0, layout.GetStride());
 
         uint32_t index = 0;
@@ -49,7 +51,8 @@ namespace Universe
         }
     }
 
-    uint32_t OpenGLVertexArray::ShaderDataTypeToOpenGLBaseType(ShaderDataType type) const
+
+    GLenum OpenGLVertexArray::ShaderDataTypeToOpenGLBaseType(ShaderDataType type) const
     {
         switch (type)
         {
