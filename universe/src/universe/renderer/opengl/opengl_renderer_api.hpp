@@ -9,6 +9,8 @@ namespace Universe
     class OpenGLRendererAPI : public RendererAPI
     {
     public:
+        OpenGLRendererAPI();
+
         virtual void Clear() override;
         virtual void SetClearColor(const glm::vec4& color) override;
 

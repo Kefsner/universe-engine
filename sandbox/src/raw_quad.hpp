@@ -3,9 +3,6 @@
 class RawQuad : public Universe::Layer
 {
 public:
-     RawQuad() = default;
-    ~RawQuad() = default;
-
     virtual void OnAttach() override;
     virtual void OnDetach() override;
     virtual void OnUpdate(Universe::Timestep ts) override;

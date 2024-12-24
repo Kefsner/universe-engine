@@ -4,8 +4,12 @@
 
 namespace Universe
 {
+    Scope<RendererAPI> RenderCommand::s_RendererAPI = nullptr;
 
-    Scope<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
+    void RenderCommand::Init()
+    {
+        s_RendererAPI = RendererAPI::Create();
+    }
 
     void RenderCommand::Clear()
     {

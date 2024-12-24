@@ -23,9 +23,6 @@ void RawTriangle::OnAttach()
     const GLuint numberOfVertexArrays = 1;
     glCreateVertexArrays(numberOfVertexArrays, &vertexArray);
 
-    // Bind the vertex array
-    glBindVertexArray(vertexArray); // Check if this is necessary at this point
-
     // Bind the buffer to the vertex array
     GLuint positionBindingIndex = 0;
     glVertexArrayVertexBuffer(vertexArray, positionBindingIndex, vertexBuffer, 0, sizeof(float) * 5);
@@ -117,6 +114,8 @@ void RawTriangle::OnAttach()
     glDeleteShader(fragmentShader);
 
     // Use the shader program
+    // Called here because there is only one shader program.
+    // Otherwise, call it in the render loop for alternative shader programs as needed
     glUseProgram(shaderProgram);
 }
 
