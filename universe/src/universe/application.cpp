@@ -3,8 +3,7 @@
 #include "universe/application.hpp"
 #include "universe/base/logger.hpp"
 #include "universe/base/assert.hpp"
-#include "universe/renderer/render_command.hpp"
-#include "universe/renderer/renderer2D.hpp"
+#include "universe/renderer/renderer.hpp"
 
 
 namespace Universe
@@ -20,12 +19,12 @@ namespace Universe
         m_Window = Window::Create();
         m_Window->SetEventCallback(UE_BIND_EVENT_FN(Application::OnEvent));
 
-        RenderCommand::Init();
-        Renderer2D::Init();
+        Renderer::Init();
     }
 
     Application::~Application()
-    {    
+    {
+        Renderer::Shutdown();
     }
 
     void Application::OnEvent(Event& e)

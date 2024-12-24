@@ -11,6 +11,7 @@ namespace Universe
     {
     public:
         static void Init();
+        static void Shutdown();
 
         static void SetClearColor(const glm::vec4& color);
         static void Clear();

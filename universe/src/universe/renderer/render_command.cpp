@@ -11,6 +11,11 @@ namespace Universe
         s_RendererAPI = RendererAPI::Create();
     }
 
+    void RenderCommand::Shutdown()
+    {
+        s_RendererAPI.reset();
+    }
+
     void RenderCommand::Clear()
     {
         s_RendererAPI->Clear();

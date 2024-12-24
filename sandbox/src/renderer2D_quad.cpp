@@ -2,6 +2,11 @@
 
 #include "renderer2D_quad.hpp"
 
+// At this point, renderer2D is aways available to be used
+// Meaning, it is not necessary to call init() and shutdown() methods
+// Maybe at some point where there could be multiple renderers,
+// it would be necessary to call init() and shutdown() methods
+
 void Renderer2DQuad::OnAttach()
 {
     Universe::Renderer2D::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -9,7 +14,6 @@ void Renderer2DQuad::OnAttach()
 
 void Renderer2DQuad::OnDetach()
 {
-    Universe::Renderer2D::Shutdown();
 }
 
 void Renderer2DQuad::OnUpdate(Universe::Timestep ts)
