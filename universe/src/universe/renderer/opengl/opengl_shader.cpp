@@ -34,7 +34,6 @@ namespace Universe
 
     OpenGLShader::~OpenGLShader()
     {
-        UE_CORE_TRACE("Deleting shader: {0}", m_Name);
         glDeleteProgram(m_ShaderID);
     }
 
@@ -70,6 +69,16 @@ namespace Universe
             glGetProgramInfoLog(program, 512, nullptr, infoLog);
             UE_CORE_ERROR("Program linking error: {0}", infoLog);
         }
+    }
+
+    void OpenGLShader::SetUniformInt(const char* name, int value)
+    {
+        GLint location = glGetUniformLocation(m_ShaderID, name);
+        #if UE_DEBUG
+        if (location == -1)
+            UE_CORE_WARN("Uniform {0} not found in shader {1}", name, m_Name);
+        #endif
+        glUniform1i(location, value);
     }
 
     void OpenGLShader::SetUniformFloat4(const char* name, const glm::vec4& vector)

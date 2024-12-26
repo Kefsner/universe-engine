@@ -20,6 +20,7 @@ namespace Universe
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0;
 
+        virtual void SetUniformInt(const char* name, int value) = 0;
         virtual void SetUniformFloat4(const char* name, const glm::vec4& vector) = 0;
         virtual void SetUniformMat4(const char* name, const glm::mat4& matrix) = 0;
 

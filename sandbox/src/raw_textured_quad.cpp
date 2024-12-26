@@ -129,12 +129,13 @@ void RawTexturedQuad::OnAttach()
     const GLuint numberOfTextures = 1;
     // Create the texture object
     glCreateTextures(GL_TEXTURE_2D, numberOfTextures, &texture);
-    GLuint levels = 1;
+    
     // Allocate memory for the texture
+    GLuint levels = 1;
     GLuint format = (channels == 4) ? GL_RGBA8 : GL_RGB8;
     GLuint internalFormat = (channels == 4) ? GL_RGBA : GL_RGB;
-
     glTextureStorage2D(texture, levels, format, width, height);
+
     // Set the texture wrapping parameters
     glTextureSubImage2D(
         texture,         // Texture ID
@@ -145,7 +146,6 @@ void RawTexturedQuad::OnAttach()
         GL_UNSIGNED_BYTE, // Data type (8-bit per channel)
         data             // Pointer to the pixel data
     );
-
 
     // Set the texture filtering parameters
     glTextureParameteri(texture, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -159,7 +159,7 @@ void RawTexturedQuad::OnAttach()
     glUseProgram(shaderProgram);
     glUniform1i(glGetUniformLocation(shaderProgram, "u_Texture"), 0);
 
-    // Bind the texture
+    // Bind the texture to the texture unit
     glBindTextureUnit(0, texture);
 }
 
