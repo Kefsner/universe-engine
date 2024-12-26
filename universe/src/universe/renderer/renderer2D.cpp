@@ -1,14 +1,18 @@
 #include "pch.hpp"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "universe/renderer/renderer2D.hpp"
 #include "universe/renderer/render_command.hpp"
 #include "universe/renderer/vertex_array.hpp"
 
 namespace Universe
-{
+{    
     struct renderer2DData
     {
         Ref<VertexArray> vertexArray;
+        Ref<Shader> shader;
         uint32_t indexBufferCount;
     };
     
@@ -17,11 +21,11 @@ namespace Universe
     void Renderer2D::Init()
     {
         float vertices[] = {
-            // Positions    // Colors
-            -0.5f, -0.5f,   1.0f, 0.0f, 0.0f, // Bottom-left
-             0.5f, -0.5f,   0.0f, 1.0f, 0.0f, // Bottom-right
-             0.5f,  0.5f,   0.0f, 0.0f, 1.0f, // Top-right
-            -0.5f,  0.5f,   1.0f, 1.0f, 0.0f  // Top-left
+            // Positions
+            -0.5f, -0.5f, 0.0f,
+             0.5f, -0.5f, 0.0f,
+             0.5f,  0.5f, 0.0f,
+            -0.5f,  0.5f, 0.0f,
         };
         uint32_t indices[] = { 0, 1, 2, 2, 3, 0 };
 
@@ -30,8 +34,11 @@ namespace Universe
         Ref<VertexBuffer> vertexBuffer;
         vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
         vertexBuffer->SetLayout({
-            { ShaderDataType::Float2, "a_Position" },
-            { ShaderDataType::Float3, "a_Color" }
+            { ShaderDataType::Float3, "a_Position"     },
+            // { ShaderDataType::Float4, "a_Color"        },
+            // { ShaderDataType::Float2, "a_TexCoord"     },
+            // { ShaderDataType::Float,  "a_TexIndex"     },
+            // { ShaderDataType::Float,  "a_TilingFactor" }
         });
         s_Data.vertexArray->AddVertexBuffer(vertexBuffer);
         }
@@ -45,33 +52,31 @@ namespace Universe
         const char* vertexShaderSource = R"(
             #version 460 core
 
-            layout(location = 0) in vec2 a_Position;
-            layout(location = 1) in vec3 a_Color;
+            layout(location = 0) in vec3 a_Position;
 
-            out vec4 v_Color;
+            uniform mat4 u_Transform;
 
             void main()
             {
-                gl_Position = vec4(a_Position, 0.0, 1.0);
-                v_Color = vec4(a_Color, 1.0);
+                gl_Position = u_Transform * vec4(a_Position, 1.0);
             }
         )";
 
         const char* fragmentShaderSource = R"(
             #version 460 core
 
-            in vec4 v_Color;
+            uniform vec4 u_Color;
 
             out vec4 color;
 
             void main()
             {
-                color = vec4(v_Color);
+                color = u_Color;
             }
         )";
-        Ref<Shader> shader;
-        shader = Shader::Create("Renderer2D", vertexShaderSource, fragmentShaderSource);
-        shader->Bind();
+        s_Data.shader = Shader::Create("Renderer2D", vertexShaderSource, fragmentShaderSource);
+        s_Data.shader->Bind();
+        s_Data.vertexArray->Bind();
         }
     }
 
@@ -87,7 +92,6 @@ namespace Universe
     void Renderer2D::BeginScene()
     {
         RenderCommand::Clear();
-        s_Data.vertexArray->Bind();
     }
 
     void Renderer2D::EndScene()
@@ -96,7 +100,6 @@ namespace Universe
 
     void Renderer2D::DrawQuad()
     {
-        RenderCommand::DrawIndexed(s_Data.indexBufferCount);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -106,6 +109,12 @@ namespace Universe
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
     {
-        DrawQuad();
+        glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+        s_Data.shader->Bind();
+        s_Data.shader->SetUniformMat4("u_Transform", transform);
+        s_Data.shader->SetUniformFloat4("u_Color", color);
+
+        RenderCommand::DrawIndexed(s_Data.indexBufferCount);
     }
 }

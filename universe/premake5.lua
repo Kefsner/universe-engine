@@ -18,6 +18,7 @@ project "Universe"
       "%{prj.location}/vendor/glfw/include",
       "%{prj.location}/vendor/glm",
       "%{prj.location}/vendor/imgui",
+      "%{prj.location}/vendor/stb"
    }
 
    files {
@@ -31,6 +32,7 @@ project "Universe"
       "%{prj.location}/vendor/imgui/backends/imgui_impl_glfw.cpp",
       "%{prj.location}/vendor/imgui/backends/imgui_impl_opengl3.cpp",
       -- "%{prj.location}/vendor/imgui/imgui_demo.cpp",
+      "%{prj.location}/vendor/stb/stb_image.cpp"
    }
 
    defines {

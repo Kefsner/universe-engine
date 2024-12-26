@@ -15,6 +15,9 @@ namespace Universe
         virtual void Bind() const override;
         virtual void Unbind() const override;
 
+        virtual void SetUniformFloat4(const char* name, const glm::vec4& vector) override;
+        virtual void SetUniformMat4(const char* name, const glm::mat4& matrix) override;
+
         static void CheckShaderCompilation(GLuint shader, const std::string& type);
         static void CheckProgramLinking(GLuint program);
 

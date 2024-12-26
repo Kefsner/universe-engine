@@ -10,7 +10,8 @@ project "Sandbox"
 
    files {
       "%{prj.location}/src/**.cpp",
-      "%{prj.location}/src/**.hpp"
+      "%{prj.location}/src/**.hpp",
+      -- Sandbox will not be aware of the following libraries
    }
 
    includedirs {
@@ -19,8 +20,9 @@ project "Sandbox"
       "%{wks.location}/universe/vendor/spdlog/include",
       "%{wks.location}/universe/vendor/glfw/include",
       "%{wks.location}/universe/vendor/glm",
-      "%{wks.location}/universe/vendor/glad/include" -- Remove later
-      -- Sandbox will not be aware of the glad library
+      -- Sandbox will not be aware of the following libraries
+      "%{wks.location}/universe/vendor/glad/include",
+      "%{wks.location}/universe/vendor/stb"
    }
 
    links {

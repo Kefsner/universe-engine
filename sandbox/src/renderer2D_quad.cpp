@@ -19,7 +19,7 @@ void Renderer2DQuad::OnDetach()
 void Renderer2DQuad::OnUpdate(Universe::Timestep ts)
 {
     Universe::Renderer2D::BeginScene();
-    Universe::Renderer2D::DrawQuad();
+    Universe::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.2f, 0.6f, 0.6f, 1.0f });
     Universe::Renderer2D::EndScene();
 }
 

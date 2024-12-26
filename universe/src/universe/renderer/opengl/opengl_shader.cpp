@@ -1,6 +1,7 @@
 #include "pch.hpp"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "universe/renderer/opengl/opengl_shader.hpp"
 
@@ -57,7 +58,6 @@ namespace Universe
             glGetShaderInfoLog(shader, 512, nullptr, infoLog);
             UE_CORE_ERROR("Shader compilation error: {0} shader\n{1}", type, infoLog);
         }
-        UE_CORE_TRACE("Shader compilation successful: {0} shader", type);
     }
 
     void OpenGLShader::CheckProgramLinking(GLuint program)
@@ -70,6 +70,25 @@ namespace Universe
             glGetProgramInfoLog(program, 512, nullptr, infoLog);
             UE_CORE_ERROR("Program linking error: {0}", infoLog);
         }
-        UE_CORE_TRACE("Program linking successful");
+    }
+
+    void OpenGLShader::SetUniformFloat4(const char* name, const glm::vec4& vector)
+    {
+        GLint location = glGetUniformLocation(m_ShaderID, name);
+        #if UE_DEBUG
+        if (location == -1)
+            UE_CORE_WARN("Uniform {0} not found in shader {1}", name, m_Name);
+        #endif
+        glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
+    }
+
+    void OpenGLShader::SetUniformMat4(const char* name, const glm::mat4& matrix)
+    {
+        GLint location = glGetUniformLocation(m_ShaderID, name);
+        #if UE_DEBUG
+        if (location == -1)
+            UE_CORE_WARN("Uniform {0} not found in shader {1}", name, m_Name);
+        #endif
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
     }
 }

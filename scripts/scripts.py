@@ -10,6 +10,7 @@ if __name__ == "__main__":
     parser.add_argument("-R", "--rebuild", help="Clean and build the project", action="store_true")
     parser.add_argument("-Rr", "--rebuild-run", help="Clean, build and run the project", action="store_true")
     parser.add_argument("--glfw", help="Setup GLFW dependency", action="store_true")
+    parser.add_argument("--stb", help="Setup STB dependency", action="store_true")
 
     args = parser.parse_args()
 
@@ -32,3 +33,5 @@ if __name__ == "__main__":
         build_manager.run()
     elif args.glfw:
         dependency_manager.setup_glfw()
+    elif args.stb:
+        dependency_manager.setup_stb()
