@@ -18,12 +18,13 @@ namespace Universe
         virtual ~Shader() = default;
 
         virtual void Bind() const = 0;
-        virtual void Unbind() const = 0;
 
+        virtual void SetUniformIntArray(const char* name, int* values, uint32_t count) = 0;
         virtual void SetUniformInt(const char* name, int value) = 0;
         virtual void SetUniformFloat4(const char* name, const glm::vec4& vector) = 0;
         virtual void SetUniformMat4(const char* name, const glm::mat4& matrix) = 0;
 
         static Ref<Shader> Create(const char* name, const std::string& vertexSrc, const std::string& fragmentSrc);
+        static Ref<Shader> Create(const char* filepath);
     };
 }

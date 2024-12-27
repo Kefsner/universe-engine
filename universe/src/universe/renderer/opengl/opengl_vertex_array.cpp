@@ -22,11 +22,6 @@ namespace Universe
         glBindVertexArray(m_VertexArrayID);
     }
 
-    void OpenGLVertexArray::Unbind() const
-    {
-        glBindVertexArray(0);
-    }
-
     void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     {
         uint32_t vertexBufferID = vertexBuffer->GetVertexBufferID();

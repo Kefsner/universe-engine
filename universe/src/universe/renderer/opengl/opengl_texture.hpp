@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glad/glad.h>
+
 #include "universe/renderer/texture.hpp"
 
 namespace Universe
@@ -8,6 +10,7 @@ namespace Universe
     {
     public:
         OpenGLTexture2D(const std::string& path);
+        OpenGLTexture2D(TextureSpecification spec);
         ~OpenGLTexture2D();
 
         virtual int32_t GetWidth() const override { return m_Width; }
@@ -15,8 +18,11 @@ namespace Universe
 
         virtual void Bind(uint32_t slot = 0) const override;
 
+        virtual void SetData(void* data, uint32_t size) override;
+
     private:
         uint32_t m_TextureID;
         int32_t m_Width, m_Height;
+        GLenum m_InternalFormat, m_DataFormat;
     };
 }

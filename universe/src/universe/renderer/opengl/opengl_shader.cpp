@@ -32,6 +32,11 @@ namespace Universe
         glDeleteShader(fragmentShader);
     }
 
+    OpenGLShader::OpenGLShader(const char* filepath)
+    {
+        UE_CORE_WARN("Shader from file not implemented yet");
+    }
+
     OpenGLShader::~OpenGLShader()
     {
         glDeleteProgram(m_ShaderID);
@@ -40,11 +45,6 @@ namespace Universe
     void OpenGLShader::Bind() const
     {
         glUseProgram(m_ShaderID);
-    }
-
-    void OpenGLShader::Unbind() const
-    {
-        glUseProgram(0);
     }
 
     void OpenGLShader::CheckShaderCompilation(GLuint shader, const std::string& type)
@@ -56,6 +56,7 @@ namespace Universe
         {
             glGetShaderInfoLog(shader, 512, nullptr, infoLog);
             UE_CORE_ERROR("Shader compilation error: {0} shader\n{1}", type, infoLog);
+            UE_ASSERT(false, "Shader compilation error");
         }
     }
 
@@ -68,7 +69,18 @@ namespace Universe
         {
             glGetProgramInfoLog(program, 512, nullptr, infoLog);
             UE_CORE_ERROR("Program linking error: {0}", infoLog);
+            UE_ASSERT(false, "Shader compilation error");
         }
+    }
+
+    void OpenGLShader::SetUniformIntArray(const char* name, int* values, uint32_t count)
+    {
+        GLint location = glGetUniformLocation(m_ShaderID, name);
+        #if UE_DEBUG
+        if (location == -1)
+            UE_CORE_WARN("Uniform {0} not found in shader {1}", name, m_Name);
+        #endif
+        glUniform1iv(location, count, values);
     }
 
     void OpenGLShader::SetUniformInt(const char* name, int value)

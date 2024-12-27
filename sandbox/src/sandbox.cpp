@@ -8,6 +8,7 @@
 #include "renderer2D_quad.hpp"
 #include "raw_textured_quad.hpp"
 #include "textured_quad.hpp"
+#include "renderer2D_textured_quad.hpp"
 
 class Sandbox : public Universe::Application
 {
@@ -21,7 +22,8 @@ public:
         // PushLayer(new Quad());
         // PushLayer(new Renderer2DQuad());
         // PushLayer(new RawTexturedQuad());
-        PushLayer(new TexturedQuad());
+        // PushLayer(new TexturedQuad());
+        PushLayer(new Renderer2DTexturedQuad());
     }
 };
 

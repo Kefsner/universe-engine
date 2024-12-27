@@ -9,4 +9,9 @@ namespace Universe
     {
         return CreateRef<OpenGLTexture2D>(path);
     }
+
+    Ref<Texture2D> Texture2D::Create(TextureSpecification spec)
+    {
+        return CreateRef<OpenGLTexture2D>(spec);
+    }
 }

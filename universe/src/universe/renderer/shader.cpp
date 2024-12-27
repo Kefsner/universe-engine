@@ -9,4 +9,9 @@ namespace Universe
     {
         return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
     }
+
+    Ref<Shader> Shader::Create(const char* filepath)
+    {
+        return CreateRef<OpenGLShader>(filepath);
+    }
 }

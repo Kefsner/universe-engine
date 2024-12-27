@@ -6,10 +6,16 @@
 
 namespace Universe
 {
-    OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+    OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, uint32_t size)
     {
         glCreateBuffers(1, &m_VertexBufferID);
         glNamedBufferData(m_VertexBufferID, size, vertices, GL_STATIC_DRAW);
+    }
+
+    OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+    {
+        glCreateBuffers(1, &m_VertexBufferID);
+        glNamedBufferData(m_VertexBufferID, size, nullptr, GL_DYNAMIC_DRAW);
     }
 
     OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -22,9 +28,9 @@ namespace Universe
         glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
     }
 
-    void OpenGLVertexBuffer::Unbind() const
+    void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
     {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glNamedBufferData(m_VertexBufferID, size, data, GL_DYNAMIC_DRAW);
     }
 
     OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
@@ -42,10 +48,5 @@ namespace Universe
     void OpenGLIndexBuffer::Bind() const
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
-    }
-
-    void OpenGLIndexBuffer::Unbind() const
-    {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 }
