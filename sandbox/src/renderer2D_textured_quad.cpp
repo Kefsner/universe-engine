@@ -14,7 +14,7 @@ void Renderer2DTexturedQuad::OnDetach()
 void Renderer2DTexturedQuad::OnUpdate(Universe::Timestep ts)
 {
     Universe::Renderer2D::BeginScene();
-    Universe::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, m_Texture);
+    Universe::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 0.9f }, m_Texture);
     Universe::Renderer2D::EndScene();
 }
 
