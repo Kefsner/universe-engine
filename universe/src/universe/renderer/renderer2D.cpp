@@ -117,15 +117,6 @@ namespace Universe
 
     void Renderer2D::EndScene()
     {
-        // Upload data to GPU
-        s_Data.vertexBuffer->SetData(s_Data.vertexBufferBase, sizeof(QuadVertex) * 4);
-        
-        // Bind shader and textures
-        s_Data.shader->Bind();
-
-        // Draw
-        s_Data.vertexArray->Bind();
-        RenderCommand::DrawIndexed(6);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -147,6 +138,10 @@ namespace Universe
         }
 
         s_Data.whiteTexture->Bind(0);
+        s_Data.vertexBuffer->SetData(s_Data.vertexBufferBase, sizeof(QuadVertex) * 4);
+        s_Data.shader->Bind();
+        s_Data.vertexArray->Bind();
+        RenderCommand::DrawIndexed(6);
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
@@ -168,5 +163,9 @@ namespace Universe
         }
 
         texture->Bind(0);
+        s_Data.vertexBuffer->SetData(s_Data.vertexBufferBase, sizeof(QuadVertex) * 4);
+        s_Data.shader->Bind();
+        s_Data.vertexArray->Bind();
+        RenderCommand::DrawIndexed(6);
     }
 }
