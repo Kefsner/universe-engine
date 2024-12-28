@@ -2,7 +2,7 @@
 
 #include "universe/base/base.hpp"
 #include "universe/events/events.hpp"
-#include "universe/events/mouse_codes.hpp"
+#include "universe/inputs/mouse_codes.hpp"
 
 namespace Universe
 {

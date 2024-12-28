@@ -1,7 +1,7 @@
 #pragma once
 
 #include "universe/events/events.hpp"
-#include "universe/events/key_codes.hpp"
+#include "universe/inputs/key_codes.hpp"
 
 namespace Universe
 {

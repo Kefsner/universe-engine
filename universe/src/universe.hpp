@@ -5,11 +5,16 @@
 #include "universe/base/assert.hpp"
 
 #include "universe/application.hpp"
+
 #include "universe/layers/layer.hpp"
 #include "universe/layers/layer_stack.hpp"
 
 #include "universe/events/events.hpp"
 #include "universe/events/application_events.hpp"
+
+#include "universe/inputs/input.hpp"
+#include "universe/inputs/key_codes.hpp"
+#include "universe/inputs/mouse_codes.hpp"
 
 #include "universe/renderer/renderer2D.hpp"
 #include "universe/renderer/render_command.hpp"
