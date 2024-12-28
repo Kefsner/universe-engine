@@ -11,7 +11,6 @@ project "Sandbox"
    files {
       "%{prj.location}/src/**.cpp",
       "%{prj.location}/src/**.hpp",
-      -- Sandbox will not be aware of the following libraries
    }
 
    includedirs {
@@ -22,7 +21,7 @@ project "Sandbox"
       "%{wks.location}/universe/vendor/glm",
       -- Sandbox will not be aware of the following libraries
       "%{wks.location}/universe/vendor/glad/include",
-      "%{wks.location}/universe/vendor/stb"
+      -- "%{wks.location}/universe/vendor/stb"
    }
 
    links {
