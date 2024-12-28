@@ -11,6 +11,8 @@
 
 #include "universe/events/events.hpp"
 #include "universe/events/application_events.hpp"
+#include "universe/events/key_events.hpp"
+#include "universe/events/mouse_events.hpp"
 
 #include "universe/inputs/input.hpp"
 #include "universe/inputs/key_codes.hpp"

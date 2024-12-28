@@ -20,6 +20,8 @@ namespace Universe
         bool OnWindowClose(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);
 
+        void Close() { m_IsRunning = false; }
+
         static Application& Get() { return *s_Instance; }
         Window& GetWindow() { return *m_Window; }
 
