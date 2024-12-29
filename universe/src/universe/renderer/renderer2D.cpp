@@ -172,4 +172,32 @@ namespace Universe
         s_Data.vertexArray->Bind();
         RenderCommand::DrawIndexed(6);
     }
+
+    void Renderer2D::DrawAnimatedQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Animation>& animation)
+    {
+        DrawAnimatedQuad({ position.x, position.y, 0.0f }, size, color, animation);
+    }
+
+    void Renderer2D::DrawAnimatedQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Animation>& animation) 
+    {
+        glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+        std::array<glm::vec2, 4> texCoords = animation->GetTextureCoords();
+        const Ref<Texture2D>& texture = animation->GetTexture();
+
+        for (uint32_t i = 0; i < 4; i++)
+        {
+            s_Data.vertexBufferBase[i].position = transform * s_Data.quadVertexPositions[i];
+            s_Data.vertexBufferBase[i].color = color;
+            s_Data.vertexBufferBase[i].texCoord = texCoords[i];
+        }
+
+        texture->Bind(0);
+        s_Data.vertexBuffer->SetData(s_Data.vertexBufferBase, sizeof(QuadVertex) * 4);
+        s_Data.shader->Bind();
+        s_Data.vertexArray->Bind();
+        RenderCommand::DrawIndexed(6);
+    }
+
+
 }
