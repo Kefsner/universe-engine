@@ -18,6 +18,7 @@
 #include "universe/inputs/key_codes.hpp"
 #include "universe/inputs/mouse_codes.hpp"
 
+#include "universe/renderer/camera.hpp"
 #include "universe/renderer/renderer2D.hpp"
 #include "universe/renderer/render_command.hpp"
 #include "universe/renderer/buffer.hpp"

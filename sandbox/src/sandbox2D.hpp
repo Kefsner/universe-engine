@@ -9,14 +9,7 @@ public:
     virtual void OnDetach() override;
     virtual void OnUpdate(Universe::Timestep ts) override;
     virtual void OnEvent(Universe::Event& event) override;
-
-    bool OnKeyPressed(Universe::KeyPressedEvent& event);
-
 private:
-    Universe::Ref<Universe::Texture2D> m_BackgroundTexture;
-    Universe::Ref<Universe::Texture2D> m_StartButtonTexture;
-    Universe::Ref<Universe::Texture2D> m_ExitButtonTexture;
-
-    bool m_GameIsRunning = false;
-    bool m_StartButtonSelected = true;
+    Universe::OrthographicCamera m_Camera;
+    Universe::Ref<Universe::Texture2D> m_checkerboard;
 };

@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+#include "universe/renderer/camera.hpp"
 #include "universe/renderer/texture.hpp"
 
 namespace Universe
@@ -14,7 +15,7 @@ namespace Universe
 
         static void SetClearColor(const glm::vec4& color);
 
-        static void BeginScene();
+        static void BeginScene(OrthographicCamera& camera);
         static void EndScene();
 
         static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);

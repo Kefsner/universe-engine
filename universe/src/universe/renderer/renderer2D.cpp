@@ -21,11 +21,13 @@ namespace Universe
         out vec4 v_Color;
         out vec2 v_TexCoord;
 
+        uniform mat4 u_ViewProjection;
+
         void main()
         {
             v_Color = a_Color;
             v_TexCoord = a_TexCoord;
-            gl_Position = a_Position;
+            gl_Position = u_ViewProjection * a_Position;
         }
     )";
 
@@ -110,8 +112,10 @@ namespace Universe
         RenderCommand::SetClearColor(color);
     }
 
-    void Renderer2D::BeginScene()
+    void Renderer2D::BeginScene(OrthographicCamera& camera)
     {
+        s_Data.shader->Bind();
+        s_Data.shader->SetUniformMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
         RenderCommand::Clear();
     }
 
