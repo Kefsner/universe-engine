@@ -8,7 +8,7 @@ void Sandbox2D::OnAttach()
     m_Camera.AttachDefaultController(); // WASD controller
     m_checkerboard = Universe::Texture2D::Create("sandbox/assets/textures/checkerboard.png");
     m_PlayerSpriteSheetTexture = Universe::Texture2D::Create("sandbox/assets/textures/player_sheet.png");
-    m_PlayerSpriteSheet = Universe::SpriteSheet::Create(m_PlayerSpriteSheetTexture, 1, 8);
+    m_PlayerSpriteSheet = Universe::TextureAtlas::Create(m_PlayerSpriteSheetTexture, 1, 8);
     m_IdleAnimation = Universe::Animation::Create(m_PlayerSpriteSheet, 0, 3, 0.1f, true);
 }
 

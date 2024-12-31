@@ -4,7 +4,7 @@
 
 #include "universe/renderer/camera.hpp"
 #include "universe/renderer/texture.hpp"
-#include "universe/renderer/spritesheet.hpp"
+#include "universe/renderer/texture_atlas.hpp"
 #include "universe/renderer/animation.hpp"
 
 namespace Universe

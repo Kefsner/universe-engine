@@ -2,16 +2,16 @@
 
 #include <glm/glm.hpp>
 
-#include "universe/renderer/spritesheet.hpp"
+#include "universe/renderer/texture_atlas.hpp"
 
 namespace Universe
 {
-    SpriteSheet::SpriteSheet(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns)
+    TextureAtlas::TextureAtlas(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns)
         : m_Texture(texture), m_Rows(rows), m_Columns(columns)
     {
     }
 
-    std::array<glm::vec2, 4> SpriteSheet::GetTextureCoords(uint32_t index)
+    std::array<glm::vec2, 4> TextureAtlas::GetTextureCoords(uint32_t index)
     {
         uint32_t xIndex = index % m_Columns;
         uint32_t yIndex = index / m_Columns;
@@ -32,8 +32,8 @@ namespace Universe
         };
     }
 
-    Ref<SpriteSheet> SpriteSheet::Create(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns)
+    Ref<TextureAtlas> TextureAtlas::Create(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns)
     {
-        return CreateRef<SpriteSheet>(texture, rows, columns);
+        return CreateRef<TextureAtlas>(texture, rows, columns);
     }
 }

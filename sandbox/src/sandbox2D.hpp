@@ -13,7 +13,7 @@ private:
     Universe::OrthographicCamera m_Camera;
     Universe::Ref<Universe::Texture2D> m_checkerboard;
     Universe::Ref<Universe::Texture2D> m_PlayerSpriteSheetTexture;
-    Universe::Ref<Universe::SpriteSheet> m_PlayerSpriteSheet;
+    Universe::Ref<Universe::TextureAtlas> m_PlayerSpriteSheet;
     Universe::Ref<Universe::Animation> m_IdleAnimation;
 
 };

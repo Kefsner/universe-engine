@@ -6,16 +6,16 @@
 
 namespace Universe
 {
-    class SpriteSheet
+    class TextureAtlas
     {
     public:
-        SpriteSheet(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns);
+        TextureAtlas(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns);
 
         std::array<glm::vec2, 4> GetTextureCoords(uint32_t index);
 
         Ref<Texture2D> GetTexture() const { return m_Texture; }
         
-        static Ref<SpriteSheet> Create(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns);
+        static Ref<TextureAtlas> Create(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns);
 
     private:
         Ref<Texture2D> m_Texture;
