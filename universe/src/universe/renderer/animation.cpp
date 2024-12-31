@@ -7,6 +7,12 @@
 
 namespace Universe
 {
+    Ref<Animation> Animation::Create(Ref<TextureAtlas> textureAtlas, float frameDuration, bool loop)
+    {
+        return CreateRef<Animation>(textureAtlas, frameDuration, loop);
+    }
+
+
     void Animation::Update(Timestep ts)
     {
         m_Timer += ts;

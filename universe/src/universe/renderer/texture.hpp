@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include "universe/base/base.hpp"
 
 namespace Universe
@@ -30,5 +32,23 @@ namespace Universe
 
         static Ref<Texture2D> Create(std::string path);
         static Ref<Texture2D> Create(TextureSpecification spec);
+    };
+
+    class TextureAtlas
+    {
+    public:
+        TextureAtlas(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns);
+
+        std::array<glm::vec2, 4> CalculateTextureCoords(uint32_t index);
+
+        Ref<Texture2D> GetTexture() const { return m_Texture; }
+        uint32_t GetRows() const { return m_Rows; }
+        uint32_t GetColumns() const { return m_Columns; }
+
+        static Ref<TextureAtlas> Create(Ref<Texture2D>& texture, uint32_t rows, uint32_t columns);
+
+    private:
+        Ref<Texture2D> m_Texture;
+        uint32_t m_Rows, m_Columns;
     };
 }

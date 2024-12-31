@@ -182,7 +182,7 @@ namespace Universe
     {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-        std::array<glm::vec2, 4> texCoords = animation->GetTextureCoords();
+        std::array<glm::vec2, 4> texCoords = animation->GetCurrentFrameTextureCoords();
         const Ref<Texture2D>& texture = animation->GetTexture();
 
         for (uint32_t i = 0; i < 4; i++)
