@@ -11,10 +11,6 @@ public:
     virtual void OnEvent(Universe::Event& event) override;
 private:
     Universe::OrthographicCamera m_Camera;
-    Universe::Ref<Universe::Texture2D> m_checkerboard;
-    Universe::Ref<Universe::Texture2D> m_PlayerSpriteSheetTexture;
-    Universe::Ref<Universe::TextureAtlas> m_PlayerSpriteSheet;
     Universe::Ref<Universe::Animation> m_IdleAnimation;
     Universe::Ref<Universe::Animation> m_RunningAnimation;
-
 };
