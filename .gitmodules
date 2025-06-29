@@ -1,6 +1,6 @@
 [submodule "universe/vendor/spdlog"]
 	path = universe/vendor/spdlog
-	url = git@github.com:gabime/spdlog.git
+	url = https://github.com/gabime/spdlog.git
 [submodule "universe/vendor/imgui"]
 	path = universe/vendor/imgui
 	url = https://github.com/ocornut/imgui.git
@@ -11,7 +11,7 @@
 	ignore = dirty
 [submodule "universe/vendor/glm"]
 	path = universe/vendor/glm
-	url = git@github.com:g-truc/glm.git
+	url = https://github.com/g-truc/glm.git
 [submodule "universe/vendor/stb"]
 	path = universe/vendor/stb
 	url = https://github.com/nothings/stb.git

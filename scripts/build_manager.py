@@ -7,8 +7,8 @@ class BuildManager:
         self.start_project = "Sandbox"
 
     def build(self):
-        subprocess.run(("./vendor/premake/premake5-windows.exe", "gmake2"))
-        subprocess.run(("mingw32-make", "config=debug"))
+        subprocess.run(("./vendor/premake/premake5-windows.exe", "gmake"))
+        subprocess.run(("C:\\mingw64\\bin\\mingw32-make", "config=debug"))
 
     def run(self):
         exe_path = os.path.join(".", "build", "bin", "Debug", f"{self.start_project}", f"{self.start_project}.exe")
