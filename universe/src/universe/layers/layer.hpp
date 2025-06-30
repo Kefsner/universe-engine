@@ -14,5 +14,6 @@ namespace Universe
         virtual void OnDetach() {}
         virtual void OnUpdate(Timestep ts) {}
         virtual void OnEvent(Event& event) {}
+        virtual void OnImGuiRender() {}
     };
 }

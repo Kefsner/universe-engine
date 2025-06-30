@@ -74,7 +74,10 @@ namespace Universe
             if (!m_Minimized)
             {
                 for (Layer* layer : m_LayerStack)
+                {
                     layer->OnUpdate(ts);
+                    layer->OnImGuiRender();
+                }
             }
 
             m_Window->OnUpdate();

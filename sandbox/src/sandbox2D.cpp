@@ -30,21 +30,72 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
 {
     m_Camera.OnUpdate(ts);
 
-    Universe::Ref<Universe::Animation> current_animation;
-    
-    current_animation = m_IdleAnimation;
-    
-    if (Universe::Input::IsKeyPressed(Universe::Key::Space))
-        current_animation = m_RunningAnimation;
+    if (Universe::Input::IsKeyPressed(Universe::Key::Right))
+    {
+        m_PlayerPosition.x += ts * m_MoveSpeed;
+        m_CurrentAnimation = m_RunningAnimation;
+        m_FacingRight = true;
+    }
+    else if (Universe::Input::IsKeyPressed(Universe::Key::Left))
+    {
+        m_PlayerPosition.x -= ts * m_MoveSpeed;
+        m_CurrentAnimation = m_RunningAnimation;
+        m_FacingRight = false;
+    }
+    else if (Universe::Input::IsKeyPressed(Universe::Key::Up))
+    {
+        m_PlayerPosition.y += ts * m_MoveSpeed;
+        m_CurrentAnimation = m_RunningAnimation;
+    }
+    else if (Universe::Input::IsKeyPressed(Universe::Key::Down))
+    {
+        m_PlayerPosition.y -= ts * m_MoveSpeed;
+        m_CurrentAnimation = m_RunningAnimation;
+    }
+    else
+    {
+        m_CurrentAnimation = m_IdleAnimation;
+    }
 
-    current_animation->Update(ts);
+    m_CurrentAnimation->Update(ts);
+
+    if (!m_FreeCamera)
+        m_Camera.SetPosition(m_PlayerPosition); // Overwrite defaultcontroller.Could add a button to detach this call and move camera freely and after release it will return to player position.
+
+    UE_TRACE("Player Position: ({}, {})", m_PlayerPosition.x, m_PlayerPosition.y);
+
+    glm::vec2 scale = { 1.0f, 1.0f };
+    if (!m_FacingRight)
+    {
+        scale.x = -1.0f;
+    }
+
 
     Universe::Renderer2D::BeginScene(m_Camera);
-    Universe::Renderer2D::DrawAnimatedQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, current_animation);
+    Universe::Renderer2D::DrawAnimatedQuad(m_PlayerPosition, scale, { 1.0f, 1.0f, 1.0f, 1.0f }, m_CurrentAnimation);
     Universe::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnEvent(Universe::Event& event)
 {
     m_Camera.OnEvent(event);
+
+    Universe::EventDispatcher dispatcher(event);
+
+    dispatcher.Dispatch<Universe::KeyReleasedEvent>([&](Universe::KeyReleasedEvent& e)
+    {
+        if (e.GetKeyCode() == Universe::Key::Tab)
+        {
+            m_FreeCamera = !m_FreeCamera;
+            return true;
+        }
+        return false;
+    });
+}
+
+void Sandbox2D::OnImGuiRender()
+{
+    // ImGui::Begin("Settings");
+    // ImGui::Checkbox("Free Camera", &m_FreeCamera);
+    // ImGui::End();
 }

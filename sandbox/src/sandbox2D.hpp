@@ -9,8 +9,17 @@ public:
     virtual void OnDetach() override;
     virtual void OnUpdate(Universe::Timestep ts) override;
     virtual void OnEvent(Universe::Event& event) override;
+    virtual void OnImGuiRender() override;
+
 private:
     Universe::OrthographicCamera m_Camera;
     Universe::Ref<Universe::Animation> m_IdleAnimation;
     Universe::Ref<Universe::Animation> m_RunningAnimation;
+    Universe::Ref<Universe::Animation> m_CurrentAnimation;
+
+    bool m_FacingRight = true;
+    bool m_FreeCamera = false;
+
+    glm::vec3 m_PlayerPosition = { 0.0f, 0.0f, 0.0f };
+    float m_MoveSpeed = 1.0f;
 };
