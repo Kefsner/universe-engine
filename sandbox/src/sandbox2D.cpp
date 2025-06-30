@@ -1,5 +1,4 @@
 #include "sandbox2D.hpp"
-#include <imgui.h>
 
 void Sandbox2D::OnAttach()
 {
