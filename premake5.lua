@@ -2,14 +2,14 @@ workspace "UniverseEngine"
     configurations { "Debug", "Release" }
     architecture "x64"
     location "./"
-    startproject "Forge"
+    startproject "Sandbox"
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
+        defines { "DEBUG", "UE_DEBUG" }
         symbols "On"
 
     filter "configurations:Release"
-        defines { "RELEASE" }
+        defines { "NDEBUG", "UE_RELEASE" }
         optimize "On"
 
 -- Sub-projects

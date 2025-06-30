@@ -27,17 +27,22 @@ project "Forge"
    links {
       "Universe",
       "GLFW",
-      "gdi32",
-      "user32",
-      "shell32",
-      "kernel32",
-      "opengl32"
    }
 
-   filter "configurations:Debug"
-      defines { "UE_DEBUG" }
-      symbols "On"
+   filter "system:windows"
+      links {
+         "gdi32",
+         "user32",
+         "shell32",
+         "kernel32",
+         "opengl32"
+      }
 
-   filter "configurations:Release"
-      defines { "UE_RELEASE" }
-      optimize "On"
+   filter "system:linux"
+      links {
+         "GL",
+         "X11",
+         "pthread",
+         "dl",
+         "m"
+      }

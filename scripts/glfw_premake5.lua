@@ -48,11 +48,30 @@ project "GLFW"
       defines {
          "_GLFW_WIN32",
       }
-      
-   filter "configurations:Debug"
-      runtime "Debug"
-      symbols "On"
+   
+   filter "system:linux"
+      files {
+         "%{prj.location}/src/x11_init.c",
+         "%{prj.location}/src/x11_monitor.c",
+         "%{prj.location}/src/x11_window.c",
+         "%{prj.location}/src/posix_time.c",
+         "%{prj.location}/src/posix_thread.c",
+         "%{prj.location}/src/glx_context.c",
+         "%{prj.location}/src/linux_joystick.c",
+         "%{prj.location}/src/xkb_unicode.c",
+         "%{prj.location}/src/glx_context.c",
+         "%{prj.location}/src/posix_module.c",
+         "%{prj.location}/src/posix_poll.c",
+      }
 
-   filter "configurations:Release"
-      runtime "Release"
-      optimize "On"
+      links {
+         "GL",
+         "X11",
+         "pthread",
+         "dl",
+         "m"
+      }
+
+      defines {
+         "_GLFW_X11"
+      }
