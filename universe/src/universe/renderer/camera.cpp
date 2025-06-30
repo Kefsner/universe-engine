@@ -12,7 +12,7 @@
 namespace Universe
 {
     OrthographicCamera::OrthographicCamera(float width, float height)
-        : m_ZoomLevel(1.0f), m_ViewMatrix(1.0f)
+        : m_ZoomLevel(10.f), m_ViewMatrix(1.0f)
     {
         SetViewportSize(width, height);
 

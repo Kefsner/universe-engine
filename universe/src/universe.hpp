@@ -30,3 +30,5 @@
 #include "universe/renderer/opengl/opengl_vertex_array.hpp"
 #include "universe/renderer/opengl/opengl_shader.hpp"
 #include "universe/renderer/opengl/opengl_texture.hpp"
+
+#include "universe/world/world.hpp"

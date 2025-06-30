@@ -21,5 +21,8 @@ private:
     bool m_FreeCamera = false;
 
     glm::vec3 m_PlayerPosition = { 0.0f, 0.0f, 0.0f };
-    float m_MoveSpeed = 1.0f;
+    float m_MoveSpeed = 2.5f;
+    float m_RunningSpeed = 5.0f;
+
+    Universe::Ref<Universe::World> m_World;
 };
