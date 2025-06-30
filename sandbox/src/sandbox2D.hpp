@@ -9,7 +9,6 @@ public:
     virtual void OnDetach() override;
     virtual void OnUpdate(Universe::Timestep ts) override;
     virtual void OnEvent(Universe::Event& event) override;
-    virtual void OnImGuiRender() override;
 
 private:
     Universe::OrthographicCamera m_Camera;

@@ -1,4 +1,5 @@
 #include "sandbox2D.hpp"
+#include <imgui.h>
 
 void Sandbox2D::OnAttach()
 {
@@ -64,7 +65,7 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
     m_CurrentAnimation->Update(ts);
 
     if (!m_FreeCamera)
-        m_Camera.SetPosition(m_PlayerPosition); // Overwrite defaultcontroller.Could add a button to detach this call and move camera freely and after release it will return to player position.
+        m_Camera.SetPosition(m_PlayerPosition);
 
     UE_TRACE("Player Position: ({}, {})", m_PlayerPosition.x, m_PlayerPosition.y);
 
@@ -95,11 +96,4 @@ void Sandbox2D::OnEvent(Universe::Event& event)
         }
         return false;
     });
-}
-
-void Sandbox2D::OnImGuiRender()
-{
-    // ImGui::Begin("Settings");
-    // ImGui::Checkbox("Free Camera", &m_FreeCamera);
-    // ImGui::End();
 }
