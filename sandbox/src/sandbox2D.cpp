@@ -30,6 +30,8 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
 {
     m_Camera.OnUpdate(ts);
 
+    m_CurrentAnimation = m_IdleAnimation;
+
     if (Universe::Input::IsKeyPressed(Universe::Key::Right))
     {
         m_PlayerPosition.x += ts * m_MoveSpeed;
@@ -42,7 +44,7 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
         m_CurrentAnimation = m_RunningAnimation;
         m_FacingRight = false;
     }
-    else if (Universe::Input::IsKeyPressed(Universe::Key::Up))
+    if (Universe::Input::IsKeyPressed(Universe::Key::Up))
     {
         m_PlayerPosition.y += ts * m_MoveSpeed;
         m_CurrentAnimation = m_RunningAnimation;
@@ -51,10 +53,6 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
     {
         m_PlayerPosition.y -= ts * m_MoveSpeed;
         m_CurrentAnimation = m_RunningAnimation;
-    }
-    else
-    {
-        m_CurrentAnimation = m_IdleAnimation;
     }
 
     m_CurrentAnimation->Update(ts);

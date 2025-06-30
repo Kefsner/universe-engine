@@ -1,14 +1,14 @@
 #pragma once
 
-#if defined(_MSC_VER)
+#if defined(UE_PLATFORM_WINDOWS)
+    #include <intrin.h>
     #define UE_DEBUGBREAK() __debugbreak()
-#elif defined(__GNUC__) || defined(__clang__)
+#elif defined(UE_PLATFORM_LINUX)
     #include <signal.h>
     #define UE_DEBUGBREAK() raise(SIGTRAP)
 #else
     #define UE_DEBUGBREAK() ((void)0)
 #endif
-
 
 #if defined(UE_DEBUG)
     #define UE_ASSERT(x, ...) { if(!(x)) { UE_ERROR("Assertion Failed: {0}", __VA_ARGS__); UE_DEBUGBREAK(); } }

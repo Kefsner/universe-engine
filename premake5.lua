@@ -12,6 +12,12 @@ workspace "UniverseEngine"
         defines { "NDEBUG", "UE_RELEASE" }
         optimize "On"
 
+    filter "system:windows"
+        defines { "UE_PLATFORM_WINDOWS" }
+
+    filter "system:linux"
+        defines { "UE_PLATFORM_LINUX" }
+
 -- Sub-projects
 include "universe/vendor/glfw"
 include "universe"

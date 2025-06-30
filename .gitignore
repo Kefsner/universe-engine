@@ -6,6 +6,6 @@ forge/Makefile
 universe/Makefile
 sandbox/Makefile
 
-*.exe
+vendor/premake/
 
 __pycache__/
