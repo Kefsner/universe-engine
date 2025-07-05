@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+#include "universe/base/timestep.hpp"
 #include "universe/renderer/texture.hpp"
 
 namespace Universe
@@ -10,30 +11,35 @@ namespace Universe
     {
     public:
         Animation(Ref<TextureAtlas> textureAtlas, float frameDuration, bool loop)
+            : m_TextureAtlas(textureAtlas), m_FrameDuration(frameDuration), m_Loop(loop)
         {
-            m_TextureAtlas = textureAtlas;
-            m_StartFrame = 0;
-            m_EndFrame = textureAtlas->GetRows() * textureAtlas->GetColumns() - 1;
-            m_CurrentFrame = 0;
-            m_FrameDuration = frameDuration;
-            m_Loop = loop;
+            m_TotalFrames = textureAtlas->GetRows() * textureAtlas->GetColumns();
         }
 
-        void Update(Timestep ts);
+        uint32_t GetTotalFrames() const { return m_TotalFrames; }
+        float GetFrameDuration() const { return m_FrameDuration; }
+        bool IsLooping() const { return m_Loop; }
 
-        std::array<glm::vec2, 4> GetCurrentFrameTextureCoords() const { return m_TextureAtlas->CalculateTextureCoords(m_CurrentFrame); }
+        Ref<Texture2D> GetTexture() const
+        {
+            return m_TextureAtlas->GetTexture();
+        }
 
-        void SetStartFrame(uint32_t startFrame) { m_StartFrame = startFrame; }
-        void SetEndFrame(uint32_t endFrame) { m_EndFrame = endFrame; }
+        std::array<glm::vec2, 4> GetFrameUV(uint32_t frameIndex) const
+        {
+            return m_TextureAtlas->CalculateTextureCoords(frameIndex);
+        }
 
-        Ref<Texture2D> GetTexture() const { return m_TextureAtlas->GetTexture(); }
-
-        static Ref<Animation> Create(Ref<TextureAtlas> textureAtlas, float frameDuration, bool loop);
+        static Ref<Animation> Create(Ref<TextureAtlas> textureAtlas, float frameDuration, bool loop)
+        {
+            return CreateRef<Animation>(textureAtlas, frameDuration, loop);
+        }
 
     private:
         Ref<TextureAtlas> m_TextureAtlas;
-        uint32_t m_StartFrame, m_EndFrame, m_CurrentFrame;
-        float m_FrameDuration, m_Timer = 0.0f;
+        float m_FrameDuration;
         bool m_Loop;
+
+        uint32_t m_TotalFrames = 0;
     };
 }

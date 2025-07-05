@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #include "universe/renderer/renderer2D.hpp"
-#include "universe/world/world.hpp"
+#include "universe/scene/world.hpp"
 #include "universe/base/logger.hpp"
 
 namespace Universe

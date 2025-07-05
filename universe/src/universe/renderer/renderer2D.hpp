@@ -24,7 +24,7 @@ namespace Universe
         static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture);
         static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture);
 
-        static void DrawAnimatedQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Animation>& animation);
-        static void DrawAnimatedQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Animation>& animation);
+        static void DrawAnimatedQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Animation>& animation, uint32_t frameIndex = 0);
+        static void DrawAnimatedQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Animation>& animation, uint32_t frameIndex = 0);
     };
 }

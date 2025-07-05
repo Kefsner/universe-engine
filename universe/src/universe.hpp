@@ -31,4 +31,8 @@
 #include "universe/renderer/opengl/opengl_shader.hpp"
 #include "universe/renderer/opengl/opengl_texture.hpp"
 
-#include "universe/world/world.hpp"
+#include "universe/scene/components.hpp"
+#include "universe/scene/entity.hpp"
+#include "universe/scene/scene.hpp"
+#include "universe/scene/world.hpp"
+#include "universe/assets/asset_manager.hpp"

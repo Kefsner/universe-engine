@@ -22,6 +22,7 @@ project "Sandbox"
       -- Sandbox will not be aware of the following libraries
       "%{wks.location}/universe/vendor/glad/include",
       -- "%{wks.location}/universe/vendor/stb"
+      "%{wks.location}/universe/vendor/entt/include",
    }
 
    links {

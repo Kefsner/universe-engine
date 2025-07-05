@@ -2,23 +2,29 @@
 
 void Sandbox2D::OnAttach()
 {
-    Universe::Renderer2D::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-
     m_Camera = Universe::OrthographicCamera(32.0f, 18.0f);
     m_Camera.AttachDefaultController(); // WASD controller
 
-    // === Animation Pipeline ===
-    // Idle Animation
-    Universe::Ref<Universe::Texture2D> texture;
-    texture = Universe::Texture2D::Create("sandbox/assets/textures/animations/player_idle.png");
-    Universe::Ref<Universe::TextureAtlas> textureAtlas;
-    textureAtlas = Universe::TextureAtlas::Create(texture, 1, 9);
-    m_IdleAnimation = Universe::Animation::Create(textureAtlas, 0.1f, true);
+    m_Scene = Universe::Scene::Create();
+
+    m_Player = m_Scene->CreateEntity("Player");
+
+    auto& assetManager = Universe::AssetManager::GetInstance();
+
+    auto idleAnim = assetManager.LoadAnimation(
+        "sandbox/assets/textures/animations/player_idle.png",
+        1, 9, 0.1f, true
+    );
 
     // Running Animation
-    texture = Universe::Texture2D::Create("sandbox/assets/textures/animations/player_running.png");
-    textureAtlas = Universe::TextureAtlas::Create(texture, 1, 8);
-    m_RunningAnimation = Universe::Animation::Create(textureAtlas, 0.1f, true);
+    auto runningAnim = assetManager.LoadAnimation(
+        "sandbox/assets/textures/animations/player_running.png",
+        1, 8, 0.1f, true
+    );
+
+    auto& animator = m_Player.AddComponent<Universe::AnimatorComponent>();
+    animator.AddAnimation("Idle", idleAnim);
+    animator.AddAnimation("Running", runningAnim);
 
     // === World Generation ===
     m_World = Universe::World::Create();
@@ -32,67 +38,51 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
 {
     m_Camera.OnUpdate(ts);
 
-    m_CurrentAnimation = m_IdleAnimation;
+    auto& transform = m_Player.GetComponent<Universe::TransformComponent>();
+    auto& animator = m_Player.GetComponent<Universe::AnimatorComponent>();
 
-    float speed = m_MoveSpeed;
-    if (Universe::Input::IsKeyPressed(Universe::Key::LeftShift))
-        speed = m_RunningSpeed;
+    float speed = Universe::Input::IsKeyPressed(Universe::Key::LeftShift) ? m_RunningSpeed : m_MoveSpeed;
+
+    bool isMoving = false;
 
     if (Universe::Input::IsKeyPressed(Universe::Key::Right) && !Universe::Input::IsKeyPressed(Universe::Key::Left))
     {
-        m_PlayerPosition.x += ts * speed;
-        m_CurrentAnimation = m_RunningAnimation;
+        transform.position.x += ts * speed;
         m_FacingRight = true;
+        isMoving = true;
     }
     if (Universe::Input::IsKeyPressed(Universe::Key::Left) && !Universe::Input::IsKeyPressed(Universe::Key::Right))
     {
-        m_PlayerPosition.x -= ts * speed;
-        m_CurrentAnimation = m_RunningAnimation;
+        transform.position.x -= ts * speed;
         m_FacingRight = false;
+        isMoving = true;
     }
     if (Universe::Input::IsKeyPressed(Universe::Key::Up) && !Universe::Input::IsKeyPressed(Universe::Key::Down))
     {
-        m_PlayerPosition.y += ts * speed;
-        m_CurrentAnimation = m_RunningAnimation;
+        transform.position.y += ts * speed;
+        isMoving = true;
     }
     if (Universe::Input::IsKeyPressed(Universe::Key::Down) && !Universe::Input::IsKeyPressed(Universe::Key::Up))
-    {  
-        m_PlayerPosition.y -= ts * speed;
-        m_CurrentAnimation = m_RunningAnimation;
-    }
-
-    m_CurrentAnimation->Update(ts);
-
-    if (!m_FreeCamera)
-        m_Camera.SetPosition(m_PlayerPosition);
-
-    UE_TRACE("Player Position: ({}, {})", m_PlayerPosition.x, m_PlayerPosition.y);
-
-    glm::vec2 scale = { 6.0f, 6.0f };
-    if (!m_FacingRight)
     {
-        scale.x = -6.0f;
+        transform.position.y -= ts * speed;
+        isMoving = true;
     }
+    const std::string currentAnimation = isMoving ? "Running" : "Idle";
+    if (animator.GetCurrentName() != currentAnimation)
+        animator.SetCurrentAnimation(currentAnimation);
+
+    animator.Update(ts);
+
+    glm::vec2 scale = m_FacingRight ? glm::vec2(6.0f, 6.0f) : glm::vec2(-6.0f, 6.0f);
 
     Universe::Renderer2D::BeginScene(m_Camera);
     m_World->Render();
-    Universe::Renderer2D::DrawAnimatedQuad(m_PlayerPosition, scale, { 1.0f, 1.0f, 1.0f, 1.0f }, m_CurrentAnimation);
+
+    Universe::Renderer2D::DrawAnimatedQuad(transform.position, scale, { 1.0f, 1.0f, 1.0f, 1.0f }, animator.GetCurrentAnimation(), animator.GetCurrentFrame());
     Universe::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnEvent(Universe::Event& event)
 {
     m_Camera.OnEvent(event);
-
-    Universe::EventDispatcher dispatcher(event);
-
-    dispatcher.Dispatch<Universe::KeyReleasedEvent>([&](Universe::KeyReleasedEvent& e)
-    {
-        if (e.GetKeyCode() == Universe::Key::Tab)
-        {
-            m_FreeCamera = !m_FreeCamera;
-            return true;
-        }
-        return false;
-    });
 }
