@@ -18,6 +18,11 @@ namespace Universe
             uint32_t rows, uint32_t columns,
             float frameDuration = 0.1f, bool loop = true
         );
+
+        Ref<Texture2D> LoadTexture(const std::string& path)
+        {
+            return GetOrLoadTexture(m_Textures, path);
+        }
         
         Ref<Texture2D> GetOrLoadTexture(std::unordered_map<std::string, Ref<Texture2D>>& textureMap,
                                  const std::string& path);
@@ -33,7 +38,5 @@ namespace Universe
 
         std::unordered_map<std::string, Ref<Animation>> m_Animations;
         std::unordered_map<std::string, Ref<Texture2D>> m_Textures;
-
-        mutable std::mutex m_Mutex;
     };
 } 

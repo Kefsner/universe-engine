@@ -200,6 +200,5 @@ namespace Universe
         s_Data.vertexArray->Bind();
         RenderCommand::DrawIndexed(6);
     }
-
-
+   
 }

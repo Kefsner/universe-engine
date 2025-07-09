@@ -112,4 +112,23 @@ namespace Universe
             animations[name] = anim;
         }
     };
+
+    struct AABBComponent
+    {
+        glm::vec2 size = { 1.0f, 1.0f };
+
+        AABBComponent() = default;
+        AABBComponent(const glm::vec2& sz)
+            : size(sz) {}
+    };
+
+    struct SpriteRendererComponent
+    {
+        Ref<Texture2D> texture;
+        glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+        SpriteRendererComponent() = default;
+        SpriteRendererComponent(const Ref<Texture2D>& tex, const glm::vec4& col = { 1.0f, 1.0f, 1.0f, 1.0f })
+            : texture(tex), color(col) {}
+    };
 }

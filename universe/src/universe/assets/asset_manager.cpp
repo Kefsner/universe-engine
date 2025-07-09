@@ -18,8 +18,6 @@ namespace Universe
                                             uint32_t rows, uint32_t columns,
                                             float frameTime, bool loop)
     {
-        std::scoped_lock lock(m_Mutex);
-
         if (auto it = m_Animations.find(path); it != m_Animations.end())
             return it->second;
 
