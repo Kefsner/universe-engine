@@ -33,7 +33,7 @@ void Sandbox2D::OnAttach()
     animator.AddAnimation("Running", runningAnim);
 
     // === World Generation ===
-    m_World = Universe::World::Create();
+    // m_World = Universe::World::Create();
 }
 
 void Sandbox2D::OnDetach()
@@ -99,7 +99,7 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
     }
 
     Universe::Renderer2D::BeginScene(m_Camera);
-    m_World->Render();
+    // m_World->Render();
     Universe::Renderer2D::DrawAnimatedQuad(transform.position, scale, { 1.0f, 1.0f, 1.0f, 1.0f }, animator.GetCurrentAnimation(), animator.GetCurrentFrame());
     Universe::Renderer2D::DrawQuad(rockTransform.position, aabbRock.size, { 1.0f, 1.0f, 1.0f, 1.0f }, m_Rock.GetComponent<Universe::SpriteRendererComponent>().texture);
     Universe::Renderer2D::EndScene();

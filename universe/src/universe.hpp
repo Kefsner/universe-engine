@@ -34,6 +34,5 @@
 #include "universe/scene/components.hpp"
 #include "universe/scene/entity.hpp"
 #include "universe/scene/scene.hpp"
-#include "universe/scene/world.hpp"
 #include "universe/assets/asset_manager.hpp"
 #include "universe/physics/collision.hpp"
