@@ -4,6 +4,7 @@
 #include "universe/base/assert.hpp"
 #include "universe/renderer/texture.hpp"
 #include "universe/renderer/animation.hpp"
+#include "universe/renderer/camera.hpp"
 #include <string>
 
 namespace Universe
@@ -130,5 +131,15 @@ namespace Universe
         SpriteRendererComponent() = default;
         SpriteRendererComponent(const Ref<Texture2D>& tex, const glm::vec4& col = { 1.0f, 1.0f, 1.0f, 1.0f })
             : texture(tex), color(col) {}
+    };
+
+    struct CameraComponent
+    {
+        OrthographicCamera camera;
+        bool primary = false;
+
+        CameraComponent() = default;
+        CameraComponent(float width, float height)
+            : camera(width, height) {}
     };
 }

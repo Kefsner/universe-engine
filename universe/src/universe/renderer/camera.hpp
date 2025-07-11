@@ -15,14 +15,6 @@ namespace Universe
         OrthographicCamera() = default;
         OrthographicCamera(float width, float height);
 
-        void AttachDefaultController(float speed = 1.0f)
-        {
-            m_ControllerEnabled = true;
-            m_ControllerSpeed = speed;
-        };
-
-        void DetachController() { m_ControllerEnabled = false; };
-
         void OnUpdate(Timestep ts);
 
         void SetViewportSize(float width, float height);
@@ -46,9 +38,6 @@ namespace Universe
     private:
         float m_AspectRatio;
         float m_ZoomLevel;
-
-        bool m_ControllerEnabled = false;
-        float m_ControllerSpeed = 1.0f;
 
         glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
         float m_CameraRotation = 0.0f;

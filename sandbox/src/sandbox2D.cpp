@@ -2,10 +2,12 @@
 
 void Sandbox2D::OnAttach()
 {
-    m_Camera = Universe::OrthographicCamera(32.0f, 18.0f);
-    m_Camera.AttachDefaultController(); // WASD controller
-
     m_Scene = Universe::Scene::Create();
+
+    m_Camera = m_Scene->CreateEntity("Camera");
+    auto camera = m_Camera.AddComponent<Universe::CameraComponent>(32.0f, 18.0f);
+
+    camera.primary = true;
 
     m_Player = m_Scene->CreateEntity("Player");
     m_Player.AddComponent<Universe::AABBComponent>(glm::vec2(1.0f, 1.0f));
@@ -42,8 +44,6 @@ void Sandbox2D::OnDetach()
 
 void Sandbox2D::OnUpdate(Universe::Timestep ts)
 {
-    m_Camera.OnUpdate(ts);
-
     auto& transform = m_Player.GetComponent<Universe::TransformComponent>();
     auto& animator = m_Player.GetComponent<Universe::AnimatorComponent>();
 
@@ -98,7 +98,10 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
         UE_CORE_INFO("Blocked by rock!");
     }
 
-    Universe::Renderer2D::BeginScene(m_Camera);
+    auto camera = m_Camera.GetComponent<Universe::CameraComponent>().camera;
+    camera.OnUpdate(ts);
+
+    Universe::Renderer2D::BeginScene(camera);
     // m_World->Render();
     Universe::Renderer2D::DrawAnimatedQuad(transform.position, scale, { 1.0f, 1.0f, 1.0f, 1.0f }, animator.GetCurrentAnimation(), animator.GetCurrentFrame());
     Universe::Renderer2D::DrawQuad(rockTransform.position, aabbRock.size, { 1.0f, 1.0f, 1.0f, 1.0f }, m_Rock.GetComponent<Universe::SpriteRendererComponent>().texture);
@@ -107,5 +110,7 @@ void Sandbox2D::OnUpdate(Universe::Timestep ts)
 
 void Sandbox2D::OnEvent(Universe::Event& event)
 {
-    m_Camera.OnEvent(event);
+    auto camera = m_Camera.GetComponent<Universe::CameraComponent>().camera;
+    camera.OnEvent(event);
+    UE_TRACE("Sandbox2D::OnEvent: {0}", event.ToString());
 }

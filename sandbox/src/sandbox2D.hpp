@@ -13,7 +13,7 @@ public:
     virtual void OnEvent(Universe::Event& event) override;
 
 private:
-    Universe::OrthographicCamera m_Camera;
+    Universe::Entity m_Camera;
     Universe::Ref<Universe::Scene> m_Scene;
 
     Universe::AssetManager& m_AssetManager;

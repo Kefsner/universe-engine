@@ -21,26 +21,7 @@ namespace Universe
 
     void OrthographicCamera::OnUpdate(Timestep ts)
     {
-        if (m_ControllerEnabled)
-        {
-            if (Universe::Input::IsKeyPressed(Universe::Key::A) && !(Universe::Input::IsKeyPressed(Universe::Key::D)))
-            {
-                SetPosition(m_CameraPosition + glm::vec3(-m_ControllerSpeed, 0.0f, 0.0f) * ts.GetSeconds());
-            }
-            else if (Universe::Input::IsKeyPressed(Universe::Key::D) && !(Universe::Input::IsKeyPressed(Universe::Key::A)))
-            {
-                SetPosition(m_CameraPosition + glm::vec3(m_ControllerSpeed, 0.0f, 0.0f) * ts.GetSeconds());
-            }
 
-            if (Universe::Input::IsKeyPressed(Universe::Key::W) && !(Universe::Input::IsKeyPressed(Universe::Key::S)))
-            {
-                SetPosition(m_CameraPosition + glm::vec3(0.0f, m_ControllerSpeed, 0.0f) * ts.GetSeconds());
-            }
-            else if (Universe::Input::IsKeyPressed(Universe::Key::S) && !(Universe::Input::IsKeyPressed(Universe::Key::W)))
-            {
-                SetPosition(m_CameraPosition + glm::vec3(0.0f, -m_ControllerSpeed, 0.0f) * ts.GetSeconds());
-            }
-        }
     }
 
     void OrthographicCamera::SetViewportSize(float width, float height)
