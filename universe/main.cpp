@@ -7,8 +7,24 @@
 
 void debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
 {
-    spdlog::error("Error message: {}:", message);
-    assert(false);
+    switch (severity)
+    {
+    case GL_DEBUG_SEVERITY_NOTIFICATION:
+        spdlog::info("Severity Notificaion: {}", message);
+        break;
+    case GL_DEBUG_SEVERITY_LOW:
+        spdlog::warn("Severity Low: {}", message);
+        break;
+    case GL_DEBUG_SEVERITY_MEDIUM:
+        spdlog::warn("Severity Medium: {}", message);
+        break;
+    case GL_DEBUG_SEVERITY_HIGH:
+        spdlog::error("Severity High: {}", message);
+        assert(false);
+        break;
+    default:
+        break;
+    }
 };
 
 int main()
@@ -30,7 +46,20 @@ int main()
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "Hello, Universe!", NULL, NULL);
+    struct WindowProps
+    {
+        int Height;
+        int Width;
+        const char* Title;
+    };
+
+    WindowProps windowProps{
+        .Height = 1920,
+        .Width = 1080,
+        .Title = "Hello, Universe!"
+    };
+    
+    window = glfwCreateWindow(windowProps.Height, windowProps.Width, windowProps.Title, NULL, NULL);
 
     if (!window)
     {
@@ -47,6 +76,10 @@ int main()
         spdlog::info("Failed to initialize GLAD.");
         return -1;
     }
+
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+    glViewport(0, 0, windowProps.Width, windowProps.Height);
 
     /* Get GLFW version */
     int glfwMajor;
@@ -130,9 +163,9 @@ int main()
     // Graphics
     /* Vertices Coordinates */
     float vertices[] = {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.0f,  0.5f,
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f,
     };
 
     int numVertices = 2;
@@ -140,13 +173,96 @@ int main()
 
     glDebugMessageCallback(debugCallback, 0);
 
+    GLuint vertexBuffer;
+    glCreateBuffers(1, &vertexBuffer);
+
+    GLsizeiptr vertexBufferSize;
+    vertexBufferSize = 9*sizeof(float);
+
+    glNamedBufferData(vertexBuffer, vertexBufferSize, &vertices, GL_STATIC_DRAW);
+
+    // Shaders
+    const char* vertexShaderSrc = R"(
+        #version 460 core
+        layout (location = 0) in vec3 aPos;
+
+        void main()
+        {
+            gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+        }
+    )";
+
+    // Shaders
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSrc, nullptr);
+    glCompileShader(vertexShader);
+
+    // Shader compilation issues
+    int successVertex;
+    char infoLogVertex[1024];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &successVertex);
+
+    if (!successVertex)
+    {
+        spdlog::info("Failed to compile vertex shader");
+        glGetShaderInfoLog(vertexShader, 1024, 0, infoLogVertex);
+        spdlog::info("InfoLog vertex {}", infoLogVertex);
+    }
+
+    const char* fragmentShaderSrc = R"(
+        #version 460 core
+
+        out vec4 FragColor;
+
+        void main()
+        {
+            FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        }
+    )";
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSrc, nullptr);
+    glCompileShader(fragmentShader);
+
+    int successFragment;
+    char infoLogFragment[1024];
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &successFragment);
+
+    if (!successFragment)
+    {
+        spdlog::info("Failed to compile fragment shader");
+        glGetShaderInfoLog(fragmentShader, 1024, 0, infoLogFragment);
+        spdlog::info("InfoLog fragment {}", infoLogFragment);
+    }
+
+    // Shader program
+    GLuint shaderProgram;
+    shaderProgram = glCreateProgram();
+
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    int successProgram;
+    char infoLogProgram[1024];
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &successProgram);
+
+    if (!successProgram)
+    {
+        spdlog::info("Failed to link shader program");
+        glGetProgramInfoLog(shaderProgram, 1024, 0, infoLogProgram);
+        spdlog::info("InfoLog shader program {}", infoLogProgram);
+    }
+
+    glUseProgram(shaderProgram);
+
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-
-        glDrawElements(GL_TRIANGLES, numVertices, GL_UNSIGNED_INT, vertices);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
