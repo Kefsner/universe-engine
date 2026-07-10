@@ -5,6 +5,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+void debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
+{
+    spdlog::error("Error message: {}:", message);
+    assert(false);
+};
+
 int main()
 {
     spdlog::info("Welcome to spdlog!");
@@ -21,9 +27,10 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "Hello, Universe!", NULL, NULL);
 
     if (!window)
     {
@@ -120,11 +127,26 @@ int main()
 
     assert(glfwGetWindowAttrib(window, GLFW_CONTEXT_CREATION_API) == GLFW_NATIVE_CONTEXT_API);
 
+    // Graphics
+    /* Vertices Coordinates */
+    float vertices[] = {
+        -0.5f, -0.5f,
+         0.5f, -0.5f,
+         0.0f,  0.5f,
+    };
+
+    int numVertices = 2;
+    int glError = 0;
+
+    glDebugMessageCallback(debugCallback, 0);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glDrawElements(GL_TRIANGLES, numVertices, GL_UNSIGNED_INT, vertices);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
