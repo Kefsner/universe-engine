@@ -23,3 +23,8 @@ target_link_libraries(universe PRIVATE
     OpenGL::GL
     spdlog::spdlog
 )
+
+target_compile_definitions(universe PRIVATE
+    $<$<CONFIG:Debug>:UNIVERSE_DEBUG>
+    $<$<CONFIG:Release>:UNIVERSE_RELEASE>
+)

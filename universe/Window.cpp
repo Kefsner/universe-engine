@@ -5,6 +5,37 @@
 
 namespace Universe
 {
+    void Window::DebugCallbackMessage(
+        GLenum Source,
+        GLenum Type,
+        GLuint Id,
+        GLenum Severity,
+        GLsizei Length,
+        const GLchar* Message,
+        const void* UserParam
+    )
+    {
+        spdlog::info("OpenGL DebugCallback:");
+        switch (Severity)
+        {
+            case GL_DEBUG_SEVERITY_NOTIFICATION:
+                spdlog::info("  --Severity Notificaion: {}", Message);
+                break;
+            case GL_DEBUG_SEVERITY_LOW:
+                spdlog::warn("  --Severity Low: {}", Message);
+                break;
+            case GL_DEBUG_SEVERITY_MEDIUM:
+                spdlog::warn("  --Severity Medium: {}", Message);
+                break;
+            case GL_DEBUG_SEVERITY_HIGH:
+                spdlog::error(" --Severity High: {}", Message);
+                assert(false);
+                break;
+            default:
+                break;
+        }
+    }
+
     Window::Window(WindowProps props)
     {
         if (!glfwInit())
@@ -74,9 +105,9 @@ namespace Universe
         if (m_DebugMode)
         {
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+            glDebugMessageCallback(Window::DebugCallbackMessage, 0);
             spdlog::info("  --OpenGL debug synchronous output mode on.");
         }
-
 
         glViewport(0, 0, props.Width, props.Height);
     }

@@ -25,6 +25,18 @@ namespace Universe
         void Update();
 
     private:
+        // NOTE: Not sure why I need APIENTRY
+        static void APIENTRY DebugCallbackMessage(
+            GLenum Source,
+            GLenum Type,
+            GLuint Id,
+            GLenum Severity,
+            GLsizei Length,
+            const GLchar* Message,
+            const void* UserParam
+        );
+
+    private:
         bool m_DebugMode;
         GLFWwindow* m_NativeWindow;
     };

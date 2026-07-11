@@ -11,6 +11,7 @@
 void debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *userParam)
 {
     spdlog::info("OpenGL DebugCallback:");
+
     switch (severity)
     {
     case GL_DEBUG_SEVERITY_NOTIFICATION:
@@ -39,7 +40,11 @@ int main()
         .Width = 1920,
         .Height = 1080,
         .Title = "Hello, Universe!",
+    #ifdef UNIVERSE_DEBUG
         .Debug = true
+    #else
+        .Debug = false
+    #endif
     };
 
     Universe::Window window = Universe::Window(windowProps);
