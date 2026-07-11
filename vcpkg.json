@@ -4,6 +4,14 @@
   "dependencies": [
     "glfw3",
     "glad",
-    "spdlog"
+    "spdlog",
+    {
+      "name": "imgui",
+      "features": [
+        "glfw-binding",
+        "opengl3-binding",
+        "docking-experimental"
+      ]
+    }
   ]
 }

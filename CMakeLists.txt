@@ -9,6 +9,7 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(spdlog REQUIRED)
+find_package(imgui REQUIRED)
 
 add_executable(universe
     universe/main.cpp
@@ -22,6 +23,7 @@ target_link_libraries(universe PRIVATE
     glad::glad
     OpenGL::GL
     spdlog::spdlog
+    imgui::imgui
 )
 
 target_compile_definitions(universe PRIVATE

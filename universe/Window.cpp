@@ -117,7 +117,7 @@ namespace Universe
     Window::~Window()
     {
         glfwTerminate();
-        m_NativeWindow = nullptr;
+        glfwDestroyWindow(m_NativeWindow);
     }
 
     bool Window::ShouldClose()
