@@ -12,6 +12,9 @@ find_package(spdlog REQUIRED)
 
 add_executable(universe
     universe/main.cpp
+
+    universe/Shader.cpp
+    universe/Window.cpp
 )
 
 target_link_libraries(universe PRIVATE
