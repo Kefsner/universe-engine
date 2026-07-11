@@ -1,5 +1,7 @@
 #include "Window.hpp"
 
+#include <cassert>
+
 #include <glad/glad.h>
 #include <spdlog/spdlog.h>
 
