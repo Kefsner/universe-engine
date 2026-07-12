@@ -35,6 +35,7 @@ target_link_libraries(universe PRIVATE
     OpenGL::GL
     spdlog::spdlog
     imgui::imgui
+    glm::glm
 )
 
 target_compile_definitions(universe PRIVATE

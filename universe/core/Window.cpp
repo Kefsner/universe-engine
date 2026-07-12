@@ -17,19 +17,20 @@ namespace Universe
         const void* UserParam
     )
     {
-        spdlog::info("OpenGL DebugCallback:");
         switch (Severity)
         {
             case GL_DEBUG_SEVERITY_NOTIFICATION:
-                spdlog::info("  --Notificaion: {}", Message);
                 break;
             case GL_DEBUG_SEVERITY_LOW:
+                spdlog::warn("OpenGL DebugCallback:");
                 spdlog::warn("  --Severity Low: {}", Message);
                 break;
             case GL_DEBUG_SEVERITY_MEDIUM:
+                spdlog::warn("OpenGL DebugCallback:");
                 spdlog::warn("  --Severity Medium: {}", Message);
                 break;
             case GL_DEBUG_SEVERITY_HIGH:
+                spdlog::error("OpenGL DebugCallback:");
                 spdlog::error(" --Severity High: {}", Message);
                 assert(false);
                 break;

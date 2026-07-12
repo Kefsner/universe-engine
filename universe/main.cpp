@@ -32,7 +32,7 @@ int main()
 
     while (!window.ShouldClose())
     {
-        renderer.DrawQuad();
+        renderer.DrawSprite();
 
         imGuiLayer.BeginFrame();
         imGuiLayer.Draw();

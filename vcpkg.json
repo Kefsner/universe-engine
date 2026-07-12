@@ -12,6 +12,7 @@
         "opengl3-binding",
         "docking-experimental"
       ]
-    }
+    },
+    "glm"
   ]
 }

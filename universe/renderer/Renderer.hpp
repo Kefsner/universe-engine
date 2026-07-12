@@ -17,7 +17,7 @@ namespace Universe
 
         void SetPolygonModeLine(bool enabled);
 
-        void DrawQuad();
+        void DrawSprite(); // TODO: Attach Texture;
 
     private:
         std::shared_ptr<VertexBuffer> m_VertexBuffer;

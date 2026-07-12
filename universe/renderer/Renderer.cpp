@@ -17,7 +17,7 @@ namespace Universe
         m_Shader->Bind();
     }
 
-    void Renderer::DrawQuad()
+    void Renderer::DrawSprite()
     {
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     };

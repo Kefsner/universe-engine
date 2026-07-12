@@ -4,9 +4,16 @@
 #include "renderer/IndexBuffer.hpp"
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 
 namespace Universe
 {
+    struct Vertex
+    {
+        glm::vec3 Position;
+        glm::vec3 Color;
+    };
+
     class VertexArray
     {
     public:
@@ -18,5 +25,6 @@ namespace Universe
 
     private:
         GLuint m_ID;
+        GLuint m_ID2;
     };
 }

@@ -9,12 +9,18 @@ namespace Universe
     VertexArray::VertexArray()
     {
         glCreateVertexArrays(1, &m_ID);
-        int attributeIndex = 0;
-        int attributeSize = 3;
-        int bindingIndex = 0;
-        glEnableVertexArrayAttrib(m_ID, attributeIndex);
-        glVertexArrayAttribFormat(m_ID, attributeIndex, attributeSize, GL_FLOAT, GL_FALSE, 0);
-        glVertexArrayAttribBinding(m_ID, attributeIndex, bindingIndex);
+        int attribute1Index = 0;
+        int attribute1Size = 3;
+        int bindingIndex = 0; // One slot for each possible buffer it seems.
+        glEnableVertexArrayAttrib(m_ID, attribute1Index);
+        glVertexArrayAttribFormat(m_ID, attribute1Index, attribute1Size, GL_FLOAT, GL_FALSE, 0);
+        glVertexArrayAttribBinding(m_ID, attribute1Index, bindingIndex);
+
+        int attribute2Index = 1;
+        int attribute2Size = 3;
+        glEnableVertexArrayAttrib(m_ID, attribute2Index);
+        glVertexArrayAttribFormat(m_ID, attribute2Index, attribute2Size, GL_FLOAT, GL_FALSE, 3*sizeof(float));
+        glVertexArrayAttribBinding(m_ID, attribute2Index, bindingIndex); // Same bind because attribute 2 comes from the same buffer.
     }
 
     VertexArray::~VertexArray()
@@ -29,8 +35,8 @@ namespace Universe
 
     void VertexArray::AttachBuffers(const VertexBuffer& vertexBuffer, const IndexBuffer& indexBuffer)
     {
-        glVertexArrayVertexBuffer(m_ID, 0, vertexBuffer.GetID(), 0, 3*sizeof(float));
+        int bindingIndex = 0; // Same as the constructor
+        glVertexArrayVertexBuffer(m_ID, bindingIndex, vertexBuffer.GetID(), 0, 6*sizeof(float));
         glVertexArrayElementBuffer(m_ID, indexBuffer.GetID());
-
     }
 }

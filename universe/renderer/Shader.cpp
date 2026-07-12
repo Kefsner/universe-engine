@@ -9,22 +9,27 @@ namespace Universe
         const char* vertexShaderSrc = R"(
             #version 460 core
 
-            layout (location = 0) in vec3 pos;
+            layout (location = 0) in vec3 aPos;
+            layout (location = 1) in vec3 aColor;
+            
+            out vec4 Color;
 
             void main()
             {
-                gl_Position = vec4(pos.x, pos.y, pos.z, 1.0);
+                gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+                Color = vec4(aColor, 1.0);
             }
         )";
 
         const char* fragmentShaderSrc = R"(
             #version 460 core
-
-            out vec4 color;
+            
+            in vec4 Color;
+            out vec4 FragColor;
 
             void main()
             {
-                color = vec4(0.8, 0.8, 0.2, 1.0);
+                FragColor = Color;
             }
         )";
 
@@ -52,8 +57,6 @@ namespace Universe
 
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
-
-        spdlog::info("Shaders created successfully.");
     };
 
     void Shader::Bind()
