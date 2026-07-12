@@ -1,4 +1,4 @@
-#include "IndexBuffer.hpp"
+#include "renderer/IndexBuffer.hpp"
 
 namespace Universe
 {

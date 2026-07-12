@@ -1,13 +1,14 @@
-#include "VertexArray.hpp"
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
+#include "renderer/VertexArray.hpp"
+#include "renderer/VertexBuffer.hpp"
+#include "renderer/IndexBuffer.hpp"
+
+#include <spdlog/spdlog.h>
 
 namespace Universe
 {
     VertexArray::VertexArray()
     {
         glCreateVertexArrays(1, &m_ID);
-
         int attributeIndex = 0;
         int attributeSize = 3;
         int bindingIndex = 0;
@@ -26,9 +27,10 @@ namespace Universe
         glBindVertexArray(m_ID);
     }
 
-    void VertexArray::AttachBuffers(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer)
+    void VertexArray::AttachBuffers(const VertexBuffer& vertexBuffer, const IndexBuffer& indexBuffer)
     {
-        glVertexArrayVertexBuffer(m_ID, 0, vertexBuffer->GetID(), 0, 3*sizeof(float));
-        glVertexArrayElementBuffer(m_ID, indexBuffer->GetID());
+        glVertexArrayVertexBuffer(m_ID, 0, vertexBuffer.GetID(), 0, 3*sizeof(float));
+        glVertexArrayElementBuffer(m_ID, indexBuffer.GetID());
+
     }
 }

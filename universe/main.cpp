@@ -1,8 +1,5 @@
-#include "Shader.hpp"
-#include "Window.hpp"
-#include "VertexArray.hpp"
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
+#include "core/Window.hpp"
+#include "renderer/Renderer.hpp"
 
 #include <iostream>
 
@@ -29,15 +26,7 @@ int main()
 #endif
 
     Universe::Window window = Universe::Window(windowProps);
-    Universe::Shader shader = Universe::Shader();
-
-    Universe::VertexBuffer vertexBuffer = Universe::VertexBuffer();
-    Universe::IndexBuffer indexBuffer = Universe::IndexBuffer();
-    Universe::VertexArray vertexArray = Universe::VertexArray();
-
-    vertexArray.AttachBuffers(&vertexBuffer, &indexBuffer);
-
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    Universe::Renderer renderer = Universe::Renderer();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -50,20 +39,18 @@ int main()
 
     while (!window.ShouldClose())
     {
+        renderer.DrawQuad();
         
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
+        
         ImGui::ShowDemoWindow();
         
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        shader.Bind();
-        vertexArray.Bind();
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         window.Update();
     }
 

@@ -1,4 +1,4 @@
-#include "VertexBuffer.hpp"
+#include "renderer/VertexBuffer.hpp"
 
 namespace Universe
 {

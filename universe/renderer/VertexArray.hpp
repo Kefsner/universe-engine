@@ -1,7 +1,7 @@
 #pragma once
 
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
+#include "renderer/VertexBuffer.hpp"
+#include "renderer/IndexBuffer.hpp"
 
 #include <glad/glad.h>
 
@@ -14,7 +14,7 @@ namespace Universe
         ~VertexArray();
 
         void Bind();
-        void AttachBuffers(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
+        void AttachBuffers(const VertexBuffer& vertexBuffer, const IndexBuffer& indexBuffer);
 
     private:
         GLuint m_ID;

@@ -10,7 +10,7 @@ namespace Universe
         VertexBuffer();
         ~VertexBuffer();
 
-        GLuint GetID() { return m_ID; }
+        GLuint GetID() const { return m_ID; }
 
     private:
         GLuint m_ID;

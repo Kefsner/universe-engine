@@ -14,11 +14,18 @@ find_package(imgui REQUIRED)
 add_executable(universe
     universe/main.cpp
 
-    universe/Shader.cpp
-    universe/Window.cpp
-    universe/VertexArray.cpp
-    universe/VertexBuffer.cpp
-    universe/IndexBuffer.cpp
+    universe/core/Window.cpp
+
+
+    universe/renderer/Shader.cpp
+    universe/renderer/Renderer.cpp
+    universe/renderer/VertexArray.cpp
+    universe/renderer/VertexBuffer.cpp
+    universe/renderer/IndexBuffer.cpp
+)
+
+target_include_directories(universe PRIVATE
+    universe/
 )
 
 target_link_libraries(universe PRIVATE
