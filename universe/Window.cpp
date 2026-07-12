@@ -21,7 +21,7 @@ namespace Universe
         switch (Severity)
         {
             case GL_DEBUG_SEVERITY_NOTIFICATION:
-                spdlog::info("  --Severity Notificaion: {}", Message);
+                spdlog::info("  --Notificaion: {}", Message);
                 break;
             case GL_DEBUG_SEVERITY_LOW:
                 spdlog::warn("  --Severity Low: {}", Message);

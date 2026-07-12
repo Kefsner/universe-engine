@@ -10,6 +10,8 @@ namespace Universe
         Shader();
         ~Shader() = default;
 
+        void Bind();
+
     private:
         void CheckCompilationStatus(GLuint shader);
         void CheckLinkingStatus();

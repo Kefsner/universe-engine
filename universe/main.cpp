@@ -1,5 +1,8 @@
 #include "Shader.hpp"
 #include "Window.hpp"
+#include "VertexArray.hpp"
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
 
 #include <iostream>
 
@@ -28,40 +31,13 @@ int main()
     Universe::Window window = Universe::Window(windowProps);
     Universe::Shader shader = Universe::Shader();
 
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // Bottom left
-         0.5f, -0.5f, 0.0f, // Bottom right
-         0.5f,  0.5f, 0.0f, // Top right
-         -0.5f, 0.5f, 0.0f  // Top left
-    };
+    Universe::VertexBuffer vertexBuffer = Universe::VertexBuffer();
+    Universe::IndexBuffer indexBuffer = Universe::IndexBuffer();
+    Universe::VertexArray vertexArray = Universe::VertexArray();
 
-    unsigned int indices[] = {
-        0, 1, 2,
-        0, 2, 3
-    };
-    GLuint vertexBuffer, indexBuffer;
-    glCreateBuffers(1, &indexBuffer);
-    glCreateBuffers(1, &vertexBuffer);
+    vertexArray.AttachBuffers(&vertexBuffer, &indexBuffer);
 
-    glNamedBufferData(vertexBuffer, 12*sizeof(float), vertices, GL_STATIC_DRAW);
-    glNamedBufferData(indexBuffer, 6*sizeof(unsigned int), indices, GL_STATIC_DRAW);
-
-    GLuint vertexArray;
-    glCreateVertexArrays(1, &vertexArray);
-
-    glVertexArrayVertexBuffer(vertexArray, 0, vertexBuffer, 0, 3*sizeof(float));
-    glVertexArrayElementBuffer(vertexArray, indexBuffer);
-
-    int attributeIndex = 0; // This is the shader attribute location
-    int bidingIndex = 0;
-    int attributeSize = 3;
-    glEnableVertexArrayAttrib(vertexArray, attributeIndex);
-    glVertexArrayAttribFormat(vertexArray, attributeIndex, attributeSize, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vertexArray, attributeIndex, bidingIndex);
-
-    glBindVertexArray(vertexArray);
-
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -85,6 +61,8 @@ int main()
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+        shader.Bind();
+        vertexArray.Bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         window.Update();
     }

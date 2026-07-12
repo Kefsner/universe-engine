@@ -16,6 +16,9 @@ add_executable(universe
 
     universe/Shader.cpp
     universe/Window.cpp
+    universe/VertexArray.cpp
+    universe/VertexBuffer.cpp
+    universe/IndexBuffer.cpp
 )
 
 target_link_libraries(universe PRIVATE

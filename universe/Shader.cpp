@@ -24,7 +24,7 @@ namespace Universe
 
             void main()
             {
-                color = vec4(0.2, 0.8, 0.2, 1.0);
+                color = vec4(0.8, 0.8, 0.2, 1.0);
             }
         )";
 
@@ -55,6 +55,11 @@ namespace Universe
 
         spdlog::info("Shaders created successfully.");
     };
+
+    void Shader::Bind()
+    {
+        glUseProgram(m_ShaderProgram);
+    }
 
     void Shader::CheckCompilationStatus(GLuint shader)
     {
