@@ -22,6 +22,7 @@ add_executable(universe
     universe/renderer/VertexArray.cpp
     universe/renderer/VertexBuffer.cpp
     universe/renderer/IndexBuffer.cpp
+    universe/core/ImGuiLayer.cpp
 )
 
 target_include_directories(universe PRIVATE

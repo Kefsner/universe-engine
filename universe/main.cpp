@@ -1,4 +1,5 @@
 #include "core/Window.hpp"
+#include "core/ImGuiLayer.hpp"
 #include "renderer/Renderer.hpp"
 
 #include <iostream>
@@ -27,29 +28,15 @@ int main()
 
     Universe::Window window = Universe::Window(windowProps);
     Universe::Renderer renderer = Universe::Renderer();
-
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    
-    // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window.GetNativeWindow(), true);
-    ImGui_ImplOpenGL3_Init();
+    Universe::ImGuiLayer imGuiLayer = Universe::ImGuiLayer(window);
 
     while (!window.ShouldClose())
     {
         renderer.DrawQuad();
-        
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        
-        ImGui::ShowDemoWindow();
-        
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        imGuiLayer.BeginFrame();
+        imGuiLayer.Draw();
+        imGuiLayer.EndFrame();
 
         window.Update();
     }

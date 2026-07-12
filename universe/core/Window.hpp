@@ -19,7 +19,7 @@ namespace Universe
         Window(WindowProps props);
         ~Window();
 
-        GLFWwindow* GetNativeWindow() { return m_NativeWindow; }
+        GLFWwindow* GetNativeWindow() const { return m_NativeWindow; }
 
         bool ShouldClose();
         void Update();
