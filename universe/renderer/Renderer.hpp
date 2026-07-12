@@ -4,6 +4,7 @@
 #include "renderer/VertexBuffer.hpp"
 #include "renderer/VertexArray.hpp"
 #include "renderer/Shader.hpp"
+#include "renderer/Texture.hpp"
 
 #include <memory>
 
@@ -17,7 +18,7 @@ namespace Universe
 
         void SetPolygonModeLine(bool enabled);
 
-        void DrawSprite(); // TODO: Attach Texture;
+        void DrawSprite(Texture texture);
 
     private:
         std::shared_ptr<VertexBuffer> m_VertexBuffer;

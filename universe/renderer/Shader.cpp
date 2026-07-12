@@ -11,13 +11,16 @@ namespace Universe
 
             layout (location = 0) in vec3 aPos;
             layout (location = 1) in vec3 aColor;
+            layout (location = 2) in vec2 aTexCoord;
             
             out vec4 Color;
+            out vec2 TexCoord;
 
             void main()
             {
                 gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
                 Color = vec4(aColor, 1.0);
+                TexCoord = aTexCoord;
             }
         )";
 
@@ -25,11 +28,14 @@ namespace Universe
             #version 460 core
             
             in vec4 Color;
+            in vec2 TexCoord;
             out vec4 FragColor;
+
+            uniform sampler2D u_Texture;
 
             void main()
             {
-                FragColor = Color;
+                FragColor = texture(u_Texture, TexCoord) * Color;
             }
         )";
 

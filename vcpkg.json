@@ -5,6 +5,8 @@
     "glfw3",
     "glad",
     "spdlog",
+    "glm",
+    "stb",
     {
       "name": "imgui",
       "features": [
@@ -12,7 +14,6 @@
         "opengl3-binding",
         "docking-experimental"
       ]
-    },
-    "glm"
+    }
   ]
 }

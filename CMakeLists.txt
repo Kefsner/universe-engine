@@ -10,15 +10,17 @@ find_package(glad CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(imgui REQUIRED)
+find_package(glm REQUIRED)
+find_package(Stb REQUIRED)
 
 add_executable(universe
     universe/main.cpp
 
     universe/core/Window.cpp
 
-
     universe/renderer/Shader.cpp
     universe/renderer/Renderer.cpp
+    universe/renderer/Texture.cpp
     universe/renderer/VertexArray.cpp
     universe/renderer/VertexBuffer.cpp
     universe/renderer/IndexBuffer.cpp
@@ -26,6 +28,7 @@ add_executable(universe
 )
 
 target_include_directories(universe PRIVATE
+    ${Stb_INCLUDE_DIR}
     universe/
 )
 

@@ -1,6 +1,7 @@
 #include "core/Window.hpp"
 #include "core/ImGuiLayer.hpp"
 #include "renderer/Renderer.hpp"
+#include "renderer/Texture.hpp"
 
 #include <iostream>
 
@@ -29,10 +30,11 @@ int main()
     Universe::Window window = Universe::Window(windowProps);
     Universe::Renderer renderer = Universe::Renderer();
     Universe::ImGuiLayer imGuiLayer = Universe::ImGuiLayer(window);
+    Universe::Texture texture = Universe::Texture("assets/slime.png");
 
     while (!window.ShouldClose())
     {
-        renderer.DrawSprite();
+        renderer.DrawSprite(texture);
 
         imGuiLayer.BeginFrame();
         imGuiLayer.Draw();
