@@ -18,7 +18,7 @@ namespace Universe
 
         void SetPolygonModeLine(bool enabled);
 
-        void DrawSprite(Texture texture);
+        void DrawSprite(glm::vec3 position);
 
     private:
         std::shared_ptr<VertexBuffer> m_VertexBuffer;

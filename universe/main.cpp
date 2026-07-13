@@ -30,11 +30,12 @@ int main()
     Universe::Window window = Universe::Window(windowProps);
     Universe::Renderer renderer = Universe::Renderer();
     Universe::ImGuiLayer imGuiLayer = Universe::ImGuiLayer(window);
-    Universe::Texture texture = Universe::Texture("assets/slime.png");
+    Universe::Texture textureSlimeIdle = Universe::Texture("assets/slime-idle.png");
+    Universe::Texture textureSlime = Universe::Texture("assets/slime.png");
 
     while (!window.ShouldClose())
     {
-        renderer.DrawSprite(texture);
+        renderer.DrawSprite({1.0f, 0.0f, 0.0f});
 
         imGuiLayer.BeginFrame();
         imGuiLayer.Draw();

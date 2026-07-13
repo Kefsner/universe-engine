@@ -3,6 +3,8 @@
 #include "renderer/Renderer.hpp"
 
 #include <spdlog/spdlog.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Universe
 {
@@ -17,8 +19,11 @@ namespace Universe
         m_Shader->Bind();
     }
 
-    void Renderer::DrawSprite(Texture texture)
+    void Renderer::DrawSprite(glm::vec3 position)
     {
+        glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
+        m_Shader->SetMat4Uniform(transform);
+
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     };
 

@@ -1,6 +1,8 @@
 #include "renderer/Shader.hpp"
 
 #include <spdlog/spdlog.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Universe
 {
@@ -12,13 +14,15 @@ namespace Universe
             layout (location = 0) in vec3 aPos;
             layout (location = 1) in vec3 aColor;
             layout (location = 2) in vec2 aTexCoord;
+
+            uniform mat4 u_Transform;
             
             out vec4 Color;
             out vec2 TexCoord;
 
             void main()
             {
-                gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+                gl_Position = u_Transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);
                 Color = vec4(aColor, 1.0);
                 TexCoord = aTexCoord;
             }
@@ -68,6 +72,12 @@ namespace Universe
     void Shader::Bind()
     {
         glUseProgram(m_ShaderProgram);
+    }
+
+    void Shader::SetMat4Uniform(glm::mat4 matrix)
+    {
+        GLint location = glGetUniformLocation(m_ShaderProgram, "u_Transform");
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
     }
 
     void Shader::CheckCompilationStatus(GLuint shader)

@@ -22,7 +22,6 @@ namespace Universe
 
         glTextureStorage2D(m_ID, 1, GL_RGBA8, width, height);
         glTextureSubImage2D(m_ID, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
-        glGenerateTextureMipmap(m_ID);
         glBindTextureUnit(0, m_ID);
 
         stbi_image_free(textureData);
