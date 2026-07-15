@@ -12,6 +12,7 @@ namespace Universe
         ~Shader() = default;
 
         void Bind();
+        GLuint GetProgram() { return m_ShaderProgram; }
 
         void SetMat4Uniform(glm::mat4 matrix);
 

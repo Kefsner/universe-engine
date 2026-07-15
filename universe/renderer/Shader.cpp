@@ -35,11 +35,12 @@ namespace Universe
             in vec2 TexCoord;
             out vec4 FragColor;
 
-            uniform sampler2D u_Texture;
+            uniform sampler2D u_Textures[32];
+            uniform int textureIndex;
 
             void main()
             {
-                FragColor = texture(u_Texture, TexCoord) * Color;
+                FragColor = texture(u_Textures[textureIndex], TexCoord) * Color;
             }
         )";
 
@@ -105,7 +106,7 @@ namespace Universe
         if (!success)
         {
             spdlog::warn("Failed to link shader");
-            glGetShaderInfoLog(m_ShaderProgram, 512, 0, infoLog);
+            glGetProgramInfoLog(m_ShaderProgram, 512, 0, infoLog);
             spdlog::warn("InfoLog: {}", infoLog);
         }
     }

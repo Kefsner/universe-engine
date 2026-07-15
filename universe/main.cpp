@@ -2,6 +2,8 @@
 #include "core/ImGuiLayer.hpp"
 #include "renderer/Renderer.hpp"
 #include "renderer/Texture.hpp"
+#include "core/AssetManager.hpp"
+#include "core/OrthographicCamera.hpp"
 
 #include <iostream>
 
@@ -30,12 +32,18 @@ int main()
     Universe::Window window = Universe::Window(windowProps);
     Universe::Renderer renderer = Universe::Renderer();
     Universe::ImGuiLayer imGuiLayer = Universe::ImGuiLayer(window);
-    Universe::Texture textureSlimeIdle = Universe::Texture("assets/slime-idle.png");
-    Universe::Texture textureSlime = Universe::Texture("assets/slime.png");
+
+    Universe::OrthographicCamera orthoCam = Universe::OrthographicCamera(windowProps.Width, windowProps.Height);
+    
+    std::shared_ptr<Universe::Texture> textureSlime = Universe::AssetManager::LoadTexture("assets/slime.png");
+    std::shared_ptr<Universe::Texture> textureSlimeIdle = Universe::AssetManager::LoadTexture("assets/slime-idle.png");
+    std::shared_ptr<Universe::Texture> textureTilemap = Universe::AssetManager::LoadTexture("assets/tilemap.png");
 
     while (!window.ShouldClose())
     {
-        renderer.DrawSprite({1.0f, 0.0f, 0.0f});
+        renderer.DrawSprite(textureSlime, {0.0f, 0.0f, 0.0f});
+        renderer.DrawSprite(textureSlimeIdle, {0.0f, 0.0f, 0.0f});
+        renderer.DrawSprite(textureTilemap, {0.5f, 0.0f, 0.0f});
 
         imGuiLayer.BeginFrame();
         imGuiLayer.Draw();

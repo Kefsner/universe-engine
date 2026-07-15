@@ -7,6 +7,7 @@
     "spdlog",
     "glm",
     "stb",
+    "entt",
     {
       "name": "imgui",
       "features": [

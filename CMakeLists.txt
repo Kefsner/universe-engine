@@ -12,11 +12,14 @@ find_package(spdlog REQUIRED)
 find_package(imgui REQUIRED)
 find_package(glm REQUIRED)
 find_package(Stb REQUIRED)
+find_package(EnTT CONFIG REQUIRED)
 
 add_executable(universe
     universe/main.cpp
 
     universe/core/Window.cpp
+    universe/core/ImGuiLayer.cpp
+    universe/core/AssetManager.cpp
 
     universe/renderer/Shader.cpp
     universe/renderer/Renderer.cpp
@@ -24,7 +27,6 @@ add_executable(universe
     universe/renderer/VertexArray.cpp
     universe/renderer/VertexBuffer.cpp
     universe/renderer/IndexBuffer.cpp
-    universe/core/ImGuiLayer.cpp
 )
 
 target_include_directories(universe PRIVATE
@@ -39,6 +41,7 @@ target_link_libraries(universe PRIVATE
     spdlog::spdlog
     imgui::imgui
     glm::glm
+    EnTT::EnTT
 )
 
 target_compile_definitions(universe PRIVATE

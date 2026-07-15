@@ -18,7 +18,12 @@ namespace Universe
 
         void SetPolygonModeLine(bool enabled);
 
-        void DrawSprite(glm::vec3 position);
+        void DrawSprite(
+            std::shared_ptr<Texture> texture,
+            glm::vec3 position,
+            glm::vec3 scale = {1.0f, 1.0f, 1.0f},
+            float rotate = 0.0f
+        );
 
     private:
         std::shared_ptr<VertexBuffer> m_VertexBuffer;
