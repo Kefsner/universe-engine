@@ -18,16 +18,24 @@ namespace Universe
         m_Shader = std::make_unique<Shader>();
         m_Shader->Bind();
 
+        glm::mat4 view = glm::mat4(1.0f);
+        view = glm::translate(view, glm::vec3({0.0f, 0.0f, -3.0f}));
+        m_Shader->SetMat4Uniform(view, "u_View");
+
+        glm::mat4 projection;
+        projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
+        m_Shader->SetMat4Uniform(projection, "u_Projection");
+
         glEnable(GL_BLEND);
+        glEnable(GL_DEPTH_TEST);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    void Renderer::DrawSprite(std::shared_ptr<Texture> texture, glm::vec3 position, glm::vec3 scale, float rotate)
+    void Renderer::DrawCube(std::shared_ptr<Texture> texture, int ID, glm::vec3 position)
     {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
-        transform = glm::scale(transform, scale);
-        transform = glm::rotate(transform, rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-        m_Shader->SetMat4Uniform(transform);
+        m_Shader->SetMat4Uniform(transform, "u_Transform");
+
         texture->Bind(m_Shader->GetProgram());
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

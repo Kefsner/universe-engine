@@ -14,27 +14,31 @@ find_package(glm REQUIRED)
 find_package(Stb REQUIRED)
 find_package(EnTT CONFIG REQUIRED)
 
-add_executable(universe
-    universe/main.cpp
+add_library(universe STATIC
+    universe/src/Application.cpp
 
-    universe/core/Window.cpp
-    universe/core/ImGuiLayer.cpp
-    universe/core/AssetManager.cpp
+    universe/src/core/Window.cpp
+    universe/src/core/ImGuiLayer.cpp
+    universe/src/core/AssetManager.cpp
+    universe/src/core/Logger.cpp
 
-    universe/renderer/Shader.cpp
-    universe/renderer/Renderer.cpp
-    universe/renderer/Texture.cpp
-    universe/renderer/VertexArray.cpp
-    universe/renderer/VertexBuffer.cpp
-    universe/renderer/IndexBuffer.cpp
+    universe/src/renderer/Shader.cpp
+    universe/src/renderer/Renderer.cpp
+    universe/src/renderer/Texture.cpp
+    universe/src/renderer/VertexArray.cpp
+    universe/src/renderer/VertexBuffer.cpp
+    universe/src/renderer/IndexBuffer.cpp
 )
 
-target_include_directories(universe PRIVATE
+target_include_directories(universe
+PUBLIC
+    universe/include
+    universe/src
+PRIVATE
     ${Stb_INCLUDE_DIR}
-    universe/
 )
 
-target_link_libraries(universe PRIVATE
+target_link_libraries(universe PUBLIC
     glfw
     glad::glad
     OpenGL::GL
@@ -48,3 +52,10 @@ target_compile_definitions(universe PRIVATE
     $<$<CONFIG:Debug>:UNIVERSE_DEBUG>
     $<$<CONFIG:Release>:UNIVERSE_RELEASE>
 )
+
+
+add_executable(game
+    game/Game.cpp
+)
+
+target_link_libraries(game PRIVATE universe)

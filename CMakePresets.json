@@ -1,15 +1,14 @@
 {
   "version": 6,
   "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 25,
-    "patch": 0
+    "major": 4,
+    "minor": 3
   },
   "configurePresets": [
     {
       "name": "msvc",
       "displayName": "MSVC x64 + vcpkg",
-      "generator": "Visual Studio 17 2022",
+      "generator": "Visual Studio 18 2026",
       "architecture": "x64",
       "binaryDir": "${sourceDir}/build",
       "cacheVariables": {

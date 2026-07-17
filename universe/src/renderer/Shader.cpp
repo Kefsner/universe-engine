@@ -16,13 +16,15 @@ namespace Universe
             layout (location = 2) in vec2 aTexCoord;
 
             uniform mat4 u_Transform;
+            uniform mat4 u_Projection;
+            uniform mat4 u_View;
             
             out vec4 Color;
             out vec2 TexCoord;
 
             void main()
             {
-                gl_Position = u_Transform * vec4(aPos.x, aPos.y, aPos.z, 1.0);
+                gl_Position = u_Projection * u_View * u_Transform * vec4(aPos, 1.0);
                 Color = vec4(aColor, 1.0);
                 TexCoord = aTexCoord;
             }
@@ -75,9 +77,9 @@ namespace Universe
         glUseProgram(m_ShaderProgram);
     }
 
-    void Shader::SetMat4Uniform(glm::mat4 matrix)
+    void Shader::SetMat4Uniform(glm::mat4 matrix, const char* name)
     {
-        GLint location = glGetUniformLocation(m_ShaderProgram, "u_Transform");
+        GLint location = glGetUniformLocation(m_ShaderProgram, name);
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
     }
 

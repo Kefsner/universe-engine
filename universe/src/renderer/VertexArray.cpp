@@ -6,6 +6,7 @@
 
 namespace Universe
 {
+    
     VertexArray::VertexArray()
     {
         glCreateVertexArrays(1, &m_ID);
