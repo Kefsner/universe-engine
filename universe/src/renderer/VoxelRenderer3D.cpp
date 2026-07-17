@@ -96,9 +96,9 @@ namespace Universe
         s_Data->s_Shaders->Bind();
 
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
-        transform = glm::rotate(transform, glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(30.0f), glm::vec3(1.0f, 1.0f, 0.0f));
         s_Data->s_Shaders->SetMat4Uniform(transform, "u_Transform");
 
-        glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
     }
 }

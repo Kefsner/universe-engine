@@ -28,13 +28,13 @@ namespace Universe
     {
         while (!m_Window->ShouldClose())
         {
-            m_Window->Update();
-
             for (auto it = m_LayerStack.Begin(); it != m_LayerStack.End(); it++)
             {
                 std::shared_ptr<Layer> layer = *it;
                 layer->OnUpdate();
             }
+
+            m_Window->Update();
         }
     }
 
