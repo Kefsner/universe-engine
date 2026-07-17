@@ -8,12 +8,6 @@
 
 namespace Universe
 {
-    struct Vertex
-    {
-        glm::vec3 Position;
-        glm::vec2 TexCoords;
-    };
-
     class VertexArray
     {
     public:
@@ -22,9 +16,9 @@ namespace Universe
 
         void Bind();
         void AttachBuffers(const VertexBuffer& vertexBuffer, const IndexBuffer& indexBuffer);
+        void SetAttributes();
 
     private:
         GLuint m_ID;
-        GLuint m_ID2;
     };
 }

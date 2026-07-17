@@ -1,8 +1,10 @@
+#pragma once
+
 namespace Universe
 {
     class Block
     {
-        Block() = default;
+        Block();
         ~Block() = default;
     };
 }

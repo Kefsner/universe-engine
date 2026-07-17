@@ -12,6 +12,8 @@ namespace Universe
 
         GLuint GetID() const { return m_ID; }
 
+        void SetData(const unsigned int* indices, int count);
+
     private:
         GLuint m_ID;
     };

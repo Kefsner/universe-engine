@@ -12,6 +12,9 @@ namespace Universe
 
         GLuint GetID() const { return m_ID; }
 
+        void SetData(const float* vertices, int count);
+        GLsizei GetStride() const;
+
     private:
         GLuint m_ID;
     };

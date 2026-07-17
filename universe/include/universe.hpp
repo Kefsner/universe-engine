@@ -2,6 +2,9 @@
 
 #include "core/EntryPoint.hpp"
 #include "core/Logger.hpp"
+#include "layers/Layer.hpp"
+
+#include "renderer/VoxelRenderer3D.hpp"
 
 #include "core/Window.hpp"
 #include "renderer/Renderer.hpp"

@@ -17,10 +17,12 @@ find_package(EnTT CONFIG REQUIRED)
 add_library(universe STATIC
     universe/src/Application.cpp
 
+    universe/src/core/Logger.cpp
     universe/src/core/Window.cpp
     universe/src/core/ImGuiLayer.cpp
     universe/src/core/AssetManager.cpp
-    universe/src/core/Logger.cpp
+
+    universe/src/layers/LayerStack.cpp
 
     universe/src/renderer/Shader.cpp
     universe/src/renderer/Renderer.cpp
@@ -28,6 +30,7 @@ add_library(universe STATIC
     universe/src/renderer/VertexArray.cpp
     universe/src/renderer/VertexBuffer.cpp
     universe/src/renderer/IndexBuffer.cpp
+    universe/src/renderer/VoxelRenderer3D.cpp
 )
 
 target_include_directories(universe
