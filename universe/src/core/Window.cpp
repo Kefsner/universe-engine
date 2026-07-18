@@ -62,16 +62,16 @@ namespace Universe
             spdlog::error("Failed to create a window.");
         }
 
-        UE_CORE_LOGGER("Window created successfully.");
+        UE_CORE_INFO("Window created successfully.");
        
         int glfwVersionMajor, glfwVersionMinor;
         glfwGetVersion(&glfwVersionMajor, &glfwVersionMinor, nullptr);
 
-        UE_CORE_LOGGER("  --GLFW Version Major {}", glfwVersionMajor);
-        UE_CORE_LOGGER("  --GLFW Version Minor {}", glfwVersionMinor);
+        UE_CORE_INFO("  --GLFW Version Major {}", glfwVersionMajor);
+        UE_CORE_INFO("  --GLFW Version Minor {}", glfwVersionMinor);
         m_DebugMode = glfwGetWindowAttrib(m_NativeWindow, GLFW_CONTEXT_DEBUG);
         if (m_DebugMode)
-            UE_CORE_LOGGER("  --GLFW debug mode on.");
+            UE_CORE_INFO("  --GLFW debug mode on.");
 
         glfwMakeContextCurrent(m_NativeWindow);
 
@@ -80,25 +80,25 @@ namespace Universe
             spdlog::error("Failed to initialize GLAD.");
         }
 
-        UE_CORE_LOGGER("GLAD initialized successfully.");
+        UE_CORE_INFO("GLAD initialized successfully.");
 
         int glVersionMajor, glVersionMinor;
         
         glGetIntegerv(GL_MAJOR_VERSION, &glVersionMajor);
         glGetIntegerv(GL_MINOR_VERSION, &glVersionMinor);
 
-        UE_CORE_LOGGER("  --OpenGL Version Major {}", glVersionMajor);
-        UE_CORE_LOGGER("  --OpenGL Version Minor {}", glVersionMinor);
+        UE_CORE_INFO("  --OpenGL Version Major {}", glVersionMajor);
+        UE_CORE_INFO("  --OpenGL Version Minor {}", glVersionMinor);
 
         int  glProfile;
         glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &glProfile);
         switch (glProfile)
         {
         case GL_CONTEXT_CORE_PROFILE_BIT:
-            UE_CORE_LOGGER("  --OpenGL Core Profile");
+            UE_CORE_INFO("  --OpenGL Core Profile");
             break;
         case GL_CONTEXT_COMPATIBILITY_PROFILE_BIT:
-            UE_CORE_LOGGER("  --OpenGL Compatibility Profile");
+            UE_CORE_INFO("  --OpenGL Compatibility Profile");
             break;
         default:
             spdlog::error("Unkown OpenGL Profile");
@@ -110,7 +110,7 @@ namespace Universe
         {
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
             glDebugMessageCallback(Window::DebugCallbackMessage, 0);
-            UE_CORE_LOGGER("  --OpenGL debug synchronous output mode on.");
+            UE_CORE_INFO("  --OpenGL debug synchronous output mode on.");
         }
 
         glViewport(0, 0, props.Width, props.Height);

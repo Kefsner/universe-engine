@@ -1,4 +1,7 @@
+#pragma once
+
 #include <universe.hpp>
+#include <universe/EntryPoint.hpp>
 
 namespace Universe
 {
@@ -7,11 +10,6 @@ namespace Universe
     public:
         Game();
         ~Game() override = default;
-    };
-
-    class GameLayer : public Layer
-    {
-        void OnUpdate() override;
     };
 
     Application* Application::CreateApplication()

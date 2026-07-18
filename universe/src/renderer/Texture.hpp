@@ -14,8 +14,12 @@ namespace Universe
         void Bind(GLuint shaderProgram);
         GLuint GetTextureID() const { return m_ID; }
 
+        float GetWidth() const { return m_Width; }
+        float GetHeight() const { return m_Height; }
+
     private:
         GLuint m_ID;
         int m_Count;
+        float m_Width, m_Height;
     };
 }

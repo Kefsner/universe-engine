@@ -1,6 +1,10 @@
 #pragma once
 
+#include "renderer/Texture.hpp"
+
 #include <glm/glm.hpp>
+
+#include <memory>
 
 namespace Universe
 {
@@ -9,6 +13,6 @@ namespace Universe
     public:
         static void Init();
 
-        static void DrawBlock(glm::vec3 position);
+        static void DrawCube(glm::vec3 position, std::shared_ptr<Texture> texture, glm::vec2 texCoord);
     };
 }

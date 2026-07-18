@@ -1,14 +1,11 @@
+#pragma once
+
 #include "Application.hpp"
 
-#include "core/EntryPoint.hpp"
 #include "core/Logger.hpp"
+#include "core/AssetManager.hpp"
+
 #include "layers/Layer.hpp"
 
 #include "renderer/VoxelRenderer3D.hpp"
-
-#include "core/Window.hpp"
-#include "renderer/Renderer.hpp"
-#include "core/ImGuiLayer.hpp"
-#include "core/AssetManager.hpp"
-
-#include <spdlog/spdlog.h>
+#include "renderer/TextureAtlas.hpp"

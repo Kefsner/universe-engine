@@ -1,0 +1,25 @@
+#pragma once
+
+#include <universe.hpp>
+
+#include "world/Block.hpp"
+
+#include <glm/glm.hpp>
+
+namespace Universe
+{
+    class GameLayer : public Layer
+    {
+    public:
+        GameLayer();
+        ~GameLayer() = default;
+
+        void OnUpdate() override;
+    
+    private:
+        void RenderBlock(Block block, glm::vec3 position);
+
+    private:
+        std::unique_ptr<TextureAtlas> m_BlockTextureAtlas;
+    };
+}

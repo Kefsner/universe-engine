@@ -19,5 +19,5 @@ namespace Universe
 }
 
 
-#define UE_CORE_LOGGER(...) ::spdlog::info(__VA_ARGS__)
-#define UE_LOGGER(...) ::spdlog::info(__VA_ARGS__)
+#define UE_CORE_INFO(...) ::spdlog::info(__VA_ARGS__)
+#define UE_INFO(...) ::spdlog::info(__VA_ARGS__)

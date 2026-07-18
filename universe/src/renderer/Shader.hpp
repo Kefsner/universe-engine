@@ -15,6 +15,7 @@ namespace Universe
         GLuint GetProgram() { return m_ShaderProgram; }
 
         void SetMat4Uniform(glm::mat4 matrix, const char* name);
+        void SetVec2Uniform(glm::vec2 vector, const char* name);
 
     private:
         void CheckCompilationStatus(GLuint shader);

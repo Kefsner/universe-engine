@@ -9,6 +9,7 @@
 #include "renderer/Shader.hpp"
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -68,9 +69,9 @@ namespace Universe
         s_Data = std::make_unique<VoxelRenderer3DData>();
 
         s_Data->s_VertexBuffer = std::make_unique<VertexBuffer>();
-        UE_CORE_LOGGER("Testando2");
+        UE_CORE_INFO("Testando2");
         s_Data->s_VertexBuffer->SetData(s_Data->s_CubeVertices, 24);
-        UE_CORE_LOGGER("Testando2");
+        UE_CORE_INFO("Testando2");
         s_Data->s_IndexBuffer = std::make_unique<IndexBuffer>();
         s_Data->s_IndexBuffer->SetData(s_Data->s_CubeIndices, 36);
 
@@ -90,13 +91,16 @@ namespace Universe
         s_Data->s_Shaders->SetMat4Uniform(projection, "u_Projection");
     }
 
-    void VoxelRenderer3D::DrawBlock(glm::vec3 position)
+    void VoxelRenderer3D::DrawCube(glm::vec3 position, std::shared_ptr<Texture> texture, glm::vec2 texCoord)
     {
         s_Data->s_VertexArray->Bind();
         s_Data->s_Shaders->Bind();
 
+        // s_Data->s_Shaders->SetVec2Uniform(texCoord, "u_TexCoord")
+        texture->Bind(s_Data->s_Shaders->GetProgram());
+
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
-        transform = glm::rotate(transform, glm::radians(30.0f), glm::vec3(1.0f, 1.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(30.0f), glm::vec3(1.0f, 1.0f, 1.0f));
         s_Data->s_Shaders->SetMat4Uniform(transform, "u_Transform");
 
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);

@@ -27,6 +27,7 @@ add_library(universe STATIC
     universe/src/renderer/Shader.cpp
     universe/src/renderer/Renderer.cpp
     universe/src/renderer/Texture.cpp
+    universe/src/renderer/TextureAtlas.cpp
     universe/src/renderer/VertexArray.cpp
     universe/src/renderer/VertexBuffer.cpp
     universe/src/renderer/IndexBuffer.cpp
@@ -59,6 +60,11 @@ target_compile_definitions(universe PRIVATE
 
 add_executable(game
     game/Game.cpp
+    game/GameLayer.cpp
+
+    game/world/Block.cpp
 )
+
+target_include_directories(game PRIVATE game)
 
 target_link_libraries(game PRIVATE universe)

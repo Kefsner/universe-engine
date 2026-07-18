@@ -2,7 +2,8 @@
 
 namespace Universe
 {
-    Block::Block()
+    Block::Block(BlockType type)
+        : m_Type(type)
     {
     }
 }

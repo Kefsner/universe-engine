@@ -31,6 +31,9 @@ namespace Universe
         glTextureSubImage2D(m_ID, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
 
         stbi_image_free(textureData);
+
+        m_Width = width;
+        m_Height = height;
     }
 
     void Texture::Bind(GLuint shaderProgram)

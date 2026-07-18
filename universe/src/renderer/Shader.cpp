@@ -37,10 +37,9 @@ namespace Universe
 
             void main()
             {
-                FragColor = Color;
+                FragColor = texture(u_Textures[textureIndex], vec2(0.9, 0.5)) * Color;
             }
         )";
-        // FragColor = texture(u_Textures[textureIndex], TexCoord) * Color;
 
         GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
         GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -77,6 +76,12 @@ namespace Universe
     {
         GLint location = glGetUniformLocation(m_ShaderProgram, name);
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+    }
+
+    void Shader::SetVec2Uniform(glm::vec2 vector, const char* name)
+    {
+        GLint location = glGetUniformLocation(m_ShaderProgram, name);
+        glUniform2f(location, vector[0], vector[1]);
     }
 
     void Shader::CheckCompilationStatus(GLuint shader)
