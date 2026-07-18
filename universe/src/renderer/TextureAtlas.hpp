@@ -14,9 +14,9 @@ namespace Universe
         TextureAtlas(std::shared_ptr<Texture> texture, int rows, int columns);
         ~TextureAtlas() = default;
 
-        std::shared_ptr<Texture> GetTexture() { return m_Texture; }
-
-        glm::vec2 GetTexCoordFromID(int ID);
+        std::shared_ptr<Texture> GetTexture() const { return m_Texture; }
+        int GetRows() const { return m_Rows; }
+        int GetColumns() const { return m_Columns; }
 
     private:
         std::shared_ptr<Texture> m_Texture;

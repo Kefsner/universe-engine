@@ -24,39 +24,64 @@ namespace Universe
         std::unique_ptr<IndexBuffer> s_IndexBuffer;
 
         // Cubes
-        float s_CubeVertices[24] = {
+        float s_CubeVertices[192] = {
+            // x,y,z,r,g,b,u,v
             // Front
-            -0.5f, -0.5f,  0.5f, // Bottom left
-             0.5f, -0.5f,  0.5f, // Bottom right
-             0.5f,  0.5f,  0.5f, // Top right
-            -0.5f,  0.5f,  0.5f, // Top left
+            -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // Bottom left
+             0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // Bottom right
+             0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // Top right
+            -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // Top left
+
+            // Left
+            -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,     
 
             // Back
-            -0.5f, -0.5f, -0.5f, // Bottom left
-             0.5f, -0.5f, -0.5f, // Bottom right
-             0.5f,  0.5f, -0.5f, // Top right
-            -0.5f,  0.5f, -0.5f, // Top left
+             0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+             0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+
+            // Right
+             0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+             0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+             0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+
+            // Top
+            -0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+             0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+            -0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+
+            // Down
+            -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+             0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+             0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
         };
 
         unsigned int s_CubeIndices[36] = {
             // Face 1 - Front
             0, 1, 2,
             0, 2, 3,
-            // Face 2 - Right
-            1, 5, 6,
-            1, 6, 2,
+            // Face 2 - Left
+            4, 5, 6,
+            4, 6, 7,
             // Face 3 - Back
-            5, 4, 7,
-            5, 7, 6,
-            // Face 4 - Left
-            4, 0, 3,
-            4, 3, 7,
-            // Face 5 - Bottom
-            0, 4, 5,
-            0, 5, 1,
-            // Face 6 - Top
-            3, 2, 6,
-            3, 6, 7
+            8,  9, 10,
+            8, 10, 11,
+            // Face 4 - Right
+            12, 13, 14,
+            12, 14, 15,
+            // Face 5 - Top
+            16, 17, 18,
+            16, 18, 19,
+            // Face 6 - Down
+            20, 21, 22,
+            20, 22, 23
         };
 
         std::unique_ptr<Shader> s_Shaders ;
@@ -69,9 +94,7 @@ namespace Universe
         s_Data = std::make_unique<VoxelRenderer3DData>();
 
         s_Data->s_VertexBuffer = std::make_unique<VertexBuffer>();
-        UE_CORE_INFO("Testando2");
-        s_Data->s_VertexBuffer->SetData(s_Data->s_CubeVertices, 24);
-        UE_CORE_INFO("Testando2");
+        s_Data->s_VertexBuffer->SetData(s_Data->s_CubeVertices, 192);
         s_Data->s_IndexBuffer = std::make_unique<IndexBuffer>();
         s_Data->s_IndexBuffer->SetData(s_Data->s_CubeIndices, 36);
 
@@ -91,16 +114,29 @@ namespace Universe
         s_Data->s_Shaders->SetMat4Uniform(projection, "u_Projection");
     }
 
-    void VoxelRenderer3D::DrawCube(glm::vec3 position, std::shared_ptr<Texture> texture, glm::vec2 texCoord)
+    void VoxelRenderer3D::DrawCube(glm::vec3 position, std::shared_ptr<TextureAtlas> atlas, int cellID)
     {
         s_Data->s_VertexArray->Bind();
         s_Data->s_Shaders->Bind();
+        atlas->GetTexture()->Bind(s_Data->s_Shaders->GetProgram());
 
-        // s_Data->s_Shaders->SetVec2Uniform(texCoord, "u_TexCoord")
-        texture->Bind(s_Data->s_Shaders->GetProgram());
+        float cellWidth = atlas->GetTexture()->GetWidth() / atlas->GetColumns();
+        float cellHeight = atlas->GetTexture()->GetHeight() / atlas->GetRows();
+        float normalizedCellWidth = cellWidth / atlas->GetTexture()->GetWidth();
+        float normalizedCellHeight = cellHeight / atlas->GetTexture()->GetHeight();
+        glm::vec2 normalizedCellSize = glm::vec2({normalizedCellWidth, normalizedCellHeight});
+        s_Data->s_Shaders->SetVec2Uniform(normalizedCellSize, "u_CellSize");
+
+        int row = cellID / atlas->GetColumns();
+        int column = cellID % atlas->GetColumns();
+        float uOffset = column * cellWidth;
+        float vOffset = row * cellHeight;
+        float normalizedUOffset = uOffset / atlas->GetTexture()->GetWidth();
+        float normalizedVOffset = vOffset / atlas->GetTexture()->GetHeight();
+        glm::vec2 normalizedUVOffset = glm::vec2({normalizedUOffset, normalizedVOffset});
+        s_Data->s_Shaders->SetVec2Uniform(normalizedUVOffset, "u_CellOffset");
 
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
-        transform = glm::rotate(transform, glm::radians(30.0f), glm::vec3(1.0f, 1.0f, 1.0f));
         s_Data->s_Shaders->SetMat4Uniform(transform, "u_Transform");
 
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);

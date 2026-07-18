@@ -4,8 +4,8 @@ namespace Universe
 {
     enum BlockType
     {
-        None = 0,
-        GRASS, DIRT
+        NONE = 0,
+        GRASS_SIDE, GRASS, DIRT
     };
     
     class Block

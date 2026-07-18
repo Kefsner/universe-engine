@@ -1,6 +1,6 @@
 #pragma once
 
-#include "renderer/Texture.hpp"
+#include "renderer/TextureAtlas.hpp"
 
 #include <glm/glm.hpp>
 
@@ -13,6 +13,6 @@ namespace Universe
     public:
         static void Init();
 
-        static void DrawCube(glm::vec3 position, std::shared_ptr<Texture> texture, glm::vec2 texCoord);
+        static void DrawCube(glm::vec3 position, std::shared_ptr<TextureAtlas> atlas, int cellID);
     };
 }

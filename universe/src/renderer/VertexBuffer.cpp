@@ -19,7 +19,8 @@ namespace Universe
 
     GLsizei VertexBuffer::GetStride() const
     {
-        return 3*sizeof(float);
+        // TODO: Automate with a Buffer Layout
+        return 8*sizeof(float);
     }
 
     VertexBuffer::~VertexBuffer()

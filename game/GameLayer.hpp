@@ -20,6 +20,6 @@ namespace Universe
         void RenderBlock(Block block, glm::vec3 position);
 
     private:
-        std::unique_ptr<TextureAtlas> m_BlockTextureAtlas;
+        std::shared_ptr<TextureAtlas> m_BlockTextureAtlas;
     };
 }
