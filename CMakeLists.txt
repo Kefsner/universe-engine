@@ -19,10 +19,15 @@ add_library(universe STATIC
 
     universe/src/core/Logger.cpp
     universe/src/core/Window.cpp
+    universe/src/core/Input.cpp
     universe/src/core/ImGuiLayer.cpp
     universe/src/core/AssetManager.cpp
 
     universe/src/layers/LayerStack.cpp
+
+    universe/src/events/KeyEvents.cpp
+    universe/src/events/WindowEvents.cpp
+    universe/src/events/MouseEvents.cpp
 
     universe/src/renderer/Shader.cpp
     universe/src/renderer/Renderer.cpp

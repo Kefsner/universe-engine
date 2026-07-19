@@ -106,7 +106,7 @@ namespace Universe
         s_Data->s_Shaders->Bind();
 
         glm::mat4 view = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3({0.0f, 0.0f, -3.0f}));
+        view = glm::translate(view, glm::vec3({0.0f, 0.0f, 0.0f}));
         s_Data->s_Shaders->SetMat4Uniform(view, "u_View");
 
         glm::mat4 projection;
@@ -116,6 +116,13 @@ namespace Universe
 
     void VoxelRenderer3D::DrawCube(glm::vec3 position, std::shared_ptr<TextureAtlas> atlas, int cellID)
     {
+        const float radius = 10.0f;
+        float camX = sin(glfwGetTime()) * radius;
+        float camZ = cos(glfwGetTime()) * radius;
+        glm::mat4 view;
+        view = glm::lookAt(glm::vec3(camX, 1.0f, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)); 
+        s_Data->s_Shaders->SetMat4Uniform(view, "u_View");
+
         s_Data->s_VertexArray->Bind();
         s_Data->s_Shaders->Bind();
         atlas->GetTexture()->Bind(s_Data->s_Shaders->GetProgram());

@@ -1,16 +1,22 @@
 #pragma once
 
+#include "events/Event.hpp"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <functional>
+
 namespace Universe
 {
+    using EventCallbackFn = std::function<void(Event&)>;
     struct WindowProps
     {
         int Width;
         int Height;
         const char* Title;
         bool Debug;
+        EventCallbackFn eventCallbackFn;
     };
 
     class Window
@@ -21,8 +27,15 @@ namespace Universe
 
         GLFWwindow* GetNativeWindow() const { return m_NativeWindow; }
 
+        void SetEventCallbackFn(EventCallbackFn callback);
+
         bool ShouldClose();
         void Update();
+
+        void OnResize(int width, int height);
+
+    private:
+        void SetEventCallbacks();
 
     private:
         // NOTE: Not sure why I need APIENTRY
@@ -39,5 +52,6 @@ namespace Universe
     private:
         bool m_DebugMode;
         GLFWwindow* m_NativeWindow;
+        WindowProps m_Props;
     };
 }

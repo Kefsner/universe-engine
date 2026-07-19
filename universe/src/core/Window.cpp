@@ -1,5 +1,8 @@
 #include "core/Logger.hpp"
 #include "core/Window.hpp"
+#include "events/KeyEvents.hpp"
+#include "events/MouseEvents.hpp"
+#include "events/WindowEvents.hpp"
 
 #include <cassert>
 
@@ -41,6 +44,7 @@ namespace Universe
     }
 
     Window::Window(WindowProps props)
+        : m_Props(props)
     {
         if (!glfwInit())
         {
@@ -114,12 +118,20 @@ namespace Universe
         }
 
         glViewport(0, 0, props.Width, props.Height);
+
+        glfwSetWindowUserPointer(m_NativeWindow, this);
+        SetEventCallbacks();
     }
 
     Window::~Window()
     {
         glfwTerminate();
         glfwDestroyWindow(m_NativeWindow);
+    }
+
+    void Window::SetEventCallbackFn(EventCallbackFn callback)
+    {
+        m_Props.eventCallbackFn = std::move(callback);
     }
 
     bool Window::ShouldClose()
@@ -132,5 +144,72 @@ namespace Universe
         glfwSwapBuffers(m_NativeWindow);
         glfwPollEvents();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
+    void Window::OnResize(int width, int height)
+    {
+        m_Props.Width = width;
+        m_Props.Height = height;
+
+        glViewport(0, 0, width, height);
+    }
+
+    void Window::SetEventCallbacks()
+    {
+        
+        glfwSetKeyCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow, int key, int scancode, int action, int mods)
+            {
+                switch (action)
+                {
+                case GLFW_PRESS:
+                {
+                    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                    KeyPressEvent event(key);
+                    window->m_Props.eventCallbackFn(event);
+                    break;
+                }
+                case GLFW_RELEASE:
+                {
+                    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                    KeyReleaseEvent event(key);
+                    window->m_Props.eventCallbackFn(event);
+                    break;
+                }
+                case GLFW_REPEAT:
+                {
+                    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                    KeyRepeatEvent event(key);
+                    window->m_Props.eventCallbackFn(event);
+                    break;
+                }
+                default:
+                    break;
+                }
+            }
+        );
+
+        glfwSetWindowSizeCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow, int width, int height)
+            {
+                Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                WindowResizeEvent event(width, height);
+                window->m_Props.eventCallbackFn(event);
+            }
+        );
+
+        glfwSetCursorPosCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow, double xpos, double ypos)
+            {
+                Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                MouseMoveEvent event(xpos, ypos);
+                window->m_Props.eventCallbackFn(event);
+            }
+        );
     }
 }

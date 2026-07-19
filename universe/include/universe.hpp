@@ -3,6 +3,7 @@
 #include "Application.hpp"
 
 #include "core/Logger.hpp"
+#include "core/Input.hpp"
 #include "core/AssetManager.hpp"
 
 #include "layers/Layer.hpp"

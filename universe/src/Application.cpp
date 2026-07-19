@@ -1,11 +1,15 @@
 #include "Application.hpp"
 
 #include "core/Logger.hpp"
+#include "events/Event.hpp"
+#include "events/WindowEvents.hpp"
 
 #include "renderer/Renderer.hpp"
 
 namespace Universe
 {
+    Application* Application::s_Instance = nullptr;
+    
     Application::Application()
     {
         WindowProps windowProps{
@@ -18,10 +22,17 @@ namespace Universe
         windowProps.Debug = true;
     #endif
         m_Window = std::make_unique<Window>(windowProps);
+        m_Window->SetEventCallbackFn(
+            [this](Event& event)
+            {
+                OnEvent(event);
+            }
+        );
     
         Renderer::Init();
 
         m_IsRunning = true;
+        Application::s_Instance = this;
     }
 
     void Application::Run()
@@ -35,6 +46,22 @@ namespace Universe
             }
 
             m_Window->Update();
+        }
+    }
+
+    void Application::OnEvent(Event& event)
+    {
+        UE_CORE_INFO("Event triggered: {}", event.ToString());
+
+        if (event.GetType() == EventType::WindowResize)
+        {
+            m_Window->OnResize(
+                static_cast<WindowResizeEvent&>(event).GetWidth(),
+                static_cast<WindowResizeEvent&>(event).GetHeight()
+            );
+
+            event.SetHandled();
+            return;
         }
     }
 

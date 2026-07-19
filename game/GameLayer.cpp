@@ -1,6 +1,7 @@
 #include "GameLayer.hpp"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Universe
 {   
@@ -19,16 +20,10 @@ namespace Universe
 
     void GameLayer::OnUpdate()
     {
-        Block GRASS_BLOCK = Block(BlockType::GRASS);
-        glm::vec3 position = {-1.0f, 0.0f, 0.0f};
-        RenderBlock(GRASS_BLOCK, position);
-
         Block GRASS_SIDE = Block(BlockType::GRASS_SIDE);
-        glm::vec3 position2 = {0.0f, 0.0f, 0.0f};
+        glm::vec3 position2 = {1.0f, 0.0f, 0.0f};
         RenderBlock(GRASS_SIDE, position2);
 
-        Block DIRT_BLOCK = Block(BlockType::DIRT);
-        glm::vec3 position3 = {1.0f, 0.0f, 0.0f};
-        RenderBlock(DIRT_BLOCK, position3);
+        Input::IsKeyPressed(Key::D1);
     };
 }
