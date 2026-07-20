@@ -197,6 +197,26 @@ namespace Universe
             }
         );
 
+        glfwSetMouseButtonCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow, int button, int action, int mods)
+            {
+                Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                MouseButtonEvent event(button);
+                window->m_EventCallbackFn(event); 
+            }
+        );
+
+        glfwSetScrollCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow, double xoffset, double yoffset)
+            {
+                Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                MouseScrollEvent event(yoffset);
+                window->m_EventCallbackFn(event); 
+            }
+        );
+
         glfwSetWindowSizeCallback(
             m_NativeWindow, [](GLFWwindow* nativeWindow, int width, int height)
             {

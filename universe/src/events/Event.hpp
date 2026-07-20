@@ -9,7 +9,7 @@ namespace Universe
         None = 0,
         KeyPress, KeyRelease, KeyRepeat,
 
-        MouseMove, MousePress,
+        MouseMove, MouseButton, MouseScroll,
 
         WindowResize, WindowClose
     };
