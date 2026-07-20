@@ -18,4 +18,15 @@ namespace Universe
     private:
         int m_Width, m_Height;
     };
+
+    class WindowCloseEvent : public Event
+    {
+    public:
+        WindowCloseEvent();
+        ~WindowCloseEvent() = default;
+
+        std::string ToString() override;
+
+        EventType GetType() { return EventType::WindowClose; }
+    };
 }

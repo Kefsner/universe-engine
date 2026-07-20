@@ -37,7 +37,7 @@ namespace Universe
 
     void Application::Run()
     {
-        while (!m_Window->ShouldClose())
+        while (m_IsRunning)
         {
             for (auto it = m_LayerStack.Begin(); it != m_LayerStack.End(); it++)
             {
@@ -59,6 +59,14 @@ namespace Universe
                 static_cast<WindowResizeEvent&>(event).GetWidth(),
                 static_cast<WindowResizeEvent&>(event).GetHeight()
             );
+
+            event.SetHandled();
+            return;
+        }
+
+        if (event.GetType() == EventType::WindowClose)
+        {
+            m_IsRunning = false;
 
             event.SetHandled();
             return;

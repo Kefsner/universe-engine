@@ -11,7 +11,7 @@ namespace Universe
 
         MouseMove, MousePress,
 
-        WindowResize
+        WindowResize, WindowClose
     };
 
     class Event

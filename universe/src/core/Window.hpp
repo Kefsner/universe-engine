@@ -16,7 +16,6 @@ namespace Universe
         int Height;
         const char* Title;
         bool Debug;
-        EventCallbackFn eventCallbackFn;
     };
 
     class Window
@@ -29,7 +28,6 @@ namespace Universe
 
         void SetEventCallbackFn(EventCallbackFn callback);
 
-        bool ShouldClose();
         void Update();
 
         void OnResize(int width, int height);
@@ -53,5 +51,6 @@ namespace Universe
         bool m_DebugMode;
         GLFWwindow* m_NativeWindow;
         WindowProps m_Props;
+        EventCallbackFn m_EventCallbackFn;
     };
 }

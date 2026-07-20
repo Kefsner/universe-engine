@@ -14,4 +14,13 @@ namespace Universe
         message = message + std::to_string(m_Height) + std::string("}");
         return message;
     }
+
+    WindowCloseEvent::WindowCloseEvent()
+    {
+    }
+
+    std::string WindowCloseEvent::ToString()
+    {
+        return std::string("Window Close Event");
+    }
 }

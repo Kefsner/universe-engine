@@ -131,12 +131,7 @@ namespace Universe
 
     void Window::SetEventCallbackFn(EventCallbackFn callback)
     {
-        m_Props.eventCallbackFn = std::move(callback);
-    }
-
-    bool Window::ShouldClose()
-    {
-        return glfwWindowShouldClose(m_NativeWindow);
+        m_EventCallbackFn = std::move(callback);
     }
 
     void Window::Update()
@@ -167,7 +162,7 @@ namespace Universe
                     Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
 
                     KeyPressEvent event(key);
-                    window->m_Props.eventCallbackFn(event);
+                    window->m_EventCallbackFn(event);
                     break;
                 }
                 case GLFW_RELEASE:
@@ -175,7 +170,7 @@ namespace Universe
                     Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
 
                     KeyReleaseEvent event(key);
-                    window->m_Props.eventCallbackFn(event);
+                    window->m_EventCallbackFn(event);
                     break;
                 }
                 case GLFW_REPEAT:
@@ -183,12 +178,22 @@ namespace Universe
                     Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
 
                     KeyRepeatEvent event(key);
-                    window->m_Props.eventCallbackFn(event);
+                    window->m_EventCallbackFn(event);
                     break;
                 }
                 default:
                     break;
                 }
+            }
+        );
+        
+        glfwSetCursorPosCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow, double xpos, double ypos)
+            {
+                Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
+
+                MouseMoveEvent event(xpos, ypos);
+                window->m_EventCallbackFn(event);
             }
         );
 
@@ -198,17 +203,17 @@ namespace Universe
                 Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
 
                 WindowResizeEvent event(width, height);
-                window->m_Props.eventCallbackFn(event);
+                window->m_EventCallbackFn(event);
             }
         );
 
-        glfwSetCursorPosCallback(
-            m_NativeWindow, [](GLFWwindow* nativeWindow, double xpos, double ypos)
+        glfwSetWindowCloseCallback(
+            m_NativeWindow, [](GLFWwindow* nativeWindow)
             {
                 Window* window = static_cast<Window*>(glfwGetWindowUserPointer(nativeWindow));
 
-                MouseMoveEvent event(xpos, ypos);
-                window->m_Props.eventCallbackFn(event);
+                WindowCloseEvent event;
+                window->m_EventCallbackFn(event);
             }
         );
     }
