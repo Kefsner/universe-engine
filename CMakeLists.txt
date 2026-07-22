@@ -37,6 +37,7 @@ add_library(universe STATIC
     universe/src/renderer/VertexBuffer.cpp
     universe/src/renderer/IndexBuffer.cpp
     universe/src/renderer/VoxelRenderer3D.cpp
+    universe/src/renderer/Camera.cpp
 )
 
 target_include_directories(universe

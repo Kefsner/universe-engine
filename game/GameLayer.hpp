@@ -21,5 +21,6 @@ namespace Universe
 
     private:
         std::shared_ptr<TextureAtlas> m_BlockTextureAtlas;
+        std::unique_ptr<Camera> m_Camera;
     };
 }

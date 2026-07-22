@@ -1,0 +1,24 @@
+#pragma once
+
+#include <glm/glm.hpp>
+
+namespace Universe
+{
+    class Camera
+    {
+    public:
+        Camera(glm::vec3 position);
+        ~Camera() = default;
+
+        void SetPosition(glm::vec3 position);
+        glm::vec3 GetPosition() const { return m_Position; }
+
+        glm::mat4 GetProjectionViewMatrix() const { return m_Projection * m_View; }
+
+    private:
+        glm::vec3 m_UpVector = glm::vec3(0.0f, 1.0f, 0.0f);
+        glm::vec3 m_Position;
+        glm::mat4 m_View;
+        glm::mat4 m_Projection;
+    };
+}

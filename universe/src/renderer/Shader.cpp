@@ -16,8 +16,7 @@ namespace Universe
             layout (location = 2) in vec2 aTexCoord;
 
             uniform mat4 u_Transform;
-            uniform mat4 u_Projection;
-            uniform mat4 u_View;
+            uniform mat4 u_ProjectionView;
             
             uniform vec2 u_CellSize;
             uniform vec2 u_CellOffset;
@@ -27,7 +26,7 @@ namespace Universe
 
             void main()
             {
-                gl_Position = u_Projection * u_View * u_Transform * vec4(aPos, 1.0);
+                gl_Position = u_ProjectionView * u_Transform * vec4(aPos, 1.0);
                 Color = vec4(aColor, 1.0);
                 TexCoord = u_CellOffset + aTexCoord * u_CellSize;
             }

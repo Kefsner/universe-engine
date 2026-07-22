@@ -103,15 +103,12 @@ namespace Universe
         s_Data->s_VertexArray->SetAttributes();
 
         s_Data->s_Shaders = std::make_unique<Shader>();
+    }
+
+    void VoxelRenderer3D::BeginScene(Camera& camera)
+    {
         s_Data->s_Shaders->Bind();
-
-        glm::mat4 view = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3({0.0f, 0.0f, 0.0f}));
-        s_Data->s_Shaders->SetMat4Uniform(view, "u_View");
-
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
-        s_Data->s_Shaders->SetMat4Uniform(projection, "u_Projection");
+        s_Data->s_Shaders->SetMat4Uniform(camera.GetProjectionViewMatrix(), "u_ProjectionView");
     }
 
     void VoxelRenderer3D::DrawCube(glm::vec3 position, std::shared_ptr<TextureAtlas> atlas, int cellID)

@@ -10,3 +10,4 @@
 
 #include "renderer/VoxelRenderer3D.hpp"
 #include "renderer/TextureAtlas.hpp"
+#include "renderer/Camera.hpp"
