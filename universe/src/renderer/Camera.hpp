@@ -12,7 +12,9 @@ namespace Universe
 
         void SetPosition(glm::vec3 position);
         void SetOrientation(float pitch, float yaw);
+
         glm::vec3 GetPosition() const { return m_Position; }
+        glm::vec3 GetCameraFront() const { return m_CameraFront; }
 
         glm::mat4 GetProjectionViewMatrix() const { return m_Projection * m_View; }
 

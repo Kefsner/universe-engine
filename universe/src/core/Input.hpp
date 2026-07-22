@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 namespace Universe
 {
     enum class Key : int // Same as the GLFW Keys
@@ -170,5 +172,9 @@ namespace Universe
         static bool IsKeyPressed(Key key);
 
         static bool IsMouseButtonPressed(MouseButton mouseButton);
+
+        static glm::vec2 GetMousePos();
+
+        static void DisableCursor(bool disabled);
     };
 }
