@@ -144,9 +144,31 @@ namespace Universe
         Last = Menu
     };
 
+    enum class MouseButton : int // Same as the GLFW mouse buttons
+    {
+        Unknown = -1,
+
+        M1 = 0,
+        M2 = 1,
+        M3 = 2,
+        M4 = 3,
+        M5 = 4,
+        M6 = 5,
+        M7 = 6,
+        M8 = 7,
+
+        Left   = M1,
+        Right  = M2,
+        Middle = M3,
+
+        Last = M8
+    };
+
     class Input
     {
     public:
         static bool IsKeyPressed(Key key);
+
+        static bool IsMouseButtonPressed(MouseButton mouseButton);
     };
 }
