@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/Timestep.hpp"
+
 namespace Universe
 {
     class Layer
@@ -8,6 +10,6 @@ namespace Universe
         Layer() {}
         virtual ~Layer() = default;
 
-        virtual void OnUpdate() = 0;
+        virtual void OnUpdate(Timestep ts) = 0;
     };
 }

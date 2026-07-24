@@ -20,6 +20,7 @@ add_library(universe STATIC
     universe/src/core/Logger.cpp
     universe/src/core/Window.cpp
     universe/src/core/Input.cpp
+    universe/src/core/Timestep.cpp
     universe/src/core/ImGuiLayer.cpp
     universe/src/core/AssetManager.cpp
 

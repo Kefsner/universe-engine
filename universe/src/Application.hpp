@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/Window.hpp"
+#include "core/Timestep.hpp"
 #include "events/Event.hpp"
 #include "layers/Layer.hpp"
 #include "layers/LayerStack.hpp"
@@ -34,5 +35,7 @@ namespace Universe
         bool m_IsRunning;
         LayerStack m_LayerStack;
         std::unique_ptr<Window> m_Window;
+
+        Timestep m_LastFrameTime = 0.0f;
     };
 }

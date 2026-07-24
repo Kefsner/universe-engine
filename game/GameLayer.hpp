@@ -14,7 +14,7 @@ namespace Universe
         GameLayer();
         ~GameLayer() = default;
 
-        void OnUpdate() override;
+        void OnUpdate(Timestep ts) override;
     
     private:
         void RenderBlock(Block block, glm::vec3 position);

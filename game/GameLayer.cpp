@@ -21,7 +21,7 @@ namespace Universe
         VoxelRenderer3D::DrawCube(position, m_BlockTextureAtlas, blockID);
     }
 
-    void GameLayer::OnUpdate()
+    void GameLayer::OnUpdate(Timestep ts)
     {
         VoxelRenderer3D::BeginScene(*m_Camera);
 
@@ -34,32 +34,32 @@ namespace Universe
         glm::vec3 plane;
 
         glm::vec3 cameraPosition = m_Camera->GetPosition();
-        float cameraSpeed = 0.04f;
-        float cameraAngleSpeed = 0.04f;
+        float cameraSpeed = 8.3f;
+        float cameraAngleSpeed = 0.05f;
 
         if (Input::IsKeyPressed(Key::W))
-            cameraPosition += cameraSpeed * m_Camera->GetCameraFront();
+            cameraPosition += ts * cameraSpeed * m_Camera->GetCameraFront();
         if (Input::IsKeyPressed(Key::S))
-            cameraPosition -= cameraSpeed * m_Camera->GetCameraFront();
+            cameraPosition -= ts * cameraSpeed * m_Camera->GetCameraFront();
         if (Input::IsKeyPressed(Key::A))
         {
             plane = m_Camera->GetCameraFront();
             cameraPosition -= glm::normalize(
                 glm::cross(glm::vec3({plane.x, 0.0f, plane.z}), glm::vec3({0.0f, 1.0f, 0.0f}))
-            ) * cameraSpeed;
+            ) * (cameraSpeed * ts);
         }
         if (Input::IsKeyPressed(Key::D))
         {
             plane = m_Camera->GetCameraFront();
             cameraPosition += glm::normalize(
                 glm::cross(glm::vec3({plane.x, 0.0f, plane.z}), glm::vec3({0.0f, 1.0f, 0.0f}))
-            ) * cameraSpeed;
+            ) * (cameraSpeed * ts);
         }
 
         if (Input::IsKeyPressed(Key::Space))
-            cameraPosition += glm::vec3(0.0f, cameraSpeed, 0.0f);
+            cameraPosition += glm::vec3(0.0f, cameraSpeed * ts, 0.0f);
         if (Input::IsKeyPressed(Key::LeftShift))
-            cameraPosition += glm::vec3(0.0f, -cameraSpeed, 0.0f);
+            cameraPosition += glm::vec3(0.0f, -cameraSpeed * ts, 0.0f);
 
         m_Camera->SetPosition(cameraPosition);
 
@@ -71,8 +71,7 @@ namespace Universe
         m_Yaw -= xOffset * cameraAngleSpeed;
         m_Pitch += yOffset * cameraAngleSpeed;
 
-        if (m_Pitch > 89.0f)
-            m_Pitch = 89.0f;
+        m_Pitch = glm::clamp(m_Pitch, -89.0f, 89.0f);
 
         m_LastMouseXPos = mousePos.x;
         m_LastMouseYPos = mousePos.y;
@@ -88,6 +87,5 @@ namespace Universe
                 RenderBlock(Block(BlockType::GRASS), blockPosition);
             }
         }
-        Input::IsKeyPressed(Key::D1);
     };
 }
